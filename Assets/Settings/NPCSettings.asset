@@ -20,7 +20,7 @@ MonoBehaviour:
   slowDistance: 3
   wanderCircleDistance: 4
   wanderCircleRadius: 3
-  wanderNoiseAngle: 10000
+  wanderNoiseAngle: 1000
   avoidObstacleForce: 50
   avoidObstacleDistance: 3
   inverseAvoidAngleOffset: 0
@@ -39,9 +39,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   flockCohesionDistance: 2
-  flockCohesionMaxForce: -25
-  flockSeparationDistance: 5
-  flockSeparationMaxForce: 6
+  flockCohesionMaxForce: -5
+  flockSeparationDistance: 4
+  flockSeparationMaxForce: 2
   flockMask:
     serializedVersion: 2
     m_Bits: 512
