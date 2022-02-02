@@ -1,45 +1,45 @@
-﻿using Controllers;
+﻿using System.Linq;
+using NPC.Brains;
 using UnityEngine;
+using Util;
 
 namespace NPC.Behaviours.Avoidance
 {
-    public class AvoidWall : PermanentBehavior
+    public class AvoidWall : AvoidObstacle
     {
+        [SerializeField] private string _avoidLayer;
+
+        private int _layer;
+        
+        public Transform[] targets => ((UnitBrain)stateController).targets;
+
+
+        protected override void Start()
+        {
+            _layer = LayerMask.GetMask(_avoidLayer);
+        }
+
+
         public override void PhysicsUpdate()
         {
-            if (!FindObstacle(out var hit)) return;
+            var obstacles = targets
+                .Where(t => t.transform.HasLayer(_layer))
+                .ToArray();
             
-            //  Calculating distance
-
-            var percentageDistance = hit.distance / settings.avoidObstacleDistance;
+            var addForce = movement.maxSpeed * settings.avoidWallForce;
             
-            //  Returning force
+            //  Looping thru all obstacles
 
-            movement.AddForce(hit.normal * percentageDistance * movement.maxSpeed * settings.avoidWallForce);
-        }
-
-
-        /// <summary>
-        /// Check if there is an obstacle nearby
-        /// </summary>
-        public bool FindObstacle(out RaycastHit hit)
-        {
-            var position = transform.position;
-            var forward = transform.forward;
-            
-            //  Checking if there is a target in front of the player
-
-            return Physics.Raycast(position, forward, out hit, settings.avoidWallDistance, settings.avoidWallMask);
-        }
-
-
-        /// <summary>
-        /// Draw the box cast
-        /// </summary>
-        public override void OnDrawGizmos()
-        {
-            Gizmos.color = Color.green;
-            Gizmos.DrawRay(transform.position, transform.forward * settings.avoidWallDistance);
+            foreach (var obstacle in obstacles)
+            {
+                var direction = transform.position - obstacle.position;
+                var distance    = direction.FastMag() - obstacle.lossyScale.FastMag();
+                
+                //  Calculating target force
+             
+                var percentageDistance = Mathf.Clamp(distance / settings.avoidObstacleDistance, 0, 1);
+                movement.AddForce(direction.normalized * percentageDistance * addForce);
+            }
         }
     }
 }

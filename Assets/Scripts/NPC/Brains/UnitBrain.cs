@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Controllers;
+using NPC.Utility;
 using UnityEngine;
 using Util;
 
@@ -25,8 +26,8 @@ namespace NPC.Brains
     {
         private static readonly int _healthHash   = Animator.StringToHash("Health");
         private static readonly int _stateHash    = Animator.StringToHash("State");
-        private static readonly int _targetHash   = Animator.StringToHash("HasTarget");
         private static readonly int _distanceHash = Animator.StringToHash("Distance");
+        private static readonly int _targetHash   = Animator.StringToHash("HasTarget");
 
         [SerializeField] private Team      _team;
         [SerializeField] private UnitState _state;
@@ -60,8 +61,6 @@ namespace NPC.Brains
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
-            targets = _eyes.FindTargets().Distinct().ToArray();
-            
             UpdateTarget();
         }
 
@@ -74,20 +73,19 @@ namespace NPC.Brains
             var position = transform.position;
             
             //  Getting the closest unit in the other team
-            
-            var closest = targets
-                .Where  (t => t.TryGetComponent(out UnitBrain _brain) && _brain.team != _team)
-                .OrderBy(t => (t.position - position).sqrMagnitude)
-                .First();
+
+            var closest = _eyes.hits
+                .Where  (t => t.transform.TryGetComponent(out UnitBrain _brain) && _brain.team != _team)
+                .OrderBy(t => (t.transform.position - position).sqrMagnitude)
+                .FirstOrDefault().transform;
 
             //  Setting new target
             
-            if (!closest) { target = null; return; }
-            if (target != closest) target = closest;
+            if(!TrySetTarget(closest)) return;
             
             //  Updating animator values
             
-            animator.SetFloat(_distanceHash, (closest.position - position).FastMag());
+            animator.SetFloat(_distanceHash, (target.position - position).FastMag());
         }
 
         #endregion
@@ -99,6 +97,33 @@ namespace NPC.Brains
         private void HealthChange()
         {
             animator.SetInteger(_healthHash, _healthComponent.health);
+        }
+
+
+        /**
+         * Try to set the target to the closest
+         */
+        public bool TrySetTarget(Transform closest)
+        {
+            switch (closest != null)
+            {
+                case true when target:
+                    var closestDistance = (closest.position - transform.position).sqrMagnitude;
+                    var currentDistance =  (target.position - transform.position).sqrMagnitude;
+
+                    if (closestDistance > currentDistance) target = closest;
+                    return true;
+                
+                case true when !target:
+                    target = closest;
+                    return _eyes.CanSee(target);
+                
+                case false when target:
+                    return _eyes.CanSee(target);
+                
+                default:
+                    return false;
+            }
         }
 
 

@@ -49,6 +49,16 @@ namespace Util
         {
             return UnityEngine.Quaternion.Euler(x ?? 0, y ?? 0, z ?? 0);
         }
+
+
+        /// <summary>
+        /// Compare if a gameObject has a layer
+        /// </summary>
+        public static bool HasLayer(this Component comp, int layer)
+        {
+            var gameObject = comp.gameObject;
+            return ((1 << gameObject.layer) & layer) != 0 || layer == gameObject.layer;
+        }
         
         
         /// <summary>

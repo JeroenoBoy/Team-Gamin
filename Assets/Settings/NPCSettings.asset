@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d94c5d511b8748daad557976389c89c5, type: 3}
+  m_Name: NPCSettings
+  m_EditorClassIdentifier: 
+  minSeekDistance: 0.5
+  maxFleeDistance: 1000000
+  pursueLookAhead: 2
+  minNodeDistance: 1
+  stopDistance: 0.5
+  slowDistance: 3
+  wanderCircleDistance: 4
+  wanderCircleRadius: 3
+  wanderNoiseAngle: 10000
+  avoidObstacleForce: 50
+  avoidObstacleDistance: 3
+  inverseAvoidAngleOffset: 0
+  avoidObstacleMask:
+    serializedVersion: 2
+    m_Bits: 128
+  avoidWallForce: 0
+  avoidWallDistance: 0
+  avoidWallMask:
+    serializedVersion: 2
+    m_Bits: 256
+  hideMaxDistance: 0
+  hideLookInterval: 0
+  hideTargetDistance: 0
+  hideMask:
+    serializedVersion: 2
+    m_Bits: 0
+  flockCohesionDistance: 2
+  flockCohesionMaxForce: -25
+  flockSeparationDistance: 5
+  flockSeparationMaxForce: 6
+  flockMask:
+    serializedVersion: 2
+    m_Bits: 512
