@@ -27,7 +27,11 @@ namespace Controllers
         /// <summary>
         /// Get the current max speed of the controller 
         /// </summary>
-        public float maxSpeed => _maxSpeed;
+        public float maxSpeed
+        {
+            get => _maxSpeed;
+            set => _maxSpeed = value;
+        }
 
         /// <summary>
         /// Get the current max speed of the controller 

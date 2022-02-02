@@ -10,6 +10,7 @@ namespace NPC.Behaviours.Steering
         
         public override void PhysicsUpdate()
         {
+            if(!target) return;
             var targetPos = GetFutureTargetPos(target);
             movement.AddForce(GetDirection(targetPos - transform.position));
         }

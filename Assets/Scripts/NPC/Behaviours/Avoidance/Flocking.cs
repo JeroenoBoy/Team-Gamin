@@ -50,7 +50,7 @@ namespace NPC.Behaviours.Avoidance
                 
                 var direction = (target.position - center).With(y: 0);
                 
-                var vecDistance     = direction.FastMag();
+                var vecDistance     = direction.magnitude;
                 var percentageForce = vecDistance / distance;
                 
                 return (1- percentageForce) * maxForce * direction.normalized;

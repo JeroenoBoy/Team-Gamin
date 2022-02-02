@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Linq;
+using NPC.Brains;
+using NPC.Utility;
 using UnityEngine;
 using Util;
 
@@ -6,26 +9,45 @@ namespace NPC.Behaviours.Avoidance
 {
     public class AvoidObstacle : PermanentBehavior
     {
+        [SerializeField] private string _avoidLayer;
+
+        private int  _layer;
+        private Eyes _eyes;
+        
+
+        /**
+         * Initialize the behaviour
+         */
+        protected override void Start()
+        {
+            _layer = LayerMask.GetMask(_avoidLayer);
+            _eyes  = GetComponent<Eyes>();
+        }
+        
+        
+        /**
+         * Run the updates
+         */
         public override void PhysicsUpdate()
         {
-            if (!FindObstacle(out var hit)) return;
+            var obstacles = _eyes.hits
+                .Where(t => t.transform.HasLayer(_layer))
+                .ToArray();
             
-            //  Getting directions & points
+            var addForce = movement.maxSpeed * settings.avoidObstacleForce;
             
-            var force     = movement.currentForce;
-            var position  = transform.position;
-            var center    = hit.transform.position;
-            var direction = (position - center).With(y: 0);
-            
-            //  Calculating angle
+            //  Looping thru all obstacles
 
-            var angle = Vector3.SignedAngle(direction, force, Vector3.up);
-            var inverseAngle = settings.inverseAvoidAngleOffset - Math.Abs(angle) * Mathf.Sign(angle);
-            
-            //  Returning force
-            
-            var rot = Quaternion.Euler(0, inverseAngle,0);
-            movement.AddForce(rot * -force * settings.avoidObstacleForce);
+            foreach (var hit in obstacles)
+            {
+                var distance = (transform.position - hit.point).magnitude;
+                if(distance > settings.avoidObstacleDistance) continue;
+                
+                //  Calculating target force
+             
+                var percentageDistance = distance / settings.avoidObstacleDistance;
+                movement.AddForce(hit.normal.With(y: 0) * percentageDistance * addForce);
+            }
         }
 
 
@@ -40,16 +62,6 @@ namespace NPC.Behaviours.Avoidance
             //  Checking if there is a target in front of the player
 
             return Physics.Raycast(position, forward, out hit, settings.avoidObstacleDistance, settings.avoidObstacleMask);
-        }
-
-
-        /// <summary>
-        /// Draw the box cast
-        /// </summary>
-        public override void OnDrawGizmos()
-        {
-            Gizmos.color = Color.green;
-            Gizmos.DrawRay(transform.position, transform.forward * settings.avoidObstacleDistance);
         }
     }
 }

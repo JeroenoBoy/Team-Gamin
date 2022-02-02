@@ -15,6 +15,15 @@ namespace NPC.Utility
         [SerializeField] private LayerMask _interactMask;
 
 
+        public RaycastHit[] hits { get; private set; }
+
+        public int rayLength
+        {
+            get => _rayLength;
+            set => _rayLength = value;
+        }
+
+
         private void OnValidate()
         {
             if (_fov       < 1) _fov = 1;
@@ -23,11 +32,21 @@ namespace NPC.Utility
         }
 
 
+        
+        /// <summary>
+        /// Find all the last targets
+        /// </summary>
+        private void FixedUpdate()
+        {
+            hits = FindTargets().Distinct().ToArray();
+        }
+
+
         /// <summary>
         /// Casts all rays to find targets
         /// Can use break in a foreach to optimize
         /// </summary>
-        public IEnumerable<Transform> FindTargets()
+        public IEnumerable<RaycastHit> FindTargets()
         {
             var halfov = _fov * .5f;
             var adder = _fov / _rays;
@@ -37,7 +56,7 @@ namespace NPC.Utility
             for (var angle = -halfov + adder * .5f; angle < halfov; angle += adder)
             {
                 if(!CastRay(angle, out var hit)) continue;
-                yield return hit.transform;
+                yield return hit;
             }
         }
 
@@ -57,7 +76,7 @@ namespace NPC.Utility
         /// </summary>
         public bool CanSee(Transform target)
         {
-            if (!target.gameObject.activeInHierarchy) return false;
+            if (!target || !target.gameObject.activeInHierarchy) return false;
             
             var direction = transform.position - target.position;
             return direction.sqrMagnitude < _rayLength * _rayLength;
