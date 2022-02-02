@@ -1,6 +1,8 @@
 ﻿using System;
 using UnityEditor;
 using UnityEngine;
+using Util;
+
 // using Util;
 
 namespace Controllers
@@ -97,9 +99,9 @@ namespace Controllers
         private void OnDrawGizmos()
         {
             var pos = transform.position;
-            //
-            // DisplayVector.Draw(pos, velocity, Color.blue);
-            // DisplayVector.Draw(pos, _oldForce,  Color.red);
+            
+            DisplayVector.Draw(pos, velocity, Color.blue);
+            DisplayVector.Draw(pos, _oldForce,  Color.red);
         }
 
         
