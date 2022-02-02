@@ -178,6 +178,7 @@ GameObject:
   - component: {fileID: 5513952201805270750}
   - component: {fileID: 5513952201805270720}
   - component: {fileID: 5513952201805270721}
+  - component: {fileID: 2569366360537612392}
   m_Layer: 9
   m_Name: Red Unit
   m_TagString: Untagged
@@ -235,8 +236,6 @@ MonoBehaviour:
   _settings: {fileID: 11400000, guid: 0add9ce45b80fa34dabeaefb9f45648f, type: 2}
   path: {fileID: 0}
   _behaviours: []
-  _team: 0
-  _state: 0
 --- !u!114 &5513952201805270751
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -299,3 +298,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _health: 100
   _maxHealth: 100
+--- !u!114 &2569366360537612392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5513952201805270747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5c6568dc35e4b76bd2a79ce1f7a8915, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 5
+  team: 0
+  _state: 0
+  attackSpeed: 0.5
+  attackDamage: 20
+  sightRange: 20
+  baseHealth: 75
+  defense: 20

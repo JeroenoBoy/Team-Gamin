@@ -17,6 +17,12 @@ namespace NPC.Utility
 
         public RaycastHit[] hits { get; private set; }
 
+        public int rayLength
+        {
+            get => _rayLength;
+            set => _rayLength = value;
+        }
+
 
         private void OnValidate()
         {

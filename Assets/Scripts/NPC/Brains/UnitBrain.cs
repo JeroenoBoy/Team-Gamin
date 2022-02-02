@@ -1,37 +1,22 @@
 ﻿using System;
 using System.Linq;
 using Controllers;
+using NPC.UnitData;
 using NPC.Utility;
 using UnityEngine;
 using Util;
 
 namespace NPC.Brains
 {
-    public enum UnitState
-    {
-        Aggressive,
-        Defensive,
-        Loyal,
-        Wander,
-        GuardPath
-    }
-    
-    public enum Team
-    {
-        Red, Blue
-    }
-    
-    
     public class UnitBrain : StateController
     {
         private static readonly int _healthHash   = Animator.StringToHash("Health");
         private static readonly int _stateHash    = Animator.StringToHash("State");
         private static readonly int _distanceHash = Animator.StringToHash("Distance");
         private static readonly int _targetHash   = Animator.StringToHash("HasTarget");
+        private static readonly int _diedHash     = Animator.StringToHash("Died");
 
-        [SerializeField] private Team      _team;
-        [SerializeField] private UnitState _state;
-
+        private UnitSettings     _unitSettings;
         private HealthController _healthComponent;
         private Eyes             _eyes;
 
@@ -46,9 +31,14 @@ namespace NPC.Brains
             base.Awake();
             _healthComponent = GetComponent<HealthController>();
             _eyes            = GetComponent<Eyes>();
+            _unitSettings    = GetComponent<UnitSettings>();
 
-            //  Might look weird yes but its easier this way
-            state = _state;
+            //  Setting the options
+            
+            movementController.maxSpeed = _unitSettings.movementSpeed;
+            _eyes.rayLength             = _unitSettings.sightRange;
+            _healthComponent.maxHealth  = _unitSettings.baseHealth + _unitSettings.defense;
+            _healthComponent.health     = _healthComponent.maxHealth;
         }
 
 
@@ -75,7 +65,7 @@ namespace NPC.Brains
             //  Getting the closest unit in the other team
 
             var closest = _eyes.hits
-                .Where  (t => t.transform.TryGetComponent(out UnitBrain _brain) && _brain.team != _team)
+                .Where  (t => t.transform.TryGetComponent(out UnitBrain _brain) && _brain.team != team)
                 .OrderBy(t => (t.transform.position - position).sqrMagnitude)
                 .FirstOrDefault().transform;
 
@@ -98,20 +88,42 @@ namespace NPC.Brains
         {
             animator.SetInteger(_healthHash, _healthComponent.health);
         }
+        
+        
+        /**
+         * Gets run when the health changes
+         */
+        private void OnDeath()
+        {
+            animator.SetTrigger(_diedHash);
+        }
 
+
+        /**
+         * Gets run when the UnitState changes
+         */
+        private void OnStateChange()
+        {
+            animator.SetInteger(_stateHash, (int)_unitSettings.state);
+        }
+
+
+        #region Helper functions
 
         /**
          * Try to set the target to the closest
          */
         public bool TrySetTarget(Transform closest)
         {
+            var position = transform.position;
+            
             switch (closest != null)
             {
                 case true when target:
-                    var closestDistance = (closest.position - transform.position).sqrMagnitude;
-                    var currentDistance =  (target.position - transform.position).sqrMagnitude;
+                    var closestDistance = (closest.position - position).sqrMagnitude;
+                    var currentDistance =  (target.position - position).sqrMagnitude;
 
-                    if (closestDistance > currentDistance) target = closest;
+                    if (closestDistance < currentDistance) target = closest;
                     return true;
                 
                 case true when !target:
@@ -126,24 +138,20 @@ namespace NPC.Brains
             }
         }
 
+        #endregion
+
 
 
         #region properties
 
-        public UnitState state
-        {
-            get => _state;
-            set => animator.SetInteger(_stateHash, (int)(_state = value));
-        }
 
-        
-        public Team team
+        public UnitTeam team
         {
-            get => _team;
-            set => _team = value;
+            get => _unitSettings.team;
+            set => _unitSettings.team = value;
         }
-     
         
+
         public override Transform target
         {
             get

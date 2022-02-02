@@ -13,8 +13,17 @@ namespace Controllers
         
         #region Properties
 
-        public int health    => _health;
-        public int maxHealth => _maxHealth;
+        public int health
+        {
+            get => _health;
+            set => ChangeHealth(value - _health);
+        }
+
+        public int maxHealth
+        {
+            get => _maxHealth;
+            set => _maxHealth = value;
+        }
 
         #endregion
 
