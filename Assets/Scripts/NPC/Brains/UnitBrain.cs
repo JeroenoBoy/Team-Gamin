@@ -85,7 +85,7 @@ namespace NPC.Brains
             
             //  Updating animator values
             
-            animator.SetFloat(_distanceHash, (target.position - position).FastMag());
+            animator.SetFloat(_distanceHash, (target.position - position).magnitude);
         }
 
         #endregion

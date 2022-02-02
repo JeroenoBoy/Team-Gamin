@@ -33,7 +33,7 @@ namespace NPC.Behaviours.Avoidance
             foreach (var obstacle in obstacles)
             {
                 var direction = transform.position - obstacle.position;
-                var distance    = direction.FastMag() - obstacle.lossyScale.FastMag();
+                var distance    = direction.magnitude - obstacle.lossyScale.magnitude;
                 
                 //  Calculating target force
              

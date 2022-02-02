@@ -96,7 +96,7 @@ namespace NPC
             //  Checking if the player is in stopping distance
 
             var direction = (targetPosition - position).With(y: 0);
-            var distance = direction.FastMag();
+            var distance = direction.magnitude;
             
             if(distance < settings.stopDistance)
                 return Vector3.zero;

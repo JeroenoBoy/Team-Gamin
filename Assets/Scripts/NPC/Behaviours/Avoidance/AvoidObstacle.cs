@@ -40,7 +40,7 @@ namespace NPC.Behaviours.Avoidance
 
             foreach (var hit in obstacles)
             {
-                var distance = (transform.position - hit.point).FastMag();
+                var distance = (transform.position - hit.point).magnitude;
                 if(distance > settings.avoidObstacleDistance) continue;
                 
                 //  Calculating target force
