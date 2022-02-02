@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Controllers;
+using Controllers.Paths;
 using UnityEngine;
 
 namespace NPC
@@ -12,6 +13,7 @@ namespace NPC
     {
         [SerializeField] private Transform      _target;
         [SerializeField] private NPCSettings    _settings;
+        public PathController path;
         
         [SerializeField] private List<AIBehavior> _behaviours = new List<AIBehavior>();
 
@@ -43,7 +45,7 @@ namespace NPC
         #endregion
 
 
-        private void Awake()
+        protected virtual void Awake()
         {
             movementController = GetComponent<MovementController>();
             animator = GetComponent<Animator>();
