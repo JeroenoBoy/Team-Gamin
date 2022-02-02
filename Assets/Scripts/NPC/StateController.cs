@@ -15,7 +15,7 @@ namespace NPC
         [SerializeField] private NPCSettings    _settings;
         public PathController path;
         
-        [SerializeField] private List<AIBehavior> _behaviours = new List<AIBehavior>();
+        [SerializeField] private AIBehavior[] _behaviours;
 
         
         #region Getters & Setters
@@ -37,11 +37,6 @@ namespace NPC
         /// </summary>
         public NPCSettings settings => _settings;
 
-        /// <summary>
-        /// Get the current behaviours
-        /// </summary>
-        public List<AIBehavior> behaviours => _behaviours;
-
         #endregion
 
 
@@ -57,7 +52,8 @@ namespace NPC
         /// </summary>
         public void AddBehaviour(AIBehavior behavior)
         {
-            _behaviours.Add(behavior);
+            _behaviours = _behaviours.Append(behavior).ToArray();
+            // _behaviours.Add(behavior);
         }
     
         
@@ -66,8 +62,9 @@ namespace NPC
         /// </summary>
         public void RemoveBehaviour(AIBehavior behavior)
         {
-            if(!_behaviours.Remove(behavior))
-                Debug.LogError("Failed to remove behaviour");
+            _behaviours = _behaviours.Where(b => b != behavior).ToArray();
+            // if(!_behaviours.Remove(behavior))
+            //     Debug.LogError("Failed to remove behaviour");
         }
 
 
