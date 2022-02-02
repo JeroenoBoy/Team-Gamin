@@ -11,7 +11,7 @@ public class objectPoolTest : MonoBehaviour
 
     IEnumerator idk()
     {
-        yield return new WaitForSeconds(7);
+        yield return new WaitForSeconds(Random.Range(0.9f, 10f));
         gameObject.SetActive(false);
     }
 }
