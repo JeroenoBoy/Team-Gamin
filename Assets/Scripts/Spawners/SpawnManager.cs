@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnManager : MonoBehaviour
+public class SpawnManager : ObjectPool
 {
     [Range(0.1f, 2f)]
     public float timeBetweenSpawn;
@@ -20,7 +20,7 @@ public class SpawnManager : MonoBehaviour
         {
             yield return new WaitForSeconds(timeBetweenSpawn);
 
-            Instantiate(objToSpawn, transform.position, Quaternion.identity);
+            var obj = SpawnObject();
         }
     }
 }
