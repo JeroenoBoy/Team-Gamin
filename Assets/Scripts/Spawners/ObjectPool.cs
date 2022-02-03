@@ -15,20 +15,25 @@ public class ObjectPool : MonoBehaviour
     [Header("Pool Values")]
     //MaxZise and the currentSize of the pool
     [SerializeField] protected int currentSize;
-    [SerializeField] protected int poolSize;
-    [SerializeField] protected int maxSize;
+
+    // Set this to true if you want to expand the pool if you run out of pooled objects.
+    public bool autoExpand = false;
+    public int poolSize;
+    public int maxSize;
 
     //The ObjectPool
     public Queue<GameObject> objectPool;
-
-    // Set this to true if you want to expand the pool if you run out of pooled objects.
-    [SerializeField] private bool autoExpand = false;
+    
     // The amount of new objects added when the pool runs out of objects.
     [SerializeField] private int expansionSize = 1;
 
     private void Awake()
     {
         objectPool = new Queue<GameObject>();
+
+        //Set values if not done correctly
+        if (!autoExpand) poolSize = maxSize;
+        if (poolSize >= maxSize && !autoExpand) poolSize = maxSize;   
     }
 
     /// <summary>
@@ -54,10 +59,15 @@ public class ObjectPool : MonoBehaviour
                 spawnedObject.transform.rotation = Quaternion.identity;
             }
         }
-        else if (currentSize <= poolSize && spawnedObject == null || autoExpand && spawnedObject == null)
+        else if (spawnedObject == null || autoExpand && spawnedObject == null)
         {
             if (autoExpand && poolSize != maxSize)
-                poolSize += expansionSize;
+            {
+                if (poolSize + expansionSize > maxSize)
+                    poolSize = maxSize;
+                else
+                    poolSize += expansionSize;
+            }
 
             spawnedObject = Instantiate(currentObject, transform.position, Quaternion.identity, parentPool);
             spawnedObject.name = currentObject.name + "_" + currentSize;
@@ -71,7 +81,7 @@ public class ObjectPool : MonoBehaviour
 
         objectPool.Enqueue(spawnedObject);
         spawnedObject.SetActive(true);
-        return spawnedObject; 
+        return spawnedObject;
     }
 
     private GameObject GetPooledObject()

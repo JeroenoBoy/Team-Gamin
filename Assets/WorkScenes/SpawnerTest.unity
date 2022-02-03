@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 296033528}
   - component: {fileID: 296033527}
+  - component: {fileID: 296033529}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -216,6 +217,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &296033529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 296033526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b29faa75e5c549549b1c29e9926c258c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WanderAround: 0
+  WanderDistance: 5
 --- !u!1 &1520563425
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,16 +322,8 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1450828097, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
-      propertyPath: maxSize
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1450828097, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
-      propertyPath: objectToSpawn
-      value: 
-      objectReference: {fileID: 2612229555500931777, guid: 7a6e5c429a5b49d4ea88b045dd581df5, type: 3}
-    - target: {fileID: 1450828097, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
-      propertyPath: timeBetweenSpawn
-      value: 0.5
+      propertyPath: autoExpand
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6384698623316616166, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
       propertyPath: m_Name
