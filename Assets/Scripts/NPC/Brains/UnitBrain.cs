@@ -3,6 +3,7 @@ using System.Linq;
 using Controllers;
 using NPC.UnitData;
 using NPC.Utility;
+using Platoons;
 using UnityEngine;
 using Util;
 
@@ -21,7 +22,10 @@ namespace NPC.Brains
         private Eyes             _eyes;
 
         private bool _hasTarget;
-
+        
+        public Transform[] targets { get; private set; }
+        public Platoon     platoon;
+        
 
         /**
          * Initiate the script
@@ -42,6 +46,15 @@ namespace NPC.Brains
         }
 
 
+        /**
+         * Mainly to assign platoons
+         */
+        private void Start()
+        {
+            if(!platoon) PlatoonManager.instance.RequestPlatoon(this);
+        }
+
+
         #region Update
 
         
@@ -51,7 +64,7 @@ namespace NPC.Brains
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
-            UpdateTarget();
+            if(_eyes.hits != null) UpdateTarget();
         }
 
 
@@ -178,9 +191,6 @@ namespace NPC.Brains
                 base.target = value;
             }
         }
-
-
-        public Transform[] targets { get; private set; }
 
         #endregion
     }

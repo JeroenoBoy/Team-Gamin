@@ -8,7 +8,7 @@ namespace NPC.Behaviours.Avoidance
 {
     public class Flocking : PermanentBehavior
     {
-        private const float minForce = 0.8f;
+        protected const float minForce = 0.8f;
         
         
         public override void PhysicsUpdate()
@@ -19,7 +19,9 @@ namespace NPC.Behaviours.Avoidance
 
             var center = transform.position;
             var sqrDist  = settings.flockSeparationDistance * settings.flockSeparationDistance;
-            var separationTargets = targets.Where(target => (target.position - center).sqrMagnitude < sqrDist).ToArray();
+            
+            var separationTargets
+                = targets.Where(target => (target.position - center).sqrMagnitude < sqrDist);
             
             //  Calculating forces
 
@@ -36,10 +38,9 @@ namespace NPC.Behaviours.Avoidance
         }
 
 
-        private Vector3 CalculateForce(Transform[] targets,float distance, float maxForce)
+        protected Vector3 CalculateForce(IEnumerable<Transform> targets, float distance, float maxForce)
         {
             var transform = this.transform;
-         
             var center = transform.position;
 
             //  Calculate the force based on distance
