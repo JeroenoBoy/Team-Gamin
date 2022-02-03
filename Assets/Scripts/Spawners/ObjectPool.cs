@@ -42,11 +42,21 @@ public class ObjectPool : MonoBehaviour
             currentObject = objectToSpawn;
         }
 
-        GameObject spawnedObject = GetPooledObject(); ;
+        GameObject spawnedObject = GetPooledObject();
 
-        if (currentSize <= poolSize && spawnedObject == null || autoExpand && spawnedObject == null)
+        if (poolSize == maxSize && currentSize == poolSize)
         {
-            if (autoExpand)
+            if (spawnedObject == null)
+                return null;
+            else
+            {
+                spawnedObject.transform.position = transform.position;
+                spawnedObject.transform.rotation = Quaternion.identity;
+            }
+        }
+        else if (currentSize <= poolSize && spawnedObject == null || autoExpand && spawnedObject == null)
+        {
+            if (autoExpand && poolSize != maxSize)
                 poolSize += expansionSize;
 
             spawnedObject = Instantiate(currentObject, transform.position, Quaternion.identity, parentPool);
