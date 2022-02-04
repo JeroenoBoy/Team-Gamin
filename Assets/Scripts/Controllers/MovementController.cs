@@ -93,7 +93,7 @@ namespace Controllers
         private void Update()
         {
             transform.position += velocity * Time.deltaTime;
-            transform.rotation = Quaternion.LookRotation(_forward);
+            transform.rotation  = Quaternion.LookRotation(_forward);
         }
 
         
@@ -104,8 +104,8 @@ namespace Controllers
         {
             var pos = transform.position;
             
-            DisplayVector.Draw(pos, velocity, Color.blue);
-            DisplayVector.Draw(pos, _oldForce,  Color.red);
+            DisplayVector.Draw(pos, velocity,  Color.blue);
+            DisplayVector.Draw(pos, _oldForce, Color.red);
         }
 
         

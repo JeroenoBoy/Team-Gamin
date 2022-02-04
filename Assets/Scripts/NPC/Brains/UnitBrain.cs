@@ -1,11 +1,10 @@
-﻿using System;
+﻿using System.Collections;
 using System.Linq;
 using Controllers;
 using NPC.UnitData;
 using NPC.Utility;
 using Platoons;
 using UnityEngine;
-using Util;
 
 namespace NPC.Brains
 {
@@ -14,6 +13,7 @@ namespace NPC.Brains
         private static readonly int _healthHash   = Animator.StringToHash("Health");
         private static readonly int _stateHash    = Animator.StringToHash("State");
         private static readonly int _distanceHash = Animator.StringToHash("Distance");
+        private static readonly int _platoonHash  = Animator.StringToHash("PlatoonSize");
         private static readonly int _targetHash   = Animator.StringToHash("HasTarget");
         private static readonly int _diedHash     = Animator.StringToHash("Died");
 
@@ -49,9 +49,15 @@ namespace NPC.Brains
         /**
          * Mainly to assign platoons
          */
-        private void Start()
+        private IEnumerator Start()
         {
-            if(!platoon) PlatoonManager.instance.RequestPlatoon(this);
+            while (true)
+            {
+                PlatoonManager.instance.RequestPlatoon(this);
+                animator.SetInteger(_platoonHash, platoon.Count);
+                
+                yield return new WaitForSeconds(2);
+            }
         }
 
 

@@ -5,8 +5,8 @@ namespace Controllers
 {
     public class HealthController : MonoBehaviour
     {
-        [SerializeField] private int  _health;
-        [SerializeField] private int  _maxHealth;
+        [SerializeField] private int _health;
+        [SerializeField] private int _maxHealth;
 
         public bool  isDead  { get; private set; } = false;
         

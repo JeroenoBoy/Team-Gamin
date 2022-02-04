@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Game.Scripts.Utils;
 using NPC.Brains;
-using NPC.UnitData;
 using UnityEngine;
 
 namespace Platoons
@@ -63,7 +61,7 @@ namespace Platoons
                 if(unitBrain.platoon == platoon) continue;
 
                 if (unitBrain.platoon == null)
-                    unitBrain.platoon = platoon;
+                    platoon.AddUnit(unitBrain);
                 
                 else if (platoon.Count + unitBrain.platoon.Count < _maxPlatoonSize)
                     unitBrain.platoon.MigratePlatoon(platoon);

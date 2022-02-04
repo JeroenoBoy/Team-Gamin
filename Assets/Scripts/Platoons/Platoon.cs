@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Data.Common;
 using NPC.Brains;
 using NPC.UnitData;
 
@@ -10,7 +9,7 @@ namespace Platoons
         public readonly UnitTeam team;
         public readonly List<UnitBrain> units;
 
-        public float Count => units.Count;
+        public int Count => units.Count;
 
 
         /**
@@ -53,6 +52,7 @@ namespace Platoons
          */
         public void RemoveUnit(UnitBrain unit)
         {
+            unit.platoon = null;
             units.Remove(unit);
         }
 
@@ -61,6 +61,5 @@ namespace Platoons
          * Simple null checks
          */
         public static bool operator !(Platoon self) => self == null;
-        
     }
 }

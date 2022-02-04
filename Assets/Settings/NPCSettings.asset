@@ -38,10 +38,10 @@ MonoBehaviour:
   hideMask:
     serializedVersion: 2
     m_Bits: 0
-  flockCohesionDistance: 1
-  flockCohesionMaxForce: -5
-  flockSeparationDistance: 4
-  flockSeparationMaxForce: 2
+  flockCohesionDistance: 20
+  flockCohesionMaxForce: 4
+  flockSeparationDistance: 2.65
+  flockSeparationMaxForce: 8
   flockMask:
     serializedVersion: 2
     m_Bits: 512

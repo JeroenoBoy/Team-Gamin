@@ -6,9 +6,12 @@ using Util;
 
 namespace NPC.Behaviours.Avoidance
 {
+    public delegate Vector3 CalculatorFunction(Transform target);
+    
+    
     public class Flocking : PermanentBehavior
     {
-        protected const float minForce = 0.8f;
+        protected const float minForce = 0.1f * 0.1f;
         
         
         public override void PhysicsUpdate()
@@ -21,47 +24,67 @@ namespace NPC.Behaviours.Avoidance
             var sqrDist  = settings.flockSeparationDistance * settings.flockSeparationDistance;
             
             var separationTargets
-                = targets.Where(target => (target.position - center).sqrMagnitude < sqrDist);
+                = targets.Where(t => (t.position - center).sqrMagnitude < sqrDist);
             
             //  Calculating forces
 
-            var cohesionForce   = CalculateForce(targets,           settings.flockCohesionDistance,    settings.flockCohesionMaxForce);
-            var separationForce = CalculateForce(separationTargets, settings.flockSeparationDistance, -settings.flockSeparationMaxForce);
+            var cohesionForce   = CalculateForce(targets,           settings.flockCohesionDistance,   settings.flockCohesionMaxForce);
+            var separationForce = CalculateForce(separationTargets, settings.flockSeparationDistance, settings.flockSeparationMaxForce, true);
 
             //  Checking if min force is smaller than a certain value else return force
             
-            var force = cohesionForce + separationForce;
+            var force = cohesionForce - separationForce;
             
-            movement.AddForce(force.sqrMagnitude < minForce * minForce
+            movement.AddForce(force.sqrMagnitude < minForce
                 ? Vector3.zero
                 : force);
         }
 
 
-        protected Vector3 CalculateForce(IEnumerable<Transform> targets, float distance, float maxForce)
+        protected Vector3 CalculateForce(IEnumerable<Transform> targets, float distance, float maxForce, bool inverse = false)
         {
             var transform = this.transform;
             var center = transform.position;
 
             //  Calculate the force based on distance
-            
-            Vector3 Calculate(Transform target)
-            {
-                if (target == transform) return Vector3.zero;
-                
-                var direction = (target.position - center).With(y: 0);
-                
-                var vecDistance     = direction.magnitude;
-                var percentageForce = vecDistance / distance;
-                
-                return (1- percentageForce) * maxForce * direction.normalized;
-            }
 
-            var vector = targets.Aggregate(Vector3.zero, (vector, transform) => vector + Calculate(transform));
+            var calculator = CalculateFunction(center, distance, maxForce, inverse);
+            var vector = targets.Aggregate(Vector3.zero, (vector, transform) => vector + calculator(transform));
             
             //  Returning the force
 
             return Vector3.ClampMagnitude(vector, Mathf.Abs(maxForce));
+        }
+
+
+        private CalculatorFunction CalculateFunction(Vector3 center, float distance, float maxForce, bool inverse = false)
+        {
+            return (inverse) switch
+            {
+                true => t =>
+                {
+                    if (t == transform) return Vector3.zero;
+
+                    var direction = (t.position - center).With(y: 0);
+
+                    var vecDistance = direction.magnitude;
+                    var percentageForce = vecDistance / distance;
+
+                    return (1 - percentageForce) * maxForce * direction.normalized;
+                },
+
+                false => (t) =>
+                {
+                    if (t == transform) return Vector3.zero;
+
+                    var direction = (t.position - center).With(y: 0);
+
+                    var vecDistance = direction.magnitude;
+                    var percentageForce = Mathf.Clamp(vecDistance / distance, 0, 1);
+
+                    return percentageForce * maxForce * direction.normalized;
+                }
+            };
         }
 
 

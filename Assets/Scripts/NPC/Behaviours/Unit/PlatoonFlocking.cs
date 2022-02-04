@@ -13,28 +13,26 @@ namespace NPC.Behaviours.Unit
         
         public override void PhysicsUpdate()
         {
-            var _p = platoon;
             var units = platoon.units.Select(t=>t.transform).ToArray();
-            
             
             //  Filtering targets
             
             var center = transform.position;
             var sqrDist = settings.flockSeparationDistance * settings.flockSeparationDistance;
-            
-            var separationTargets
-                = units.Where(t => (t.transform.position - center).sqrMagnitude < sqrDist);
+
+            var cohesionTargets   = units.Where(t => (t.position - center).sqrMagnitude > sqrDist);
+            var separationTargets = units.Where(t => (t.position - center).sqrMagnitude < sqrDist);
             
             //  Calculating forces
 
-            var cohesionForce  = CalculateForce(units,             settings.flockCohesionDistance, settings.flockCohesionMaxForce);
-            var separationForce = CalculateForce(separationTargets, settings.flockCohesionDistance, settings.flockCohesionMaxForce);
+            var cohesionForce   = CalculateForce(cohesionTargets,   settings.flockCohesionDistance,   settings.flockCohesionMaxForce);
+            var separationForce = CalculateForce(separationTargets, settings.flockSeparationDistance, settings.flockSeparationMaxForce, true);
 
             //  Checking if min force is smaller than a certain value else return force
             
-            var force = cohesionForce + separationForce;
+            var force = cohesionForce - separationForce;
             
-            movement.AddForce(force.sqrMagnitude < minForce * minForce
+            movement.AddForce(force.sqrMagnitude < minForce
                 ? Vector3.zero
                 : force);
         }
