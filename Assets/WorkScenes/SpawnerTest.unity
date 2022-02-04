@@ -229,8 +229,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b29faa75e5c549549b1c29e9926c258c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WanderAround: 0
-  WanderDistance: 5
 --- !u!1 &1520563425
 GameObject:
   m_ObjectHideFlags: 0
@@ -372,6 +370,18 @@ PrefabInstance:
     - target: {fileID: 6384698623316616173, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8592500740295985803, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
+      propertyPath: maxSize
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8592500740295985803, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
+      propertyPath: autoExpand
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8592500740295985803, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
+      propertyPath: expansionSize
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
