@@ -18,11 +18,16 @@ public class StatPoints : MonoBehaviour
 
     private float sum;
 
-    [Header("Sliders")]
     [SerializeField] private data[] dataArray;
+
+    private void Start()
+    {
+        OnValueChange();
+    }
 
     void Update()
     {
+        //sets the statpoint text
         statPointText.text = string.Format("StatPoints : {0}", statPoints);
 
         //check if all stat points are used up    
@@ -30,6 +35,7 @@ public class StatPoints : MonoBehaviour
         {
             Debug.Log("Insuffient statpoints");
             //make it so you cant use anymore statpoints but can decrease other sliders to get statpoints back
+          
         }
     }
 
@@ -51,6 +57,7 @@ public class StatPoints : MonoBehaviour
 
         statPoints = sum;
 
+        //sets the statpoint slider text
         for (int i = 0; i < dataArray.Length; i++)
         {
             dataArray[i].slidersText.text = string.Format(dataArray[i].slidersName + " : {0}", dataArray[i].slider.value);
@@ -59,21 +66,21 @@ public class StatPoints : MonoBehaviour
         //change max value to how many statpoints are left
     }
 
-    /*public void SetAttack()
+    public void SetAttack()
     {
-        float input = dataArray[0].slider.value - atk;
-        float atksum = statPoints;
-        atksum = atksum / (atksum + input);
-        atk = (atk + input) * atksum; 
+        float newValue = dataArray[0].slider.value;
+        float atksum   = (statPoints - atk) / (statPoints + newValue);
+        
+        atk = newValue;
         atk_speed *= atksum;
         move_speed *= atksum;
         sight_range *= atksum;
         defence *= atksum;
-    }*/
+    }
 }
 
 [System.Serializable]
-public struct data
+public struct data //struct to store slider data
 {
     public string slidersName;
     public TextMeshProUGUI slidersText;
