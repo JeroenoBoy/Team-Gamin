@@ -11,9 +11,9 @@ public class newStatPoints : MonoBehaviour
     [SerializeField] private statpointsdata[] data;
 
     [Header("Values")]
-    private float statPoints = 100;
-    private float usedStatPoints;
-    private float multiplier = 1;
+    [SerializeField]private float statPoints = 100;
+    [SerializeField]private float usedStatPoints;
+    [SerializeField]private float multiplier = 1;
 
     [Header("Text")]
     [SerializeField] private TextMeshProUGUI statPointsText;
@@ -31,7 +31,7 @@ public class newStatPoints : MonoBehaviour
 
     private void Update()
     {
-        statPointsText.text = string.Format("StatPoints : {0}", statPoints);
+        statPointsText.text = string.Format("StatPoints : {0}/100", usedStatPoints);
         currentMultiplier.text = string.Format("Current Multiplier : {0}", multiplier + "x");
 
 
@@ -45,7 +45,7 @@ public class newStatPoints : MonoBehaviour
              var changed = newStatPoints - usedStatPoints;
              usedStatPoints = newStatPoints;
 
-             data.slider.value = data.value += multiplier;
+             data.slider.value = data.value += changed;
              data.slidersText.text = string.Format(data.slidersName + " : {0}", data.slider.value);
 
          };
@@ -77,7 +77,7 @@ public class newStatPoints : MonoBehaviour
 
 
 [System.Serializable]
-public struct statpointsdata //struct to store slider data
+public class statpointsdata //struct to store slider data
 {
     public string slidersName;
     public TextMeshProUGUI slidersText;
