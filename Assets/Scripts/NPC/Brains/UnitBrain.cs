@@ -17,6 +17,8 @@ namespace NPC.Brains
         private static readonly int _targetHash   = Animator.StringToHash("HasTarget");
         private static readonly int _diedHash     = Animator.StringToHash("Died");
 
+        public Transform castleTarget;
+        
         private UnitSettings     _unitSettings;
         private HealthController _healthComponent;
         private Eyes             _eyes;
@@ -177,7 +179,7 @@ namespace NPC.Brains
             {
                 //  To avoid some 
                 if (!base.target && _hasTarget) target = null;
-                return base.target;
+                return base.target ? base.target : castleTarget;
             }
             set
             {
