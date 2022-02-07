@@ -44,8 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4efbe73f23d08b4390e01a2ea6ee4db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objPool: {fileID: 0}
-  timeBetweenSpawn: 0.36
+  TimeBetweenSpawn: 1
 --- !u!114 &8592500740295985803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59,8 +58,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectToSpawn: {fileID: 2612229555500931777, guid: 7a6e5c429a5b49d4ea88b045dd581df5, type: 3}
-  currentSize: 0
-  expansionSize: 1
+  autoExpand: 1
+  maxSize: 5
 --- !u!1 &6384698623316616166
 GameObject:
   m_ObjectHideFlags: 0

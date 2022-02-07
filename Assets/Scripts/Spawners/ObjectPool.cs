@@ -7,17 +7,17 @@ public class ObjectPool : MonoBehaviour
 {
     [Header("Object Pool")]
     //What it is going to spawn
-    [SerializeField] private GameObject objectToSpawn;
+    [SerializeField] private GameObject _objectToSpawn;
 
-    private Transform parentPool => gameObject.transform;
+    private Transform _parentPool => gameObject.transform;
 
     [Header("Pool Values")]
     //MaxZise and the currentSize of the pool
-    private int currentSize;
+    private int _currentSize;
 
-    [HideInInspector] public bool autoExpand;
-    [HideInInspector] public int maxSize;
-    private int poolSize = 0;
+    [HideInInspector] public bool AutoExpand;
+    [HideInInspector] public int MaxSize;
+    private int _poolSize = 0;
 
     //The ObjectPool
     public Queue<GameObject> objectPool;
@@ -27,9 +27,9 @@ public class ObjectPool : MonoBehaviour
         objectPool = new Queue<GameObject>();
 
         //Set values if not done correctly
-        if (autoExpand) maxSize = -1;
-        if (!autoExpand) poolSize = maxSize;
-        if (poolSize >= maxSize && !autoExpand) poolSize = maxSize;
+        if (AutoExpand) MaxSize = -1;
+        if (!AutoExpand) _poolSize = MaxSize;
+        if (_poolSize >= MaxSize && !AutoExpand) _poolSize = MaxSize;
     }
 
     /// <summary>
@@ -40,12 +40,12 @@ public class ObjectPool : MonoBehaviour
         //Check if the object is null and set the object
         if (currentObject == null)
         {
-            currentObject = objectToSpawn;
+            currentObject = _objectToSpawn;
         }
 
         GameObject spawnedObject = GetPooledObject();
 
-        if (poolSize == maxSize && currentSize == poolSize)
+        if (_poolSize == MaxSize && _currentSize == _poolSize)
         {
             if (spawnedObject == null)
                 return null;
@@ -55,11 +55,11 @@ public class ObjectPool : MonoBehaviour
                 spawnedObject.transform.rotation = Quaternion.identity;
             }
         }
-        else if (spawnedObject == null || autoExpand && spawnedObject == null)
+        else if (spawnedObject == null || AutoExpand && spawnedObject == null)
         {
-            spawnedObject = Instantiate(currentObject, transform.position, Quaternion.identity, parentPool);
-            spawnedObject.name = currentObject.name + "_" + currentSize;
-            currentSize++;
+            spawnedObject = Instantiate(currentObject, transform.position, Quaternion.identity, _parentPool);
+            spawnedObject.name = currentObject.name + "_" + _currentSize;
+            _currentSize++;
         }
         else
         {
@@ -101,10 +101,10 @@ public class ObjectPool : MonoBehaviour
 
             EditorGUILayout.Space();
 
-            objPool.autoExpand = GUILayout.Toggle(objPool.autoExpand, "AutoExpand");
+            objPool.AutoExpand = GUILayout.Toggle(objPool.AutoExpand, "AutoExpand");
 
-            if (!objPool.autoExpand)
-                objPool.maxSize = EditorGUILayout.IntField("MaxSize", objPool.maxSize);
+            if (!objPool.AutoExpand)
+                objPool.MaxSize = EditorGUILayout.IntField("MaxSize", objPool.MaxSize);
         }
     }
 

@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
-    public HealthController defenderCastle, enemyCastle;
+    public HealthController DefenderCastle, EnemyCastle;
 
     public UnityEvent OnWin;
 
@@ -14,9 +14,9 @@ public class GameManager : MonoBehaviour
 
     public void OnChoseWinner(GameObject go)
     {
-        if (go == defenderCastle)
+        if (go == DefenderCastle)
             OnLose?.Invoke();
-        else if (go == enemyCastle)
+        else if (go == EnemyCastle)
             OnWin?.Invoke();
     }
 }
