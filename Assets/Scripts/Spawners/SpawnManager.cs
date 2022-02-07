@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    [Range(0.1f, 2f)]
-    public float timeBetweenSpawn;
+    private ObjectPool _objPool;
 
-    public Transform objToSpawn;
+    [Range(0.1f, 2f)]
+    public float TimeBetweenSpawn;
 
     private void Start()
     {
+        _objPool = GetComponent<ObjectPool>();
         StartCoroutine(WaveSpawner());
     }
 
@@ -18,9 +19,9 @@ public class SpawnManager : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(timeBetweenSpawn);
+            yield return new WaitForSeconds(TimeBetweenSpawn);
 
-            Instantiate(objToSpawn, transform.position, Quaternion.identity);
+            var obj = _objPool.SpawnObject();
         }
     }
 }
