@@ -1,34 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class ObjectPool : MonoBehaviour
 {
     [Header("Object Pool")]
     //What it is going to spawn
-    [SerializeField] protected GameObject objectToSpawn;
+    [SerializeField] private GameObject _objectToSpawn;
 
-    //Spawn Value's
-    private Transform spawnPos => gameObject.transform;
-    private protected Transform parentPool => gameObject.transform;
+    private Transform _parentPool => gameObject.transform;
 
     [Header("Pool Values")]
     //MaxZise and the currentSize of the pool
-    [SerializeField] protected int currentSize;
-    [SerializeField] protected int poolSize;
-    [SerializeField] protected int maxSize;
+    private int _currentSize;
+
+    [HideInInspector] public bool AutoExpand;
+    [HideInInspector] public int MaxSize;
+    private int _poolSize = 0;
 
     //The ObjectPool
     public Queue<GameObject> objectPool;
 
-    // Set this to true if you want to expand the pool if you run out of pooled objects.
-    [SerializeField] private bool autoExpand = false;
-    // The amount of new objects added when the pool runs out of objects.
-    [SerializeField] private int expansionSize = 1;
-
     private void Awake()
     {
         objectPool = new Queue<GameObject>();
+
+        //Set values if not done correctly
+        if (AutoExpand) MaxSize = -1;
+        if (!AutoExpand) _poolSize = MaxSize;
+        if (_poolSize >= MaxSize && !AutoExpand) _poolSize = MaxSize;
     }
 
     /// <summary>
@@ -39,12 +40,12 @@ public class ObjectPool : MonoBehaviour
         //Check if the object is null and set the object
         if (currentObject == null)
         {
-            currentObject = objectToSpawn;
+            currentObject = _objectToSpawn;
         }
 
         GameObject spawnedObject = GetPooledObject();
 
-        if (poolSize == maxSize && currentSize == poolSize)
+        if (_poolSize == MaxSize && _currentSize == _poolSize)
         {
             if (spawnedObject == null)
                 return null;
@@ -54,14 +55,11 @@ public class ObjectPool : MonoBehaviour
                 spawnedObject.transform.rotation = Quaternion.identity;
             }
         }
-        else if (currentSize <= poolSize && spawnedObject == null || autoExpand && spawnedObject == null)
+        else if (spawnedObject == null || AutoExpand && spawnedObject == null)
         {
-            if (autoExpand && poolSize != maxSize)
-                poolSize += expansionSize;
-
-            spawnedObject = Instantiate(currentObject, transform.position, Quaternion.identity, parentPool);
-            spawnedObject.name = currentObject.name + "_" + currentSize;
-            currentSize++;
+            spawnedObject = Instantiate(currentObject, transform.position, Quaternion.identity, _parentPool);
+            spawnedObject.name = currentObject.name + "_" + _currentSize;
+            _currentSize++;
         }
         else
         {
@@ -71,7 +69,7 @@ public class ObjectPool : MonoBehaviour
 
         objectPool.Enqueue(spawnedObject);
         spawnedObject.SetActive(true);
-        return spawnedObject; 
+        return spawnedObject;
     }
 
     private GameObject GetPooledObject()
@@ -86,4 +84,30 @@ public class ObjectPool : MonoBehaviour
 
         return null;
     }
+
+    #region Editor
+#if UNITY_EDITOR
+
+    [CustomEditor(typeof(ObjectPool))]
+    public class TestEditor : Editor
+    {
+        public override void OnInspectorGUI()
+        {
+            base.OnInspectorGUI();
+
+            ObjectPool objPool = (ObjectPool)target;
+
+            PrefabUtility.RecordPrefabInstancePropertyModifications(target);
+
+            EditorGUILayout.Space();
+
+            objPool.AutoExpand = GUILayout.Toggle(objPool.AutoExpand, "AutoExpand");
+
+            if (!objPool.AutoExpand)
+                objPool.MaxSize = EditorGUILayout.IntField("MaxSize", objPool.MaxSize);
+        }
+    }
+
+#endif
+    #endregion 
 }
