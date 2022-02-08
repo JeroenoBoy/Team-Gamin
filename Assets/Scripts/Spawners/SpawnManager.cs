@@ -28,15 +28,13 @@ public class SpawnManager : MonoBehaviour
             
             i++;
             var obj = _objPool.SpawnObject();
-            
+            obj.transform.position = Random.insideUnitCircle;
+
             if (i == 10)
             {
-                print("df");
                 yield return new WaitForSeconds(TimeBetweenWave);
                 i = 0;
             }
         }
-
-        
     }
 }
