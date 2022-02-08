@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.Events;
@@ -28,15 +26,11 @@ public class newStatPoints : MonoBehaviour
             data[i].minus.onClick.AddListener(DecreasePoints(data[i]));
         }
     }
-
     private void Update()
     {
         statPointsText.text = string.Format("StatPoints : {0}/100", usedStatPoints);
         currentMultiplier.text = string.Format("Current Multiplier : {0}", multiplier + "x");
-
-
     }
-
     public UnityAction IncreasePoints(statpointsdata data)
     {
         return () =>
@@ -50,7 +44,6 @@ public class newStatPoints : MonoBehaviour
 
          };
     }
-
     public UnityAction DecreasePoints(statpointsdata data)
     {
         return () =>
@@ -64,17 +57,11 @@ public class newStatPoints : MonoBehaviour
         };
     }
 
-
-
-
     public void ChangeMultiplier(float amount)
     {
         multiplier = amount;
     }
-
-
 }
-
 
 [System.Serializable]
 public class statpointsdata //struct to store slider data
