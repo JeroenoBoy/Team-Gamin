@@ -44,7 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4efbe73f23d08b4390e01a2ea6ee4db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimeBetweenSpawn: 1
+  TimeBetweenSpawn: 0.1
+  TimeBetweenWave: 10
 --- !u!114 &8592500740295985803
 MonoBehaviour:
   m_ObjectHideFlags: 0
