@@ -319,6 +319,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1450828097, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
+      propertyPath: TimeBetweenWave
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1450828097, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
+      propertyPath: TimeBetweenSpawn
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 6384698623316616166, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
       propertyPath: m_Name
       value: Castle
@@ -367,13 +375,5 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8592500740295985803, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
-      propertyPath: AutoExpand
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8592500740295985803, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
-      propertyPath: _objectToSpawn
-      value: 
-      objectReference: {fileID: 2612229555500931777, guid: 7a6e5c429a5b49d4ea88b045dd581df5, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
