@@ -31,6 +31,8 @@ namespace NPC.Behaviours.Avoidance
          */
         public override void PhysicsUpdate()
         {
+            if(_eyes.hits == null) return;
+            
             var obstacles = _eyes.hits
                 .Where(t => t.transform.HasLayer(_layer))
                 .ToArray();
@@ -57,6 +59,8 @@ namespace NPC.Behaviours.Avoidance
          */
         public override void OnDrawGizmos()
         {
+            if(_eyes.hits == null) return;
+            
             foreach (var hit in _eyes.hits.Where(t => t.transform.HasLayer(_layer) && (t.point - transform.position).sqrMagnitude < settings.avoidObstacleDistance*settings.avoidObstacleDistance))
             {
                 Gizmos.color = Handles.color = Color.magenta;

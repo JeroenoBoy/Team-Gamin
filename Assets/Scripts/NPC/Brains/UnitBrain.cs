@@ -63,6 +63,15 @@ namespace NPC.Brains
         }
 
 
+        /**
+         * Remove the unit from its platoon
+         */
+        private void OnDestroy()
+        {
+            platoon.RemoveUnit(this);
+        }
+
+
         #region Update
 
         
