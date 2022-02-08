@@ -1155,6 +1155,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unload: 0
   _multiplier: 0.25
+  _override: 1
+  _cohesionDistance: 3
+  _separationDistance: 1
+  _cohesionForce: 2
+  _separationForce: 5
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!1102 &2698183113815995067
 AnimatorState:
   serializedVersion: 6
@@ -1778,6 +1786,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unload: 0
   _multiplier: 1.5
+  _override: 0
+  _cohesionDistance: 4
+  _separationDistance: 2
+  _cohesionForce: 5
+  _separationForce: 5
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1101 &8044495729459229041
 AnimatorStateTransition:
   m_ObjectHideFlags: 1

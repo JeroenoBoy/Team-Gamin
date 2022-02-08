@@ -178,6 +178,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Red Unit
       objectReference: {fileID: 0}
+    - target: {fileID: 5513952201805270747, guid: 54e99d7c332a99742867f460dff783d3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5513952201805270748, guid: 54e99d7c332a99742867f460dff783d3, type: 3}
       propertyPath: m_Controller
       value: 
@@ -260,6 +264,10 @@ PrefabInstance:
     - target: {fileID: 4225618991467142450, guid: e8cca1c98e9993f4d81ec307ca163709, type: 3}
       propertyPath: m_Name
       value: Blue Unit (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4225618991467142450, guid: e8cca1c98e9993f4d81ec307ca163709, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4225618991467142451, guid: e8cca1c98e9993f4d81ec307ca163709, type: 3}
       propertyPath: m_RootOrder
@@ -781,6 +789,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Blue Unit (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 4225618991467142450, guid: e8cca1c98e9993f4d81ec307ca163709, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4225618991467142451, guid: e8cca1c98e9993f4d81ec307ca163709, type: 3}
       propertyPath: m_RootOrder
       value: 11
@@ -911,6 +923,10 @@ PrefabInstance:
     - target: {fileID: 4225618991467142450, guid: e8cca1c98e9993f4d81ec307ca163709, type: 3}
       propertyPath: m_Name
       value: Blue Unit (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4225618991467142450, guid: e8cca1c98e9993f4d81ec307ca163709, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4225618991467142451, guid: e8cca1c98e9993f4d81ec307ca163709, type: 3}
       propertyPath: m_RootOrder
@@ -1497,6 +1513,10 @@ PrefabInstance:
     - target: {fileID: 4225618991467142450, guid: e8cca1c98e9993f4d81ec307ca163709, type: 3}
       propertyPath: m_Name
       value: Blue Unit (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4225618991467142450, guid: e8cca1c98e9993f4d81ec307ca163709, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4225618991467142451, guid: e8cca1c98e9993f4d81ec307ca163709, type: 3}
       propertyPath: m_RootOrder
@@ -2721,6 +2741,10 @@ PrefabInstance:
     - target: {fileID: 4225618991467142450, guid: e8cca1c98e9993f4d81ec307ca163709, type: 3}
       propertyPath: m_Name
       value: Blue Unit
+      objectReference: {fileID: 0}
+    - target: {fileID: 4225618991467142450, guid: e8cca1c98e9993f4d81ec307ca163709, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4225618991467142451, guid: e8cca1c98e9993f4d81ec307ca163709, type: 3}
       propertyPath: m_RootOrder

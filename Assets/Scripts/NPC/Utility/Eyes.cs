@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using Util;
@@ -9,8 +10,9 @@ namespace NPC.Utility
 {
     public class Eyes : MonoBehaviour
     {
-        [SerializeField] private float     _fov  = 70;
-        [SerializeField] private int       _rays = 30;
+        [SerializeField] private float     _fov       = 70;
+        [SerializeField] private int       _rays      = 30;
+        [SerializeField] private int       _minSight  = 3;
         [SerializeField] private int       _rayLength = 30;
         [SerializeField] private LayerMask _interactMask;
 
@@ -58,6 +60,18 @@ namespace NPC.Utility
                 if(!CastRay(angle, out var hit)) continue;
                 yield return hit;
             }
+            
+            //  Looping thru all the objects in min sight
+            var position = transform.position;
+            var ray = new Ray(position, Vector3.zero);
+            
+            foreach (var collider in Physics.OverlapSphere(position, _minSight, _interactMask))
+            {
+                if (collider.transform == transform) continue;
+                ray.direction = (collider.transform.position - position).normalized;
+                if(collider.Raycast(ray, out var hit, _minSight))
+                    yield return hit;
+            }
         }
 
 
@@ -99,6 +113,8 @@ namespace NPC.Utility
                 var rot = Utils.Quaternion(y: i);
                 Gizmos.DrawRay(position, rot * transform.forward * _rayLength);
             }
+            
+            Handles.DrawWireDisc(transform.position, transform.up, _minSight);
         }
     }
 }

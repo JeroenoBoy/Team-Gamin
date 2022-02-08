@@ -19,18 +19,18 @@ namespace NPC.Behaviours.Unit
             //  Filtering targets
             
             var center = transform.position;
-            var sqrDist = settings.flockSeparationDistance * settings.flockSeparationDistance;
+            var sqrDist = separationForce * separationForce;
 
             var separationTargets = units.Where(t => (t.position - center).sqrMagnitude < sqrDist);
             
             //  Calculating forces
 
-            var cohesionForce   = CalculateForce(units,             settings.flockCohesionDistance,   settings.flockCohesionMaxForce);
-            var separationForce = CalculateForce(separationTargets, settings.flockSeparationDistance, settings.flockSeparationMaxForce, true);
+            var targetCohesionForce   = CalculateForce(units,             cohesionDistance,   cohesionForce);
+            var targetSeparationForce = CalculateForce(separationTargets, separationDistance, separationForce, true);
 
             //  Checking if min force is smaller than a certain value else return force
             
-            var force = cohesionForce - separationForce;
+            var force = targetCohesionForce - targetSeparationForce;
             
             movement.AddForce(force.sqrMagnitude < minForce
                 ? Vector3.zero
