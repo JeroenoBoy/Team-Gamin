@@ -236,6 +236,7 @@ MonoBehaviour:
   _settings: {fileID: 11400000, guid: 0add9ce45b80fa34dabeaefb9f45648f, type: 2}
   path: {fileID: 0}
   _behaviours: []
+  castleTarget: {fileID: 0}
 --- !u!114 &5513952201805270751
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,7 +313,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 5
   team: 0
-  _state: 0
+  _state: 1
   attackSpeed: 0.5
   attackDamage: 20
   sightRange: 20

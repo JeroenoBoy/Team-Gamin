@@ -44,5 +44,8 @@ namespace NPC
         public float     flockSeparationDistance;
         public float     flockSeparationMaxForce;
         public LayerMask flockMask;
+
+        [Header("Castle Settings")]
+        public float castleDistance;
     }
 }

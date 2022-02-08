@@ -26,7 +26,6 @@ namespace NPC.UnitData
             get => _state;
             set
             {
-                if(value == _state) return;
                 _state = value;
                 SendMessage("OnStateChange");
             }

@@ -38,7 +38,7 @@ namespace NPC.Utility
         /// </summary>
         private void FixedUpdate()
         {
-            hits = FindTargets().Distinct().ToArray();
+            hits = FindTargets().ToArray();
         }
 
 

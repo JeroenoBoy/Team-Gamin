@@ -12,6 +12,8 @@ namespace NPC.Behaviours.Avoidance
     public class Flocking : PermanentBehavior
     {
         protected const float minForce = 0.1f * 0.1f;
+
+        [SerializeField] private float _multiplier = 1f;
         
         
         public override void PhysicsUpdate()
@@ -33,7 +35,7 @@ namespace NPC.Behaviours.Avoidance
 
             //  Checking if min force is smaller than a certain value else return force
             
-            var force = cohesionForce - separationForce;
+            var force = (cohesionForce - separationForce) * _multiplier;
             
             movement.AddForce(force.sqrMagnitude < minForce
                 ? Vector3.zero
@@ -59,7 +61,7 @@ namespace NPC.Behaviours.Avoidance
 
         private CalculatorFunction CalculateFunction(Vector3 center, float distance, float maxForce, bool inverse = false)
         {
-            return (inverse) switch
+            return inverse switch
             {
                 true => t =>
                 {

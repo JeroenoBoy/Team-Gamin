@@ -60,14 +60,12 @@ namespace Platoons
                 
                 if(unitBrain.platoon == platoon) continue;
 
-                if (unitBrain.platoon == null)
+                if (!unitBrain.platoon)
                     platoon.AddUnit(unitBrain);
                 
                 else if (platoon.Count + unitBrain.platoon.Count < _maxPlatoonSize)
                     unitBrain.platoon.MigratePlatoon(platoon);
             }
-            
-            Debug.Log(_platoons[(int)team].Count);
         }
 
 

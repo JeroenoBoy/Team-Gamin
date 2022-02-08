@@ -2,6 +2,7 @@
 using System.Linq;
 using NPC.Brains;
 using NPC.Utility;
+using UnityEditor;
 using UnityEngine;
 using Util;
 
@@ -51,17 +52,18 @@ namespace NPC.Behaviours.Avoidance
         }
 
 
-        /// <summary>
-        /// Check if there is an obstacle nearby
-        /// </summary>
-        public bool FindObstacle(out RaycastHit hit)
+        /**
+         * Draw fancy gizmos
+         */
+        public override void OnDrawGizmos()
         {
-            var position = transform.position;
-            var forward = transform.forward;
-            
-            //  Checking if there is a target in front of the player
-
-            return Physics.Raycast(position, forward, out hit, settings.avoidObstacleDistance, settings.avoidObstacleMask);
+            foreach (var hit in _eyes.hits.Where(t => t.transform.HasLayer(_layer) && (t.point - transform.position).sqrMagnitude < settings.avoidObstacleDistance*settings.avoidObstacleDistance))
+            {
+                Gizmos.color = Handles.color = Color.magenta;
+                
+                Handles.DrawSolidDisc(hit.point, hit.normal, 0.5f);
+                Gizmos.DrawLine(hit.point, hit.point + hit.normal);
+            }
         }
     }
 }

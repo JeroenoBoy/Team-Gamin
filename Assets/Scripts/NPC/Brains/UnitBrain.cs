@@ -10,12 +10,14 @@ namespace NPC.Brains
 {
     public class UnitBrain : StateController
     {
-        private static readonly int _healthHash   = Animator.StringToHash("Health");
-        private static readonly int _stateHash    = Animator.StringToHash("State");
-        private static readonly int _distanceHash = Animator.StringToHash("Distance");
-        private static readonly int _platoonHash  = Animator.StringToHash("PlatoonSize");
-        private static readonly int _targetHash   = Animator.StringToHash("HasTarget");
-        private static readonly int _diedHash     = Animator.StringToHash("Died");
+        private static readonly int _healthHash     = Animator.StringToHash("Health");
+        private static readonly int _stateHash      = Animator.StringToHash("State");
+        private static readonly int _distanceHash   = Animator.StringToHash("Distance");
+        private static readonly int _platoonHash    = Animator.StringToHash("PlatoonSize");
+        private static readonly int _targetHash     = Animator.StringToHash("HasTarget");
+        private static readonly int _nearCastleHash = Animator.StringToHash("NearCastle");
+        private static readonly int _isDeadHash     = Animator.StringToHash("IsDead");
+        private static readonly int _diedHash       = Animator.StringToHash("Died");
 
         public Transform castleTarget;
         
@@ -56,8 +58,6 @@ namespace NPC.Brains
             while (true)
             {
                 PlatoonManager.instance.RequestPlatoon(this);
-                animator.SetInteger(_platoonHash, platoon.Count);
-                
                 yield return new WaitForSeconds(2);
             }
         }
@@ -72,7 +72,17 @@ namespace NPC.Brains
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
+            UpdateCastleInRange();
             if(_eyes.hits != null) UpdateTarget();
+        }
+
+
+        private void UpdateCastleInRange()
+        {
+            animator.SetBool(_nearCastleHash, (castleTarget.position - transform.position).sqrMagnitude < settings.castleDistance * settings.castleDistance);
+            
+            if(!_hasTarget)
+                animator.SetFloat(_distanceHash, (castleTarget.position - transform.position).magnitude);
         }
 
 
@@ -86,7 +96,7 @@ namespace NPC.Brains
             //  Getting the closest unit in the other team
 
             var closest = _eyes.hits
-                .Where  (t => t.transform.TryGetComponent(out UnitBrain _brain) && _brain.team != team)
+                .Where  (t => t.transform.TryGetComponent(out UnitBrain brain) && brain.team != team)
                 .OrderBy(t => (t.transform.position - position).sqrMagnitude)
                 .FirstOrDefault().transform;
 
@@ -100,6 +110,9 @@ namespace NPC.Brains
         }
 
         #endregion
+        
+        
+        #region Custom Events
         
         
         /**
@@ -117,6 +130,7 @@ namespace NPC.Brains
         private void OnDeath()
         {
             animator.SetTrigger(_diedHash);
+            animator.SetBool(_isDeadHash, true);
         }
 
 
@@ -127,6 +141,14 @@ namespace NPC.Brains
         {
             animator.SetInteger(_stateHash, (int)_unitSettings.state);
         }
+
+
+        private void OnPlatoonUpdate()
+        {
+            animator.SetInteger(_platoonHash, platoon.Count);
+        }
+        
+        #endregion
 
 
         #region Helper functions
@@ -161,8 +183,7 @@ namespace NPC.Brains
 
         #endregion
 
-
-
+        
         #region properties
 
 
@@ -188,7 +209,6 @@ namespace NPC.Brains
                 {
                     case true when !value:
                         animator.SetBool(_targetHash, _hasTarget = false);
-                        animator.SetFloat(_distanceHash, Mathf.Infinity);
                         break;
                     
                     case false when value:

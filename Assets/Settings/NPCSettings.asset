@@ -45,3 +45,4 @@ MonoBehaviour:
   flockMask:
     serializedVersion: 2
     m_Bits: 512
+  castleDistance: 5
