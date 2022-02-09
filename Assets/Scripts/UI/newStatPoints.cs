@@ -9,7 +9,7 @@ public class newStatPoints : MonoBehaviour
     public statpointsdata[] data;
 
     [Header("Values")]
-    [SerializeField]private float statPoints = 100;
+    public float statPoints = 100;
     [SerializeField]private float usedStatPoints;
     [SerializeField]private float multiplier = 5;
 
