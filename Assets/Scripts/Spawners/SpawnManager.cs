@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Util;
 
 public class SpawnManager : MonoBehaviour
 {
@@ -28,7 +29,7 @@ public class SpawnManager : MonoBehaviour
             
             i++;
             var obj = _objPool.SpawnObject();
-            obj.transform.position = Random.insideUnitCircle;
+            obj.transform.position = Random.insideUnitSphere.With(y : 0);
 
             if (i == 10)
             {
