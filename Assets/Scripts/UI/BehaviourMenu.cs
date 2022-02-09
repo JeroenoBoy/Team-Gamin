@@ -8,8 +8,11 @@ public class BehaviourMenu : MonoBehaviour
     //private UnitState settings => FindObjectOfType<UnitState>();
     private UnitState unitState;
 
-    public void SetBehaviour(UnitState hahaha)
+    public void SetBehaviour(string unit)
     {
-        unitState = hahaha;
+        if (UnitState.TryParse(unit, out UnitState state))
+            unitState = state;
+        else
+            Debug.LogError("Invalid State!");
     }
 }
