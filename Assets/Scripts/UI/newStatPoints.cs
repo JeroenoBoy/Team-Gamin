@@ -11,7 +11,7 @@ public class newStatPoints : MonoBehaviour
     [Header("Values")]
     [SerializeField]private float statPoints = 100;
     [SerializeField]private float usedStatPoints;
-    [SerializeField]private float multiplier = 1;
+    [SerializeField]private float multiplier = 5;
 
     [Header("Text")]
     [SerializeField] private TextMeshProUGUI statPointsText;
