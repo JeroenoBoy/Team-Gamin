@@ -16,6 +16,9 @@ public class SpawnManager : MonoBehaviour
     [Range(0.1f, 20f)]
     public float TimeBetweenWave;
 
+    [Range(1f, 20f)]
+    public float multiplier;
+
     private int i;
 
     private void Start()
@@ -32,7 +35,7 @@ public class SpawnManager : MonoBehaviour
             
             i++;
             var obj = _objPool.SpawnObject();
-            obj.transform.position = Random.insideUnitSphere.With(y : 0);
+            obj.transform.position = transform.position + Random.insideUnitSphere.With(y : 0) * multiplier;
             SetValues(obj);
 
             if (i == 10)

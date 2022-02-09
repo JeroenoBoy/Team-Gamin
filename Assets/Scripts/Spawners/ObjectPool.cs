@@ -9,7 +9,7 @@ public class ObjectPool : MonoBehaviour
     //What it is going to spawn
     [SerializeField] private GameObject _objectToSpawn;
 
-    private Transform _parentPool => gameObject.transform;
+    public Transform _parentPool;
 
     [Header("Pool Values")]
     //MaxZise and the currentSize of the pool
@@ -51,19 +51,19 @@ public class ObjectPool : MonoBehaviour
                 return null;
             else
             {
-                spawnedObject.transform.position = transform.position;
+                spawnedObject.transform.position = _parentPool.transform.position;
                 spawnedObject.transform.rotation = Quaternion.identity;
             }
         }
         else if (spawnedObject == null || AutoExpand && spawnedObject == null)
         {
-            spawnedObject = Instantiate(currentObject, transform.position, Quaternion.identity, _parentPool);
+            spawnedObject = Instantiate(currentObject, _parentPool.transform.position, Quaternion.identity, _parentPool);
             spawnedObject.name = currentObject.name + "_" + _currentSize;
             _currentSize++;
         }
         else
         {
-            spawnedObject.transform.position = transform.position;
+            spawnedObject.transform.position = _parentPool.transform.position;
             spawnedObject.transform.rotation = Quaternion.identity;
         }
 
