@@ -1,18 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using NPC.UnitData;
 
 public class BehaviourMenu : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    //private UnitState settings => FindObjectOfType<UnitState>();
+    private UnitState unitState;
 
-    // Update is called once per frame
-    void Update()
+    public void SetBehaviour(UnitState hahaha)
     {
-        
+        unitState = hahaha;
     }
 }
