@@ -2324,11 +2324,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6384698623316616173, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
   m_PrefabInstance: {fileID: 1156423061}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1161996604 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5513952201805270747, guid: 54e99d7c332a99742867f460dff783d3, type: 3}
-  m_PrefabInstance: {fileID: 37006883}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1164379062
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2474,7 +2469,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6384698623316616173, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.34875077
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6384698623316616173, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2515,41 +2510,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6384698623316616173, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
   m_PrefabInstance: {fileID: 1206442301}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1206442303 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6384698623316616166, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
-  m_PrefabInstance: {fileID: 1206442301}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1206442304
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1206442303}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4efbe73f23d08b4390e01a2ea6ee4db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  statPoints: {fileID: 0}
-  TimeBetweenSpawn: 0.2
-  TimeBetweenWave: 10
---- !u!114 &1206442305
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1206442303}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb3d5c7ee1bce3f4286412a9dfec34de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _objectToSpawn: {fileID: 1161996604}
-  AutoExpand: 1
-  MaxSize: 0
 --- !u!1001 &1218803077
 PrefabInstance:
   m_ObjectHideFlags: 0

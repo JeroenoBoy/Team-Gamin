@@ -32,7 +32,7 @@ namespace Platoons
          */
         public void RequestPlatoon(UnitBrain brain)
         {
-            if(brain.unitSetting.state == UnitState.GuardPath) return;
+            if(brain.unitSetting.state.IsGuardPath()) return;
             
             //  Initializing
             
@@ -57,12 +57,14 @@ namespace Platoons
                 //  Getting component
                 
                 if(!collider.TryGetComponent(out UnitBrain unitBrain)) continue;
-                if(unitBrain.unitSetting.state == UnitState.GuardPath) continue;
+                
+                //  Validation checks
+                
                 if(unitBrain.team != team) continue;
-                
-                //  Setting and checking platoon
-                
                 if(unitBrain.platoon == platoon) continue;
+                if(unitBrain.unitSetting.state.IsGuardPath()) continue;
+    
+                //  Adding unit to platoon or migrating platoon
 
                 if (!unitBrain.platoon)
                     platoon.AddUnit(unitBrain);
