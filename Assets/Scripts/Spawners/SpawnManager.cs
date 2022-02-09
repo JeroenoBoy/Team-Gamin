@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Controllers.Paths;
 using UnityEngine;
 using Util;
 using NPC.UnitData;
@@ -10,6 +11,7 @@ public class SpawnManager : MonoBehaviour
     private ObjectPool _objPool;
 
     public newStatPoints statPoints;
+    public BehaviourMenu behaviourMenu;
 
     [Range(0.1f, 1f)]
     public float TimeBetweenSpawn;
@@ -20,7 +22,12 @@ public class SpawnManager : MonoBehaviour
     [Range(1f, 20f)]
     public float multiplier;
 
+    public Transform TargetCastle;
+    public PathController targetPath1;
+    public PathController targetPath2;
+    
     public UnityEvent OnWaveStart;
+
 
     private int i;
 
@@ -41,6 +48,7 @@ public class SpawnManager : MonoBehaviour
             
             i++;
             var obj = _objPool.SpawnObject();
+            if (!obj) continue;
             obj.transform.position = transform.position + Random.insideUnitSphere.With(y : 0) * multiplier;
             SetValues(obj);
 
@@ -61,5 +69,9 @@ public class SpawnManager : MonoBehaviour
         go.movementSpeed = statPoints.data[2].value;
         go.sightRange = (int)statPoints.data[3].value;
         go.defense = (int)statPoints.data[4].value;
+        go.targetCastle = TargetCastle;
+        go.state = behaviourMenu.unitState;
+
+        go.path = go.state == UnitState.GuardPathA ? targetPath1 : targetPath2;
     }
 }

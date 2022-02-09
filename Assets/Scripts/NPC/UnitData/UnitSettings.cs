@@ -1,5 +1,6 @@
 ﻿using System;
 using Controllers;
+using Controllers.Paths;
 using NPC.Brains;
 using UnityEngine;
 
@@ -21,6 +22,20 @@ namespace NPC.UnitData
         public int defense;
 
 
+        public Transform targetCastle
+        {
+            get => _brain.castleTarget;
+            set => _brain.castleTarget = value;
+        }
+
+
+        public PathController path
+        {
+            get => _brain.path;
+            set => _brain.path = value;
+        }
+
+
         public UnitState state
         {
             get => _state;
@@ -29,6 +44,15 @@ namespace NPC.UnitData
                 _state = value;
                 SendMessage("OnStateChange");
             }
+        }
+
+
+        private UnitBrain _brain;
+
+
+        private void Awake()
+        {
+            _brain = GetComponent<UnitBrain>();
         }
 
 

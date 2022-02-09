@@ -34,7 +34,7 @@ namespace NPC.Behaviours.Avoidance
             if(_eyes.hits == null) return;
             
             var obstacles = _eyes.hits
-                .Where(t => t.transform.HasLayer(_layer))
+                .Where(t => t.transform && t.transform.HasLayer(_layer))
                 .ToArray();
             
             var addForce = movement.maxSpeed * settings.avoidObstacleForce;
