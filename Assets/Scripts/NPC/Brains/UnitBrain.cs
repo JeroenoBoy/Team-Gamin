@@ -148,7 +148,7 @@ namespace NPC.Brains
          */
         private void OnStateChange()
         {
-            if(platoon && unitSetting.state == UnitState.GuardPath) platoon.RemoveUnit(this);
+            if(platoon && unitSetting.state.IsGuardPath()) platoon.RemoveUnit(this);
             animator.SetInteger(_stateHash, (int)unitSetting.state);
         }
 
