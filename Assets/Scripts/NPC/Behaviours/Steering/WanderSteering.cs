@@ -5,6 +5,8 @@ namespace NPC.Behaviours.Steering
 {
     public class WanderSteering : AIBehavior
     {
+        [SerializeField] private float _forceMultiplier = 1f;
+        
         private float _pointAngle = 0f;
         
         
@@ -21,7 +23,7 @@ namespace NPC.Behaviours.Steering
             var rotation      = Quaternion.Euler(0,_pointAngle,0) * forward;
             var relativePoint = rotation * settings.wanderCircleRadius;
 
-            movement.AddForce(relativePoint + distance);
+            movement.AddForce((relativePoint + distance) * _forceMultiplier);
         }
 
 

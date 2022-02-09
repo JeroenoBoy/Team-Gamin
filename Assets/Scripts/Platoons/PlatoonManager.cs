@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Game.Scripts.Utils;
 using NPC.Brains;
+using NPC.UnitData;
 using UnityEngine;
 
 namespace Platoons
@@ -31,6 +32,8 @@ namespace Platoons
          */
         public void RequestPlatoon(UnitBrain brain)
         {
+            if(brain.unitSetting.state == UnitState.GuardPath) return;
+            
             //  Initializing
             
             var brainTransform = brain.transform;
@@ -54,6 +57,7 @@ namespace Platoons
                 //  Getting component
                 
                 if(!collider.TryGetComponent(out UnitBrain unitBrain)) continue;
+                if(unitBrain.unitSetting.state == UnitState.GuardPath) continue;
                 if(unitBrain.team != team) continue;
                 
                 //  Setting and checking platoon

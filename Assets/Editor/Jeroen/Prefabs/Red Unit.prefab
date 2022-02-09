@@ -251,6 +251,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fov: 70
   _rays: 5
+  _minSight: 3
   _rayLength: 30
   _interactMask:
     serializedVersion: 2
@@ -285,6 +286,7 @@ MonoBehaviour:
   _weight: 1
   _maxSpeed: 5
   _minVelocity: 0.05
+  _rotationSpeed: 180
 --- !u!114 &5513952201805270721
 MonoBehaviour:
   m_ObjectHideFlags: 0

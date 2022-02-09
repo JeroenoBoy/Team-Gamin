@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -6,7 +7,7 @@ using Util;
 
 namespace Controllers.Paths
 {
-    public class PathController : MonoBehaviour
+    public class PathController : MonoBehaviour, IEnumerable
     {
         public enum Type { PingPong, Loop, ReverseLoop, Random }
         [SerializeField] private Type       _type;
@@ -16,6 +17,7 @@ namespace Controllers.Paths
 
         public int totalNotes => _nodes.Length;
         public Type type => _type;
+        public PathNode[] nodes => _nodes;
 
 
         /// <summary>
@@ -32,7 +34,11 @@ namespace Controllers.Paths
         /// </summary>
         private void CollectNodes()
         {
-            if (_autoPath) _nodes = GetComponentsInChildren<PathNode>();
+            if (!_autoPath) return;
+            
+            _nodes = GetComponentsInChildren<PathNode>();
+            for (var i = 0; i < _nodes.Length; i++)
+                _nodes[i].index = i;
         }
 
 
@@ -126,6 +132,13 @@ namespace Controllers.Paths
             
             Gizmos.color = Color.red;
             Gizmos.DrawLine(_nodes[0].position, previous.position);
+        }
+        
+        
+
+        public IEnumerator GetEnumerator()
+        {
+            return _nodes.GetEnumerator();
         }
     }
 }

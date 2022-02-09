@@ -68,7 +68,10 @@ namespace NPC.Utility
             foreach (var collider in Physics.OverlapSphere(position, _minSight, _interactMask))
             {
                 if (collider.transform == transform) continue;
+                
                 ray.direction = (collider.transform.position - position).normalized;
+                if (ray.direction == Vector3.zero) continue;
+                
                 if(collider.Raycast(ray, out var hit, _minSight))
                     yield return hit;
             }

@@ -17,6 +17,9 @@ namespace Controllers
         [SerializeField] private float _maxSpeed;
         [SerializeField] private float _minVelocity;
 
+        [Header("Rotation")]
+        [SerializeField] private float _rotationSpeed;
+
         public  Vector3 velocity     { get; set; }
         public  Vector3 currentForce { get; set; }
         private Vector3 _oldForce;
@@ -53,7 +56,7 @@ namespace Controllers
         /// <summary>
         /// Fixes input is zero
         /// </summary>
-        private Vector3 _forward => velocity == Vector3.zero ? transform.forward : velocity;
+        private Quaternion _forward => Quaternion.LookRotation(velocity == Vector3.zero ? transform.forward : velocity);
 
 
         //  Unity Messages
@@ -92,8 +95,10 @@ namespace Controllers
         /// </summary>
         private void Update()
         {
+            var targetSpeed = _rotationSpeed * Time.deltaTime;
+            
             transform.position += velocity * Time.deltaTime;
-            transform.rotation  = Quaternion.LookRotation(_forward);
+            transform.rotation  = Quaternion.RotateTowards(transform.rotation, _forward, targetSpeed);
         }
 
         
