@@ -37,7 +37,7 @@ namespace NPC.UnitData
          */
         public void Start()
         {
-            state = _state;
+            //state = _state;
         }
     }
 }

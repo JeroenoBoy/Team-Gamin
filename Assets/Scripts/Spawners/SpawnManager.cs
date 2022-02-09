@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Util;
+using NPC.UnitData;
 
 public class SpawnManager : MonoBehaviour
 {
     private ObjectPool _objPool;
+
+    public newStatPoints statPoints;
 
     [Range(0.1f, 1f)]
     public float TimeBetweenSpawn;
@@ -30,6 +33,7 @@ public class SpawnManager : MonoBehaviour
             i++;
             var obj = _objPool.SpawnObject();
             obj.transform.position = Random.insideUnitSphere.With(y : 0);
+            SetValues(obj);
 
             if (i == 10)
             {
@@ -37,5 +41,16 @@ public class SpawnManager : MonoBehaviour
                 i = 0;
             }
         }
+    }
+
+    private void SetValues(GameObject obj)
+    {
+        var go = obj.GetComponent<UnitSettings>();
+
+        go.attackDamage = (int)statPoints.data[0].value;
+        go.attackSpeed = statPoints.data[1].value;
+        go.movementSpeed = statPoints.data[2].value;
+        go.sightRange = (int)statPoints.data[3].value;
+        go.defense = (int)statPoints.data[4].value;
     }
 }

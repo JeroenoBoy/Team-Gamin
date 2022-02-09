@@ -6,7 +6,7 @@ using TMPro;
 
 public class newStatPoints : MonoBehaviour
 {
-    [SerializeField] private statpointsdata[] data;
+    public statpointsdata[] data;
 
     [Header("Values")]
     [SerializeField]private float statPoints = 100;
