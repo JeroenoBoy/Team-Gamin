@@ -2,6 +2,7 @@
 using Controllers.Paths;
 using UnityEditor;
 using UnityEngine;
+using System.Linq;
 using Random = UnityEngine.Random;
 
 namespace NPC.Behaviours.Steering
@@ -22,12 +23,14 @@ namespace NPC.Behaviours.Steering
             _pathLength     = stateController.path.totalNotes;
             _indexDirection = 1;
             
-            //  Setting the index based on the path type
-            _currentIndex = stateController.path.type == PathController.Type.Random
-                ? Random.Range(0, _pathLength)
-                : 0;
-            
-            _currentNode = stateController.path.GetNode(_currentIndex);
+            //  Finding the closest node
+
+            var position = transform.position;
+            _currentNode = stateController.path.nodes
+                .OrderBy(n => (n.position - position).sqrMagnitude)
+                .First();
+
+            _currentIndex = _currentNode.index;
         }
 
 

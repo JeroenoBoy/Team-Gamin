@@ -20,16 +20,16 @@ namespace NPC.Brains
         private static readonly int _diedHash       = Animator.StringToHash("Died");
 
         public Transform castleTarget;
-        
-        private UnitSettings     _unitSettings;
+
         private HealthController _healthComponent;
         private Eyes             _eyes;
 
         private bool _hasTarget;
         
-        public Transform[] targets { get; private set; }
-        public Platoon     platoon;
-        
+        public Transform[]  targets { get; private set; }
+        public Platoon      platoon;
+        public UnitSettings unitSetting { get; private set; }
+
 
         /**
          * Initiate the script
@@ -39,13 +39,13 @@ namespace NPC.Brains
             base.Awake();
             _healthComponent = GetComponent<HealthController>();
             _eyes            = GetComponent<Eyes>();
-            _unitSettings    = GetComponent<UnitSettings>();
+            unitSetting    = GetComponent<UnitSettings>();
 
             //  Setting the options
             
-            movementController.maxSpeed = _unitSettings.movementSpeed;
-            _eyes.rayLength             = _unitSettings.sightRange;
-            _healthComponent.maxHealth  = _unitSettings.baseHealth + _unitSettings.defense;
+            movementController.maxSpeed = unitSetting.movementSpeed;
+            _eyes.rayLength             = unitSetting.sightRange;
+            _healthComponent.maxHealth  = unitSetting.baseHealth + unitSetting.defense;
             _healthComponent.health     = _healthComponent.maxHealth;
         }
 
@@ -68,7 +68,7 @@ namespace NPC.Brains
          */
         private void OnDestroy()
         {
-            platoon.RemoveUnit(this);
+            platoon?.RemoveUnit(this);
         }
 
 
@@ -148,7 +148,8 @@ namespace NPC.Brains
          */
         private void OnStateChange()
         {
-            animator.SetInteger(_stateHash, (int)_unitSettings.state);
+            if(platoon && unitSetting.state == UnitState.GuardPath) platoon.RemoveUnit(this);
+            animator.SetInteger(_stateHash, (int)unitSetting.state);
         }
 
 
@@ -198,8 +199,8 @@ namespace NPC.Brains
 
         public UnitTeam team
         {
-            get => _unitSettings.team;
-            set => _unitSettings.team = value;
+            get => unitSetting.team;
+            set => unitSetting.team = value;
         }
         
 

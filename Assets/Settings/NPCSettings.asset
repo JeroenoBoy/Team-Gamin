@@ -15,9 +15,9 @@ MonoBehaviour:
   minSeekDistance: 0.5
   maxFleeDistance: 1000000
   pursueLookAhead: 2
-  minNodeDistance: 1
+  minNodeDistance: 3
   stopDistance: 0.5
-  slowDistance: 3
+  slowDistance: 2
   wanderCircleDistance: 4
   wanderCircleRadius: 3
   wanderNoiseAngle: 1000
