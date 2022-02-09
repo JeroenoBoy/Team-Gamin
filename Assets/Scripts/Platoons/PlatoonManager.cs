@@ -42,6 +42,7 @@ namespace Platoons
             //  Assigning platoon to me
             
             var platoon = !brain.platoon ? brain.platoon = new Platoon(team, brain) : brain.platoon;
+            if(platoon.Count >= _maxPlatoonSize) return;
 
             //  Finding all units near me
 

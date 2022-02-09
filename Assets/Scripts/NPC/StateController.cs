@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using Controllers;
 using Controllers.Paths;
+using UnityEditor.Animations;
 using UnityEngine;
 
 namespace NPC
@@ -16,7 +17,7 @@ namespace NPC
         public PathController path;
         
         [SerializeField] private AIBehavior[] _behaviours;
-
+        
         
         #region Getters & Setters
 
@@ -53,7 +54,6 @@ namespace NPC
         public void AddBehaviour(AIBehavior behavior)
         {
             _behaviours = _behaviours.Append(behavior).ToArray();
-            // _behaviours.Add(behavior);
         }
     
         
@@ -63,8 +63,6 @@ namespace NPC
         public void RemoveBehaviour(AIBehavior behavior)
         {
             _behaviours = _behaviours.Where(b => b != behavior).ToArray();
-            // if(!_behaviours.Remove(behavior))
-            //     Debug.LogError("Failed to remove behaviour");
         }
 
 
@@ -77,6 +75,14 @@ namespace NPC
             {
                 behaviour.PhysicsUpdate();
             }
+        }
+
+
+        protected void Reset()
+        {
+            _behaviours = Array.Empty<AIBehavior>();
+            animator.Rebind();
+            animator.Update(0f);
         }
 
 

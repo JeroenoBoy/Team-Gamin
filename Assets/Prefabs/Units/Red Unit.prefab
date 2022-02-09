@@ -313,11 +313,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5c6568dc35e4b76bd2a79ce1f7a8915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 5
   team: 0
   _state: 1
-  attackSpeed: 0.5
-  attackDamage: 20
-  sightRange: 20
-  baseHealth: 75
-  defense: 20
+  _movementSpeed: 5
+  _attackSpeed: 0
+  _attackDamage: 0
+  _sightRange: 15
+  _defense: 0
+  _baseSpeed: 3
+  _baseAttackSpeed: 1
+  _baseDamage: 10
+  _baseSightRange: 5
+  _baseDefence: 50
+  _speedMulti: 0.03
+  _dmgMulti: 0.1
+  _attackSpeedMulti: 0.007
+  _sightMulti: 0.1
+  _defenceMutli: 0.5

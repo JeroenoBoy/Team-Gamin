@@ -22,7 +22,7 @@ namespace NPC.Behaviours.Unit
             if(_died || Time.time < _dieAt) return;
             
             _died = true;
-            Destroy(stateController.gameObject);
+            stateController.gameObject.SetActive(false);
         }
     }
 }

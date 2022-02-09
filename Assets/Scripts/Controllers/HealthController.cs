@@ -8,7 +8,7 @@ namespace Controllers
         [SerializeField] private int _health;
         [SerializeField] private int _maxHealth;
 
-        public bool  isDead  { get; private set; } = false;
+        public bool isDead;
         
         
         #region Properties
@@ -26,6 +26,13 @@ namespace Controllers
         }
 
         #endregion
+
+
+        private void OnEnable()
+        {
+            isDead = false;
+            _health = _maxHealth;
+        }
 
 
         /// <summary>

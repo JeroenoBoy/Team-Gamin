@@ -39,6 +39,8 @@ public class SpawnManager : MonoBehaviour
 
     protected virtual IEnumerator WaveSpawner()
     {
+        yield return new WaitForSeconds(TimeBetweenWave/2);
+        
         while (i < 10)
         {
             if (i == 0)
@@ -71,7 +73,8 @@ public class SpawnManager : MonoBehaviour
         go.defense = (int)statPoints.data[4].value;
         go.targetCastle = TargetCastle;
         go.state = behaviourMenu.unitState;
-
         go.path = go.state == UnitState.GuardPathA ? targetPath1 : targetPath2;
+        
+        go.Bind();
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Linq;
 using Controllers;
 using NPC.UnitData;
@@ -31,6 +32,21 @@ namespace NPC.Brains
         public UnitSettings unitSetting { get; private set; }
 
 
+        private void OnEnable()
+        {
+            Reset();
+        }
+
+
+        public void Bind()
+        {
+            movementController.maxSpeed = unitSetting.movementSpeed;
+            _eyes.rayLength             = (int)unitSetting.sightRange;
+            _healthComponent.maxHealth  = (int)unitSetting.defense;
+            _healthComponent.health     = _healthComponent.maxHealth;
+        }
+
+
         /**
          * Initiate the script
          */
@@ -39,14 +55,7 @@ namespace NPC.Brains
             base.Awake();
             _healthComponent = GetComponent<HealthController>();
             _eyes            = GetComponent<Eyes>();
-            unitSetting    = GetComponent<UnitSettings>();
-
-            //  Setting the options
-            
-            movementController.maxSpeed = unitSetting.movementSpeed;
-            _eyes.rayLength             = unitSetting.sightRange;
-            _healthComponent.maxHealth  = unitSetting.baseHealth + unitSetting.defense;
-            _healthComponent.health     = _healthComponent.maxHealth;
+            unitSetting      = GetComponent<UnitSettings>();
         }
 
 
@@ -66,7 +75,7 @@ namespace NPC.Brains
         /**
          * Remove the unit from its platoon
          */
-        private void OnDestroy()
+        private void OnDisable()
         {
             platoon?.RemoveUnit(this);
         }
@@ -209,7 +218,12 @@ namespace NPC.Brains
             get
             {
                 //  To avoid some 
-                if (!base.target && _hasTarget) target = null;
+                if (!base.target && _hasTarget)
+                    target = null;
+                if (base.target && !base.target.gameObject.activeInHierarchy)
+                    target = null;
+                
+                
                 return base.target ? base.target : castleTarget;
             }
             set

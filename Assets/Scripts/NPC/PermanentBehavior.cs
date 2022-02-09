@@ -1,12 +1,13 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace NPC
 {
     public abstract class PermanentBehavior : AIBehavior
     {
         [SerializeField] private bool unload = false;
-        
-        
+
+
         public override void OnStateEnter(Animator anim, AnimatorStateInfo stateInfo, int layerIndex)
         {
             if (unload)

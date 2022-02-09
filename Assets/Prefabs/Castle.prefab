@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6384698623316616172}
   - component: {fileID: 7788022788293129028}
   - component: {fileID: 600169281819017242}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Castle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111,8 +111,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d40e7f63f4747d888dc095f3974d2e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 1
-  _maxHealth: 1
+  _health: 200
+  _maxHealth: 200
+  isDead: 0
 --- !u!114 &6384698623316616172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,3 +178,8 @@ MonoBehaviour:
   TimeBetweenWave: 10
   multiplier: 4
   TargetCastle: {fileID: 0}
+  targetPath1: {fileID: 0}
+  targetPath2: {fileID: 0}
+  OnWaveStart:
+    m_PersistentCalls:
+      m_Calls: []

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.Design;
+﻿using System;
+using System.ComponentModel.Design;
 using Controllers;
 using UnityEngine;
 using Util;
@@ -33,12 +34,13 @@ namespace NPC
             if (!started) Init(anim);
 
             stateController.AddBehaviour(this);
-;           Enter();
+            Enter();
         }
 
 
         public override void OnStateExit(Animator anim, AnimatorStateInfo stateInfo, int stateMachinePathHash)
         {
+            if(!stateController) return;
             Exit();
             stateController.RemoveBehaviour(this);
         }
@@ -104,13 +106,7 @@ namespace NPC
             //  Calculating the force based on slowing distance
 
             var slowDistance   = settings.slowDistance + settings.stopDistance;
-            var currentSpeed = movement.velocity;//.magnitude;
-            
-            // var percentageDistance = distance / (slowDistance * slowDistance);
-            // var desiredSpeed       = percentageDistance * targetSpeed;
-            // var desiredVel       = desiredSpeed - currentSpeed;
-            //  
-            // return direction.normalized * Mathf.Clamp(desiredVel , 0, targetSpeed);
+            var currentSpeed = movement.velocity;
 
             var percentageDistance = distance / slowDistance;
             var desiredSpeed       = percentageDistance * targetSpeed;
@@ -120,10 +116,14 @@ namespace NPC
         }
         
         #endregion
-        
-        
-        
-        
+
+
+        public void Reset()
+        {
+            started = false;
+        }
+
+
         //
         //  Events
         //

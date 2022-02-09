@@ -8,20 +8,76 @@ namespace NPC.UnitData
 {
     public class UnitSettings : MonoBehaviour
     {
-        public float movementSpeed;
         public UnitTeam team;
         [SerializeField] private UnitState _state;
         
-        [Header("Attack")]
-        public float attackSpeed;
-        public int   attackDamage;
-        public int   sightRange;
+        [SerializeField] private float _movementSpeed;
+        [SerializeField] private float _attackSpeed;
+        [SerializeField] private int   _attackDamage;
+        [SerializeField] private int   _sightRange;
+        [SerializeField] private int   _defense;
+
+        [Header("Base stats")]
+        [SerializeField] private float _baseSpeed;
+        [SerializeField] private float _baseAttackSpeed;
+        [SerializeField] private float _baseDamage;
+        [SerializeField] private float _baseSightRange;
+        [SerializeField] private float _baseDefence;
+
+        [Header("Multiplies")]
+        [SerializeField] private float _speedMulti;
+        [SerializeField] private float _dmgMulti;
+        [SerializeField] private float _attackSpeedMulti;
+        [SerializeField] private float _sightMulti;
+        [SerializeField] private float _defenceMutli;
         
-        [Header("Health")]
-        public int baseHealth;
-        public int defense;
+        
+        #region Properties
+        
+        
+        public float movementSpeed
+        {
+            get => _movementSpeed;
+            set => _movementSpeed = _baseSpeed + value * _speedMulti;
+        }
 
 
+        public float attackSpeed
+        {
+            get => _attackSpeed;
+            set => _attackSpeed = _baseAttackSpeed - value * _attackSpeedMulti;
+        }
+
+
+        public float attackDamage
+        {
+            get => _attackDamage;
+            set => _attackDamage = (int)(_baseDamage + value * _dmgMulti);
+        }
+
+
+        public float sightRange
+        {
+            get => _sightRange;
+            set => _sightRange = (int)(_baseSightRange + value * _sightMulti);
+        }
+
+
+        public float defense
+        {
+            get => _defense;
+            set => _defense = (int)(_baseDefence + value * _defenceMutli);
+        }
+
+        #endregion
+
+        
+        #region Behaviour Stats
+
+        
+        /**
+         * Set the target castle
+         */
         public Transform targetCastle
         {
             get => _brain.castleTarget;
@@ -29,6 +85,9 @@ namespace NPC.UnitData
         }
 
 
+        /**
+         * The path I should follow
+         */
         public PathController path
         {
             get => _brain.path;
@@ -36,6 +95,9 @@ namespace NPC.UnitData
         }
 
 
+        /**
+         * The behaviour I should use
+         */
         public UnitState state
         {
             get => _state;
@@ -46,6 +108,8 @@ namespace NPC.UnitData
             }
         }
 
+        #endregion
+        
 
         private UnitBrain _brain;
 
@@ -56,12 +120,9 @@ namespace NPC.UnitData
         }
 
 
-        /**
-         * Just to fix some bugs
-         */
-        public void Start()
+        public void Bind()
         {
-            //state = _state;
+            _brain.Bind();
         }
     }
 }

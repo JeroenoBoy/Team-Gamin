@@ -1,11 +1,14 @@
 ﻿using Controllers;
 using NPC.UnitData;
 using UnityEngine;
+using Util;
 
 namespace NPC.Behaviours.Unit
 {
     public class AttackBehaviour : AIBehavior
     {
+        [SerializeField] private LayerMask _targetLayer;
+        
         private UnitSettings _settings;
         
         private float _nextStrike;
@@ -31,8 +34,8 @@ namespace NPC.Behaviours.Unit
 
             //  Actually dealing the damage
             
-            if (target && target.TryGetComponent(out HealthController health))
-                health.Damage(_settings.attackDamage);
+            if (target && target.HasLayer(_targetLayer) && target.TryGetComponent(out HealthController health))
+                health.Damage((int)_settings.attackDamage);
         }
 
 
