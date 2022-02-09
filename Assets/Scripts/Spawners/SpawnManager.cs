@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Util;
 using NPC.UnitData;
+using UnityEngine.Events;
 
 public class SpawnManager : MonoBehaviour
 {
@@ -19,6 +20,8 @@ public class SpawnManager : MonoBehaviour
     [Range(1f, 20f)]
     public float multiplier;
 
+    public UnityEvent OnWaveStart;
+
     private int i;
 
     private void Start()
@@ -31,6 +34,9 @@ public class SpawnManager : MonoBehaviour
     {
         while (i < 10)
         {
+            if (i == 0)
+                OnWaveStart?.Invoke();
+
             yield return new WaitForSeconds(TimeBetweenSpawn);
             
             i++;
