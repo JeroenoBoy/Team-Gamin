@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 5513952201805270751}
   - component: {fileID: 5513952201805270750}
   - component: {fileID: 5513952201805270720}
-  - component: {fileID: 5513952201805270721}
+  - component: {fileID: 5345406982290034369}
   - component: {fileID: 2569366360537612392}
   m_Layer: 9
   m_Name: Red Unit
@@ -287,7 +287,7 @@ MonoBehaviour:
   _maxSpeed: 5
   _minVelocity: 0.05
   _rotationSpeed: 180
---- !u!114 &5513952201805270721
+--- !u!114 &5345406982290034369
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -296,11 +296,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 5513952201805270747}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d40e7f63f4747d888dc095f3974d2e1, type: 3}
+  m_Script: {fileID: 11500000, guid: 0e5505e29387428ca867ece792443706, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _health: 100
   _maxHealth: 100
+  baseHealth: 100
+  isDead: 0
+  _healthBar: {fileID: 0}
+  _armorBar: {fileID: 0}
 --- !u!114 &2569366360537612392
 MonoBehaviour:
   m_ObjectHideFlags: 0

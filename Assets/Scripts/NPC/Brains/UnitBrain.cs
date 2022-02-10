@@ -45,6 +45,8 @@ namespace NPC.Brains
             _healthComponent.maxHealth  = (int)unitSettings.defense;
             _healthComponent.health     = _healthComponent.maxHealth;
             _healthComponent.baseHealth = unitSettings.baseDefence;
+            
+            SendMessage("OnBind", SendMessageOptions.DontRequireReceiver);
         }
 
 

@@ -11,7 +11,7 @@ namespace Controllers
         public int baseHealth;
         public bool isDead;
         
-        
+
         #region Properties
 
         public int health
