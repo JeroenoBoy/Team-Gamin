@@ -4,7 +4,6 @@ namespace Controllers
 {
     public class HealthierController : HealthController
     {
-
         [Header("Bars")]
         [SerializeField] private Healthbar _healthBar;
         [SerializeField] private ArmorBar  _armorBar;
