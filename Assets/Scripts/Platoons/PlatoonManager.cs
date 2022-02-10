@@ -32,7 +32,7 @@ namespace Platoons
          */
         public void RequestPlatoon(UnitBrain brain)
         {
-            if(brain.unitSetting.state.IsGuardPath()) return;
+            if(brain.unitSettings.state.IsGuardPath()) return;
             
             //  Initializing
             
@@ -63,7 +63,7 @@ namespace Platoons
                 
                 if(unitBrain.team != team) continue;
                 if(unitBrain.platoon == platoon) continue;
-                if(unitBrain.unitSetting.state.IsGuardPath()) continue;
+                if(unitBrain.unitSettings.state.IsGuardPath()) continue;
     
                 //  Adding unit to platoon or migrating platoon
 

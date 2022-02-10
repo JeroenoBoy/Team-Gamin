@@ -29,7 +29,7 @@ namespace NPC.Brains
         
         public Transform[]  targets { get; private set; }
         public Platoon      platoon;
-        public UnitSettings unitSetting { get; private set; }
+        public UnitSettings unitSettings { get; private set; }
 
 
         private void OnEnable()
@@ -40,10 +40,11 @@ namespace NPC.Brains
 
         public void Bind()
         {
-            movementController.maxSpeed = unitSetting.movementSpeed;
-            _eyes.rayLength             = (int)unitSetting.sightRange;
-            _healthComponent.maxHealth  = (int)unitSetting.defense;
+            movementController.maxSpeed = unitSettings.movementSpeed;
+            _eyes.rayLength             = (int)unitSettings.sightRange;
+            _healthComponent.maxHealth  = (int)unitSettings.defense;
             _healthComponent.health     = _healthComponent.maxHealth;
+            _healthComponent.baseHealth = unitSettings.baseDefence;
         }
 
 
@@ -55,7 +56,7 @@ namespace NPC.Brains
             base.Awake();
             _healthComponent = GetComponent<HealthController>();
             _eyes            = GetComponent<Eyes>();
-            unitSetting      = GetComponent<UnitSettings>();
+            unitSettings      = GetComponent<UnitSettings>();
         }
 
 
@@ -157,8 +158,8 @@ namespace NPC.Brains
          */
         private void OnStateChange()
         {
-            if(platoon && unitSetting.state.IsGuardPath()) platoon.RemoveUnit(this);
-            animator.SetInteger(_stateHash, (int)unitSetting.state);
+            if(platoon && unitSettings.state.IsGuardPath()) platoon.RemoveUnit(this);
+            animator.SetInteger(_stateHash, (int)unitSettings.state);
         }
 
 
@@ -208,8 +209,8 @@ namespace NPC.Brains
 
         public UnitTeam team
         {
-            get => unitSetting.team;
-            set => unitSetting.team = value;
+            get => unitSettings.team;
+            set => unitSettings.team = value;
         }
         
 

@@ -8,6 +8,7 @@ namespace Controllers
         [SerializeField] private int _health;
         [SerializeField] private int _maxHealth;
 
+        public int baseHealth;
         public bool isDead;
         
         
@@ -24,6 +25,11 @@ namespace Controllers
             get => _maxHealth;
             set => _maxHealth = value;
         }
+
+
+        public int scaledDefence => Mathf.Clamp(_health - baseHealth, 0, maxDefence);
+        public int scaledHealth  => Mathf.Clamp(_health, 0, baseHealth);
+        public int maxDefence    => _maxHealth - baseHealth;
 
         #endregion
 

@@ -69,6 +69,9 @@ namespace NPC.UnitData
             set => _defense = (int)(_baseDefence + value * _defenceMutli);
         }
 
+
+        public int baseDefence => (int)_baseDefence;
+
         #endregion
 
         
