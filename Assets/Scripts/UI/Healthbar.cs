@@ -3,11 +3,15 @@ using UnityEngine.UI;
 
 public class Healthbar : MonoBehaviour
 {
-    private Slider slider => GetComponent<Slider>();
+    private Slider slider;
     [SerializeField] private Gradient gradient;
     [SerializeField] private Image fill;
 
-  
+    private void Start()
+    {
+        slider = GetComponent<Slider>();
+    }
+
     public void SetMaxHealth(int health)
     {
         slider.maxValue = health;
