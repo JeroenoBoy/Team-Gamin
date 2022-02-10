@@ -17,8 +17,8 @@ public class UpgradeArea : MonoBehaviour
             settings.attackDamage += 5;
 
             //caps attack damage
-            if (settings.attackDamage >= 100)
-                settings.attackDamage = 100;
+            if (settings.attackDamage >= 30)
+                settings.attackDamage = 30;
 
             //waits 5 seconds
             yield return new WaitForSeconds(5);
