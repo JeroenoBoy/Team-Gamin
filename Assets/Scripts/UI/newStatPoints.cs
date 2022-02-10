@@ -48,9 +48,10 @@ public class newStatPoints : MonoBehaviour
     {
         return () =>
         {
-            var newStatPoints = Mathf.Clamp(usedStatPoints - multiplier, 0, statPoints);
-            var changed = newStatPoints - usedStatPoints;
-            usedStatPoints = newStatPoints;
+            var newStatPoints = Mathf.Clamp(data.value - multiplier, 0, statPoints);
+            // var newStatPoints = Mathf.Clamp(usedStatPoints - multiplier, 0, statPoints);
+            var changed = newStatPoints - data.value;
+            usedStatPoints += changed;
 
             data.slider.value = data.value += changed;
             data.slidersText.text = string.Format(data.slidersName + " : {0}", data.slider.value);
