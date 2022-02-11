@@ -18,7 +18,7 @@ PrefabInstance:
     - target: {fileID: 600169281819017242, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
       propertyPath: OnWaveStart.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 9041429191612376421}
+      objectReference: {fileID: 0}
     - target: {fileID: 600169281819017242, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
       propertyPath: OnWaveStart.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -109,18 +109,18 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 081d4873bf5324340ab3577e78cec1f7, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
---- !u!1 &8184216874777244925 stripped
+--- !u!1 &2736519521227628108 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 6384698623316616166, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
+  m_CorrespondingSourceObject: {fileID: 933721156003645783, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
   m_PrefabInstance: {fileID: 2958632342998783771}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &9041429191612376421
+--- !u!114 &2135876666848791370
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8184216874777244925}
+  m_GameObject: {fileID: 2736519521227628108}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a90e47be4cfd441b9c549f498e24dc8c, type: 3}
