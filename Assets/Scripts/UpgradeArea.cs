@@ -1,32 +1,37 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using NPC.UnitData;
-
-public class UpgradeArea : MonoBehaviour
+using Game.Scripts.Utils;
+public class UpgradeArea : Singleton<UpgradeArea>
 {
-    private UnitSettings settings => FindObjectOfType<UnitSettings>();
+    public Dictionary<UnitSettings, Coroutine> units = new Dictionary<UnitSettings, Coroutine>();
     [SerializeField] private bool isInside = false;
-
-    private IEnumerator OnTriggerEnter(Collider other)
+    
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer != LayerMask.NameToLayer("Unit")) yield break;
-        isInside = true;
-        while (isInside)
+        if (other.TryGetComponent(out UnitSettings unit))
         {
-            //increases attack damage
-            settings.attackDamage += 5;
-
-            //caps attack damage
-            if (settings.attackDamage >= 30)
-                settings.attackDamage = 30;
-
-            //waits 5 seconds
-            yield return new WaitForSeconds(5);
+            var coroutine = StartCoroutine(AddAttackDamage(unit));
+            units.Add(unit, coroutine);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        isInside = false;
+        if (other.TryGetComponent(out UnitSettings unit))
+        {
+            var coroutine = units[unit];
+            StopCoroutine(coroutine);
+            units.Remove(unit);
+        }
+    }
+
+    IEnumerator AddAttackDamage(UnitSettings unit)
+    {
+        yield return new WaitForSeconds(5);
+
+        //increase attack for all units in the trigger
+        unit.attackDamage = 200;
     }
 }

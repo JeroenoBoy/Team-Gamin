@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Controllers;
+using Game.Scripts.Utils;
 
-public class HealingFountain : MonoBehaviour
+public class HealingFountain : Singleton<HealingFountain>
 {
     public List<HealthController> Agents = new List<HealthController>();
 
