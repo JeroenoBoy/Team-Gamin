@@ -20,6 +20,9 @@ namespace Controllers
         [Header("Rotation")]
         [SerializeField] private float _rotationSpeed;
 
+        [Space]
+        public bool canMove = true;
+
         public  Vector3 velocity     { get; set; }
         public  Vector3 currentForce { get; set; }
         private Vector3 _oldForce;
@@ -95,6 +98,8 @@ namespace Controllers
         /// </summary>
         private void Update()
         {
+            if(!canMove) return;
+            
             var targetSpeed = _rotationSpeed * Time.deltaTime;
             
             transform.position += velocity * Time.deltaTime;

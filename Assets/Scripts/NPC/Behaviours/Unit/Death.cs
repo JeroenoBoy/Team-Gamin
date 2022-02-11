@@ -14,6 +14,16 @@ namespace NPC.Behaviours.Unit
         {
             _dieAt = Time.time + _dieAfter;
             _died = false;
+            movement.canMove = false;
+
+            if (Physics.Raycast(transform.position, -transform.up, out var raycast, 5f))
+                transform.position = raycast.point;
+        }
+
+
+        protected override void Exit()
+        {
+            movement.canMove = true;
         }
 
 
