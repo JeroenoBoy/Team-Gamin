@@ -14,10 +14,10 @@ namespace Controllers
             _healthBar.SetMaxHealth(baseHealth);
             _armorBar.SetMaxArmor(maxDefence);
             
-            OnHealthChange();
+            HealthChange();
         }
         
-        private void OnHealthChange() {
+        private void HealthChange() {
             _healthBar.SetHealth(scaledHealth);
             _armorBar.SetArmor(scaledDefence);
         }

@@ -8,7 +8,7 @@ public class ArmorBar : MonoBehaviour
     [SerializeField] private Image fill;
 
 
-    private void Start()
+    private void Awake()
     {
         slider = GetComponent<Slider>();
     }

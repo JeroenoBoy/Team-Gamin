@@ -32,24 +32,6 @@ namespace NPC.Brains
         public UnitSettings unitSettings { get; private set; }
 
 
-        private void OnEnable()
-        {
-            Reset();
-        }
-
-
-        public void Bind()
-        {
-            movementController.maxSpeed = unitSettings.movementSpeed;
-            _eyes.rayLength             = (int)unitSettings.sightRange;
-            _healthComponent.maxHealth  = (int)unitSettings.defense;
-            _healthComponent.health     = _healthComponent.maxHealth;
-            _healthComponent.baseHealth = unitSettings.baseDefence;
-            
-            SendMessage("OnBind", SendMessageOptions.DontRequireReceiver);
-        }
-
-
         /**
          * Initiate the script
          */
@@ -58,7 +40,7 @@ namespace NPC.Brains
             base.Awake();
             _healthComponent = GetComponent<HealthController>();
             _eyes            = GetComponent<Eyes>();
-            unitSettings      = GetComponent<UnitSettings>();
+            unitSettings     = GetComponent<UnitSettings>();
         }
 
 
@@ -81,6 +63,8 @@ namespace NPC.Brains
         private void OnDisable()
         {
             platoon?.RemoveUnit(this);
+            target = null;
+            Reset();
         }
 
 
@@ -202,6 +186,23 @@ namespace NPC.Brains
                     return false;
             }
         }
+        
+
+        /**
+         * Rebind all settings to the controllers
+         */
+        public void Bind()
+        {
+            movementController.maxSpeed = unitSettings.movementSpeed;
+            _eyes.rayLength             = (int)unitSettings.sightRange;
+            _healthComponent.maxHealth  = (int)unitSettings.defense;
+            _healthComponent.health     = _healthComponent.maxHealth;
+            _healthComponent.baseHealth = unitSettings.baseDefence;
+
+            target = null;
+            
+            SendMessage("OnBind", SendMessageOptions.DontRequireReceiver);
+        }
 
         #endregion
 
@@ -223,7 +224,7 @@ namespace NPC.Brains
                 //  To avoid some 
                 if (!base.target && _hasTarget)
                     target = null;
-                if (base.target && !base.target.gameObject.activeInHierarchy)
+                if (_hasTarget && !base.target.gameObject.activeInHierarchy)
                     target = null;
                 
                 

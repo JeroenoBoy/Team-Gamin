@@ -13,8 +13,9 @@ namespace NPC
         
         #region Usefull properties for the behaviour
 
-        protected StateController stateController { get; private set; }
-        protected Animator        animator        { get; private set; }
+        protected StateController   stateController { get; private set; }
+        protected Animator          animator        { get; private set; }
+        protected AnimatorStateInfo stateInfo       { get; private set; }
         
         protected Transform target            => stateController.target;
         protected Transform transform         => stateController.transform;
@@ -31,15 +32,19 @@ namespace NPC
         
         public override void OnStateEnter(Animator anim, AnimatorStateInfo stateInfo, int layerIndex)
         {
+            this.stateInfo = stateInfo;
             if (!started) Init(anim);
 
             stateController.AddBehaviour(this);
             Enter();
         }
+        
+        
 
 
         public override void OnStateExit(Animator anim, AnimatorStateInfo stateInfo, int stateMachinePathHash)
         {
+            this.stateInfo = stateInfo;
             if(!stateController) return;
             Exit();
             stateController.RemoveBehaviour(this);

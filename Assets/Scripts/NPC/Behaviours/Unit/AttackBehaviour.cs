@@ -22,7 +22,7 @@ namespace NPC.Behaviours.Unit
         
         protected override void Enter()
         {
-            animator.speed = _settings.attackSpeed;
+            animator.speed = _settings.attackSpeed * 1/stateInfo.length;
             _nextStrike    = Time.time + 1/_settings.attackSpeed;
         }
         

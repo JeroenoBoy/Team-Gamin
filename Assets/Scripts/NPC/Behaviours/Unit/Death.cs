@@ -17,7 +17,7 @@ namespace NPC.Behaviours.Unit
             movement.canMove = false;
 
             if (Physics.Raycast(transform.position, -transform.up, out var raycast, 5f))
-                transform.position = raycast.point;
+                transform.position = raycast.point + Vector3.up * .5f;
         }
 
 

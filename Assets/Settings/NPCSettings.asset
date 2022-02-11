@@ -22,7 +22,7 @@ MonoBehaviour:
   wanderCircleRadius: 3
   wanderNoiseAngle: 1000
   avoidObstacleForce: 5
-  avoidObstacleDistance: 3
+  avoidObstacleDistance: 2
   inverseAvoidAngleOffset: 75
   avoidObstacleMask:
     serializedVersion: 2
