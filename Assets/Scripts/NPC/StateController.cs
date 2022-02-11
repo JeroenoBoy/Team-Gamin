@@ -1,10 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using Controllers;
 using Controllers.Paths;
-using UnityEditor.Animations;
 using UnityEngine;
 
 namespace NPC
@@ -82,7 +79,6 @@ namespace NPC
         {
             _behaviours = Array.Empty<AIBehavior>();
             animator.Rebind();
-            animator.Update(0f);
             movementController.canMove = true;
         }
 

@@ -869,7 +869,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c917d2d5e12e419a870694fd9c49f514, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 7
+  index: 6
 --- !u!4 &711296003
 Transform:
   m_ObjectHideFlags: 0
@@ -884,11 +884,6 @@ Transform:
   m_Father: {fileID: 1330154678}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &767176753 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6578001450187869422, guid: a8c2d3ffb2dee884cb7fdcbec524e669, type: 3}
-  m_PrefabInstance: {fileID: 4910952086288033998}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &774952270
 GameObject:
   m_ObjectHideFlags: 0
@@ -994,6 +989,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: -165, z: 0}
+--- !u!4 &984941522 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2070588706364412068, guid: a8c2d3ffb2dee884cb7fdcbec524e669, type: 3}
+  m_PrefabInstance: {fileID: 4910952086288033998}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1007088975
 GameObject:
   m_ObjectHideFlags: 0
@@ -1108,7 +1108,7 @@ PrefabInstance:
     - target: {fileID: 7269784269978884671, guid: d3396d9dc5f743b43a94af2d841f8bd9, type: 3}
       propertyPath: TargetCastle
       value: 
-      objectReference: {fileID: 767176753}
+      objectReference: {fileID: 984941522}
     - target: {fileID: 7269784269978884671, guid: d3396d9dc5f743b43a94af2d841f8bd9, type: 3}
       propertyPath: OnWaveStart.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -1415,8 +1415,8 @@ MonoBehaviour:
   - {fileID: 39786869}
   - {fileID: 266108820}
   - {fileID: 1801222074}
-  - {fileID: 1897788447}
   - {fileID: 711296002}
+  - {fileID: 1897788447}
 --- !u!4 &1330154678
 Transform:
   m_ObjectHideFlags: 0
@@ -2043,7 +2043,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c917d2d5e12e419a870694fd9c49f514, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 6
+  index: 7
 --- !u!4 &1897788448
 Transform:
   m_ObjectHideFlags: 0

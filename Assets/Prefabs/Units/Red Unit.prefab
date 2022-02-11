@@ -711,13 +711,13 @@ MonoBehaviour:
   _sightRange: 15
   _defense: 0
   _baseSpeed: 3
-  _baseAttackSpeed: 1
+  _baseAttackSpeed: 2
   _baseDamage: 10
   _baseSightRange: 5
   _baseDefence: 50
   _speedMulti: 0.03
   _dmgMulti: 0.1
-  _attackSpeedMulti: 0.007
+  _attackSpeedMulti: 0.015
   _sightMulti: 0.1
   _defenceMutli: 0.5
 --- !u!1 &7116092693942520203
