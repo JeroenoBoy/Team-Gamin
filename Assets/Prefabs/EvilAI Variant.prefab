@@ -48,6 +48,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 081d4873bf5324340ab3577e78cec1f7, type: 2}
     - target: {fileID: 5259455103766763487, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
+      propertyPath: _parentPool
+      value: 
+      objectReference: {fileID: 3918652708585760956}
+    - target: {fileID: 5259455103766763487, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
       propertyPath: _objectToSpawn
       value: 
       objectReference: {fileID: 5513952201805270747, guid: 54e99d7c332a99742867f460dff783d3, type: 3}
@@ -116,6 +120,11 @@ PrefabInstance:
 --- !u!1 &2736519521227628108 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 933721156003645783, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
+  m_PrefabInstance: {fileID: 2958632342998783771}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &3918652708585760956 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2265017664190349223, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
   m_PrefabInstance: {fileID: 2958632342998783771}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &2135876666848791370

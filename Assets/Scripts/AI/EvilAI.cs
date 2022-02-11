@@ -19,6 +19,8 @@ namespace AI
             statPoints.enabled    = false;
             spawner.statPoints    = statPoints;
             spawner.behaviourMenu = behaviourMenu;
+
+            statPoints.statPoints = 100f;
         }
 
 

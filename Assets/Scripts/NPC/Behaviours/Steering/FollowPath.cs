@@ -111,6 +111,7 @@ namespace NPC.Behaviours.Steering
         }
 
 
+#if UNITY_EDITOR
         /// <summary>
         /// Draws the radius distance
         /// </summary>
@@ -119,5 +120,6 @@ namespace NPC.Behaviours.Steering
             Handles.color = Color.yellow;
             Handles.DrawWireDisc(transform.position, Vector3.up, settings.minNodeDistance);
         }
+#endif
     }
 }

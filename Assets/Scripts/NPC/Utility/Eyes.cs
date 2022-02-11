@@ -100,6 +100,7 @@ namespace NPC.Utility
         }
 
 
+#if UNITY_EDITOR
         /// <summary>
         /// Draws the utility rays
         /// </summary>
@@ -119,5 +120,6 @@ namespace NPC.Utility
             
             Handles.DrawWireDisc(transform.position, transform.up, _minSight);
         }
+#endif
     }
 }

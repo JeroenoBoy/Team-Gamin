@@ -27,6 +27,8 @@ namespace NPC.Behaviours.Steering
         }
 
 
+
+#if UNITY_EDITOR
         public override void OnDrawGizmos()
         {
             var currentPos = transform.position;
@@ -49,5 +51,6 @@ namespace NPC.Behaviours.Steering
             
             Handles.DrawSolidDisc(pointPos, Vector3.up, 0.3f);
         }
+#endif
     }
 }

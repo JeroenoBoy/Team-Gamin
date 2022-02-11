@@ -15,9 +15,13 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[1]
       value: 
       objectReference: {fileID: 2100000, guid: 93369549235609845a4cbc2a1b7fc40a, type: 2}
+    - target: {fileID: 5259455103766763487, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
+      propertyPath: _parentPool
+      value: 
+      objectReference: {fileID: 6578001450187869422}
     - target: {fileID: 6384698623316616166, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
       propertyPath: m_Name
-      value: Castle
+      value: Blue castle
       objectReference: {fileID: 0}
     - target: {fileID: 6384698623316616173, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
       propertyPath: m_RootOrder
@@ -77,3 +81,8 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 93369549235609845a4cbc2a1b7fc40a, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
+--- !u!4 &6578001450187869422 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2265017664190349223, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
+  m_PrefabInstance: {fileID: 4910952086461428553}
+  m_PrefabAsset: {fileID: 0}

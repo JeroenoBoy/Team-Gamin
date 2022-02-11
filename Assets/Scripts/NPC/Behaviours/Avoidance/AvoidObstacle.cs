@@ -54,6 +54,7 @@ namespace NPC.Behaviours.Avoidance
         }
 
 
+#if UNITY_EDITOR
         /**
          * Draw fancy gizmos
          */
@@ -69,5 +70,6 @@ namespace NPC.Behaviours.Avoidance
                 Gizmos.DrawLine(hit.point, hit.point + hit.normal);
             }
         }
+#endif
     }
 }
