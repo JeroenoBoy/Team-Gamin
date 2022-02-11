@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2612229555500931783}
   - component: {fileID: 2612229555500931776}
+  - component: {fileID: 1577173842609366185}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -43,11 +44,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c04e618e52ead3445bb1297f88101493, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  castle: {fileID: 0}
-  enemyCastle: {fileID: 0}
+  DefenderCastle: {fileID: 0}
+  EnemyCastle: {fileID: 0}
   OnWin:
     m_PersistentCalls:
       m_Calls: []
   OnLose:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1577173842609366185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2612229555500931777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 101ebfefb6e44b56b478e9ad5676b001, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxPlatoonSize: 10
+  _platoonSearchRadius: 3
+  _teamAmount: 2
+  _unitLayerName:
+    serializedVersion: 2
+    m_Bits: 512
