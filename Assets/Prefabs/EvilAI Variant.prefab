@@ -47,6 +47,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 081d4873bf5324340ab3577e78cec1f7, type: 2}
+    - target: {fileID: 5259455103766763487, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
+      propertyPath: _objectToSpawn
+      value: 
+      objectReference: {fileID: 5513952201805270747, guid: 54e99d7c332a99742867f460dff783d3, type: 3}
     - target: {fileID: 6384698623316616166, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
       propertyPath: m_Name
       value: EvilAI Variant
