@@ -1,8 +1,12 @@
 //credit to this vid https://www.youtube.com/watch?v=Lz74CCrxzjs
 using UnityEngine;
+using Util;
 
 public class CameraMover : MonoBehaviour
 {
+    private Camera cam;
+    public Vector3 clamp;
+
     [Header("Focus Object")]
     [SerializeField, Tooltip("Enable double-click to focus on objects?")]
     private bool doFocus = false;
@@ -39,6 +43,7 @@ public class CameraMover : MonoBehaviour
     private void Start()
     {
         SavePosAndRot();
+        cam = Camera.main;
     }
 
     private void Update()
@@ -60,6 +65,8 @@ public class CameraMover : MonoBehaviour
         }
 
         cooldown -= Time.deltaTime;
+
+       
     }
 
 
@@ -113,6 +120,25 @@ public class CameraMover : MonoBehaviour
         //scroll to zoom
         float _mouseScroll = Input.GetAxis("Mouse ScrollWheel");
         transform.Translate(Vector3.forward * _mouseScroll * zoomSpeed);
+
+
+        //clamping
+        if (cam.transform.position.y <= 10)
+        {
+            cam.transform.position = cam.transform.position.With(y: 10);
+        }
+        if (cam.transform.position.y >= clamp.y)
+        {
+            cam.transform.position = cam.transform.position.With(y: clamp.y);
+        }
+        if (cam.transform.position.x >= clamp.x || cam.transform.position.x <= -clamp.x)
+        {
+            cam.transform.position = cam.transform.position.With(x: clamp.x * Mathf.Sign(cam.transform.position.x));
+        }
+        if (cam.transform.position.z >= clamp.z || cam.transform.position.z <= -clamp.z)
+        {
+            cam.transform.position = cam.transform.position.With(z: clamp.z * Mathf.Sign(cam.transform.position.z));
+        }
     }
 
     private void FocusObject()
