@@ -849,9 +849,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statPoints: {fileID: 680971321}
-  TimeBetweenSpawn: 1
+  TimeBetweenSpawn: 0.2
   TimeBetweenWave: 10
   multiplier: 1
+  OnWaveStart:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &165796231
 GameObject:
   m_ObjectHideFlags: 0
@@ -2775,7 +2778,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4290e5ae0987c64fb7915b8960608a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panel: {fileID: 680971319}
+  StatsPanel: {fileID: 0}
+  BehaviourPanel: {fileID: 0}
 --- !u!1 &823529212
 GameObject:
   m_ObjectHideFlags: 0
@@ -4497,6 +4501,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 997695e927bd894499afa67fa206bf6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitState: 0
 --- !u!114 &1341125048
 MonoBehaviour:
   m_ObjectHideFlags: 0
