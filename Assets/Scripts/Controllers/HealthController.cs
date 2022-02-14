@@ -10,6 +10,7 @@ namespace Controllers
 
         public int baseHealth;
         public bool isDead;
+        public bool isBlocking;
         
 
         #region Properties
