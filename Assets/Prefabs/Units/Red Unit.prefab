@@ -687,8 +687,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _health: 100
   _maxHealth: 100
+  _blockingRange: 0
   baseHealth: 100
   isDead: 0
+  isBlocking: 0
   _healthBar: {fileID: 7573744896115184900}
   _armorBar: {fileID: 2818958256413565625}
 --- !u!114 &2569366360537612392

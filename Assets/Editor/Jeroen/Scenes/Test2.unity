@@ -2296,6 +2296,22 @@ PrefabInstance:
       propertyPath: OnWaveStart.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 5259455103766763487, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
+      propertyPath: MaxSize
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5614962023612599588, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
+      propertyPath: targetPath1
+      value: 
+      objectReference: {fileID: 1451264952}
+    - target: {fileID: 5614962023612599588, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
+      propertyPath: targetPath2
+      value: 
+      objectReference: {fileID: 992404101}
+    - target: {fileID: 5614962023612599588, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
+      propertyPath: TargetCastle
+      value: 
+      objectReference: {fileID: 1206442302}
     - target: {fileID: 6384698623316616166, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
       propertyPath: m_Name
       value: Castle
@@ -2318,19 +2334,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6384698623316616173, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.0000006407499
       objectReference: {fileID: 0}
     - target: {fileID: 6384698623316616173, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6384698623316616173, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6384698623316616173, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6384698623316616173, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2338,7 +2354,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6384698623316616173, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 6384698623316616173, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -3319,6 +3335,22 @@ PrefabInstance:
       propertyPath: AutoExpand
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7057838796666994884, guid: d3396d9dc5f743b43a94af2d841f8bd9, type: 3}
+      propertyPath: MaxSize
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7269784269978884671, guid: d3396d9dc5f743b43a94af2d841f8bd9, type: 3}
+      propertyPath: targetPath1
+      value: 
+      objectReference: {fileID: 356429683}
+    - target: {fileID: 7269784269978884671, guid: d3396d9dc5f743b43a94af2d841f8bd9, type: 3}
+      propertyPath: targetPath2
+      value: 
+      objectReference: {fileID: 564095238}
+    - target: {fileID: 7269784269978884671, guid: d3396d9dc5f743b43a94af2d841f8bd9, type: 3}
+      propertyPath: TargetCastle
+      value: 
+      objectReference: {fileID: 1156423062}
     - target: {fileID: 8184216874777244918, guid: d3396d9dc5f743b43a94af2d841f8bd9, type: 3}
       propertyPath: m_RootOrder
       value: 7
