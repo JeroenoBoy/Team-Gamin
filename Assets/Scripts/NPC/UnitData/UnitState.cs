@@ -17,9 +17,9 @@ namespace NPC.UnitData
 
     public static class UnitStateExtensions
     {
-        private static readonly UnitState[] _states = (UnitState[])Enum.GetValues(typeof(UnitState));
-        
-        
+        public static readonly UnitState[] states = (UnitState[])Enum.GetValues(typeof(UnitState));
+
+
         public static bool IsGuardPath(this UnitState self)
         {
             return self == UnitState.GuardPathA || self == UnitState.GuardPathB;
@@ -28,7 +28,7 @@ namespace NPC.UnitData
 
         public static UnitState Random()
         {
-            return _states[UnityEngine.Random.Range(0, _states.Length)];
+            return states[UnityEngine.Random.Range(0, states.Length)];
         }
     }
 }
