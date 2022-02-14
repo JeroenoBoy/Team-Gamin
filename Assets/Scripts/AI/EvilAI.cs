@@ -17,6 +17,7 @@ namespace AI
             behaviourMenu = gameObject.AddComponent<BehaviourMenu>();
 
             statPoints.enabled    = false;
+            behaviourMenu.enabled = false;
             spawner.statPoints    = statPoints;
             spawner.behaviourMenu = behaviourMenu;
 
