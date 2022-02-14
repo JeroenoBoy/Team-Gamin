@@ -49,6 +49,7 @@ namespace NPC.Brains
          */
         private IEnumerator Start()
         {
+            Bind();
             while (true)
             {
                 PlatoonManager.instance.RequestPlatoon(this);

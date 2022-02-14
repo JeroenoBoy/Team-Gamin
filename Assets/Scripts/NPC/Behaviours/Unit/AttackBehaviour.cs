@@ -34,8 +34,11 @@ namespace NPC.Behaviours.Unit
 
             //  Actually dealing the damage
             
-            if (target && target.HasLayer(_targetLayer) && target.TryGetComponent(out HealthController health))
-                health.Damage((int)_settings.attackDamage);
+            if (target 
+                && target.HasLayer(_targetLayer)
+                && target.TryGetComponent(out HealthController health)
+                && target.GetComponent<Collider>().Raycast(transform.ForwardRay(), out var info, _settings.sightRange))
+                health.Damage((int)_settings.attackDamage, info.point);
         }
 
 
