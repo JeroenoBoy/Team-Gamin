@@ -6,11 +6,19 @@ using Controllers;
 
 public class BlockBehaviour : AIBehavior
 {
+    HealthController health;
     protected override void Start()
     {
         base.Start();
-        
-        var health = GetComponent<HealthController>();
+
+        health = GetComponent<HealthController>();
         health.isBlocking = true;
+    }
+
+    protected override void Exit()
+    {
+        base.Exit();
+
+        health.isBlocking = false;
     }
 }
