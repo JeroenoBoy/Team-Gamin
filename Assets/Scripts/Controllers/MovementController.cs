@@ -23,8 +23,10 @@ namespace Controllers
         [Space]
         public bool canMove = true;
 
-        public  Vector3 velocity     { get; set; }
-        public  Vector3 currentForce { get; set; }
+        public  Vector3 velocity            { get; set; }
+        public  float   angularVelocity     { get; set; }
+        public  Vector3 currentForce        { get; set; }
+        public  float   currentAngularForce { get; set; }
         private Vector3 _oldForce;
 
 
@@ -62,15 +64,12 @@ namespace Controllers
         private Quaternion _forward => Quaternion.LookRotation(velocity == Vector3.zero ? transform.forward : velocity);
 
 
-        //  Unity Messages
-        
-        
         /// <summary>
         /// Updates the physics
         /// </summary>
         private void FixedUpdate()
         {
-            //  Calculating the desired new velocity
+            //  calculating the desired new velocity
 
             _oldForce = currentForce = Vector3.ClampMagnitude(currentForce, maxSpeed);
             
@@ -87,11 +86,16 @@ namespace Controllers
             if(currentForce.sqrMagnitude <= velSqr && velocity.sqrMagnitude < velSqr)
                 velocity = Vector3.zero;
             
-            //  Resetting the force
+            //  Rotating towards
 
-            currentForce = Vector3.zero;
+            angularVelocity = Mathf.Clamp(currentAngularForce, -_rotationSpeed, _rotationSpeed);
+            
+            //  Resetting the force
+            
+            currentAngularForce = Vector3.SignedAngle(transform.forward, currentForce, transform.up);
+            currentForce        = Vector3.zero;
         }
-        
+
 
         /// <summary>
         /// Updates the position
@@ -100,10 +104,8 @@ namespace Controllers
         {
             if(!canMove) return;
             
-            var targetSpeed = _rotationSpeed * Time.deltaTime;
-            
-            transform.position += velocity * Time.deltaTime;
-            transform.rotation  = Quaternion.RotateTowards(transform.rotation, _forward, targetSpeed);
+            transform.position    += velocity * Time.deltaTime;
+            transform.eulerAngles += new Vector3(0, Mathf.Clamp(angularVelocity, -_rotationSpeed, _rotationSpeed) * Time.deltaTime, 0);
         }
 
         
@@ -126,6 +128,12 @@ namespace Controllers
         /// </summary>
         public void AddForce(Vector3 addForce)
             => currentForce += addForce;
+
+        /// <summary>
+        /// Add a force to this controller
+        /// </summary>
+        public void AddAngularVelocity(float addForce)
+            => currentAngularForce += addForce;
 
         #endregion
     }

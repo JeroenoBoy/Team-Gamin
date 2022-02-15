@@ -37,7 +37,8 @@ namespace NPC.Behaviours.Unit
             if (target 
                 && target.HasLayer(_targetLayer)
                 && target.TryGetComponent(out HealthController health)
-                && target.GetComponent<Collider>().Raycast(transform.ForwardRay(), out var info, _settings.sightRange))
+                && target.TryGetComponent(out Collider col)
+                && col.Raycast(transform.ForwardRay(), out var info, _settings.sightRange))
                 health.Damage((int)_settings.attackDamage, info.point);
         }
 

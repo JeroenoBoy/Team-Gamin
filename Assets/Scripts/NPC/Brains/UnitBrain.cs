@@ -181,7 +181,9 @@ namespace NPC.Brains
                     return _eyes.CanSee(target);
                 
                 case false when target:
-                    return _eyes.CanSee(target);
+                    if (_eyes.CanSee(target)) return true;
+                    target = null;
+                    return false;
                 
                 default:
                     return false;
