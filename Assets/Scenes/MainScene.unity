@@ -840,8 +840,43 @@ PrefabInstance:
       propertyPath: multiplier
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 6017344597802651534, guid: 02a75062e5c9bb84dba933c95eb05ce7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6017344597802651534, guid: 02a75062e5c9bb84dba933c95eb05ce7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 553383558}
+    - target: {fileID: 6017344597802651534, guid: 02a75062e5c9bb84dba933c95eb05ce7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetBool
+      objectReference: {fileID: 0}
+    - target: {fileID: 6017344597802651534, guid: 02a75062e5c9bb84dba933c95eb05ce7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: TurnOffHealthBars, Assembly-CSharp
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02a75062e5c9bb84dba933c95eb05ce7, type: 3}
+--- !u!1 &553383555 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2127768338705593861, guid: 02a75062e5c9bb84dba933c95eb05ce7, type: 3}
+  m_PrefabInstance: {fileID: 524840957}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &553383558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 553383555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c24191c183161124ea0a2c58f892565f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toggled: 1
+  canvasses: []
 --- !u!1 &607969383
 GameObject:
   m_ObjectHideFlags: 0

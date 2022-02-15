@@ -6,6 +6,7 @@ public class Healthbar : MonoBehaviour
     private Slider slider;
     [SerializeField] private Gradient gradient;
     [SerializeField] private Image fill;
+    [SerializeField] private Canvas canvas;
 
     private void Awake()
     {
@@ -25,5 +26,16 @@ public class Healthbar : MonoBehaviour
         slider.value = health;
 
         fill.color = gradient.Evaluate(slider.normalizedValue);
+    }
+
+    public void OnEnable()
+    {
+        TurnOffHealthBars.instance.canvasses.Add(canvas);
+        canvas.enabled = TurnOffHealthBars.instance.toggled;
+    }
+
+    public void OnDisable()
+    {
+        TurnOffHealthBars.instance.canvasses.Remove(canvas);
     }
 }

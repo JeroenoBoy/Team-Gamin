@@ -132,6 +132,7 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   fill: {fileID: 193157005569165929}
+  canvas: {fileID: 8960335172765882199}
 --- !u!1 &697749247960546090
 GameObject:
   m_ObjectHideFlags: 0
