@@ -36,6 +36,9 @@ public class Healthbar : MonoBehaviour
 
     public void OnDisable()
     {
-        TurnOffHealthBars.instance.canvasses.Remove(canvas);
+        if (TurnOffHealthBars.instance)
+        {
+            TurnOffHealthBars.instance.canvasses.Remove(canvas);
+        }
     }
 }
