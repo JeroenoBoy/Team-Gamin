@@ -22,8 +22,8 @@ namespace NPC.Brains
 
         public Transform castleTarget;
 
-        private HealthController _healthComponent;
-        private Eyes             _eyes;
+        public HealthController healthComponent { get; private set; }
+        public Eyes             eyes { get; private set; }
 
         private bool _hasTarget;
         
@@ -38,9 +38,9 @@ namespace NPC.Brains
         protected override void Awake()
         {
             base.Awake();
-            _healthComponent = GetComponent<HealthController>();
-            _eyes            = GetComponent<Eyes>();
-            unitSettings     = GetComponent<UnitSettings>();
+            healthComponent = GetComponent<HealthController>();
+            eyes            = GetComponent<Eyes>();
+            unitSettings    = GetComponent<UnitSettings>();
         }
 
 
@@ -79,7 +79,7 @@ namespace NPC.Brains
         {
             base.FixedUpdate();
             UpdateCastleInRange();
-            if(_eyes.hits != null) UpdateTarget();
+            if(eyes.hits != null) UpdateTarget();
         }
 
 
@@ -101,7 +101,7 @@ namespace NPC.Brains
             
             //  Getting the closest unit in the other team
 
-            var closest = _eyes.hits
+            var closest = eyes.hits
                 .Where  (t => t.transform.TryGetComponent(out UnitBrain brain) && brain.team != team)
                 .OrderBy(t => (t.transform.position - position).sqrMagnitude)
                 .FirstOrDefault().transform;
@@ -126,7 +126,7 @@ namespace NPC.Brains
          */
         private void HealthChange()
         {
-            animator.SetInteger(_healthHash, _healthComponent.health);
+            animator.SetInteger(_healthHash, healthComponent.health);
         }
         
         
@@ -178,10 +178,10 @@ namespace NPC.Brains
                 
                 case true when !target:
                     target = closest;
-                    return _eyes.CanSee(target);
+                    return eyes.CanSee(target);
                 
                 case false when target:
-                    if (_eyes.CanSee(target)) return true;
+                    if (eyes.CanSee(target)) return true;
                     target = null;
                     return false;
                 
@@ -197,10 +197,10 @@ namespace NPC.Brains
         public void Bind()
         {
             movementController.maxSpeed = unitSettings.movementSpeed;
-            _eyes.rayLength             = (int)unitSettings.sightRange;
-            _healthComponent.maxHealth  = (int)unitSettings.defense;
-            _healthComponent.health     = _healthComponent.maxHealth;
-            _healthComponent.baseHealth = unitSettings.baseDefence;
+            eyes.rayLength              = (int)unitSettings.sightRange;
+            healthComponent.maxHealth   = (int)unitSettings.defense;
+            healthComponent.health      = healthComponent.maxHealth;
+            healthComponent.baseHealth  = unitSettings.baseDefence;
 
             target = null;
             

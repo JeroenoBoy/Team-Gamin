@@ -1099,9 +1099,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b136340bc78247f2a8bea3fb6a5f60c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _targetLayer:
-    serializedVersion: 2
-    m_Bits: 512
 --- !u!114 &-4366694669089010464
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1743,9 +1740,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b136340bc78247f2a8bea3fb6a5f60c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _targetLayer:
-    serializedVersion: 2
-    m_Bits: 512
 --- !u!1102 &-2380591692637370013
 AnimatorState:
   serializedVersion: 6
@@ -2116,9 +2110,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b136340bc78247f2a8bea3fb6a5f60c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _targetLayer:
-    serializedVersion: 2
-    m_Bits: 1024
 --- !u!1101 &-352442559738539685
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -2432,6 +2423,18 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!114 &949131424369497245
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11d5237b92374bed8bdd3fb68fcec86a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1101 &1071920412816431882
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -2753,6 +2756,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unload: 0
   _multiplier: 0.25
+  _updateTime: 1
+  _calculateForceDelay: 1
   _override: 1
   _cohesionDistance: 3
   _separationDistance: 1
@@ -2969,6 +2974,7 @@ AnimatorState:
   - {fileID: -881135689654662721}
   m_StateMachineBehaviours:
   - {fileID: 573178997372786069}
+  - {fileID: 3846912139603341568}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -3064,6 +3070,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _boolName: InState
+--- !u!114 &3846912139603341568
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11d5237b92374bed8bdd3fb68fcec86a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1101 &3889616182640746114
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -3101,9 +3119,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b136340bc78247f2a8bea3fb6a5f60c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _targetLayer:
-    serializedVersion: 2
-    m_Bits: 512
 --- !u!1101 &4347042386688769826
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -3191,9 +3206,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b136340bc78247f2a8bea3fb6a5f60c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _targetLayer:
-    serializedVersion: 2
-    m_Bits: 512
 --- !u!114 &4616144328628127168
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3388,7 +3400,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13568b862aa84e85b65e3534ccc7a357, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dieAfter: 3
+  _dieAfter: 0.1
+  _deathAnim: {fileID: 5095263898786645008, guid: a3811ab6e879bc2448e4f0b2e0addeeb, type: 3}
 --- !u!114 &5470414031355892926
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3527,6 +3540,7 @@ AnimatorState:
   - {fileID: 418893987458217719}
   m_StateMachineBehaviours:
   - {fileID: 5470414031355892926}
+  - {fileID: 949131424369497245}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -3761,9 +3775,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b136340bc78247f2a8bea3fb6a5f60c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _targetLayer:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!1101 &6594115011570583264
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -3888,9 +3899,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b136340bc78247f2a8bea3fb6a5f60c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _targetLayer:
-    serializedVersion: 2
-    m_Bits: 512
 --- !u!1101 &7026338902109673440
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -4151,6 +4159,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unload: 0
   _multiplier: 1
+  _updateTime: 1
+  _calculateForceDelay: 0.2
   _override: 0
   _cohesionDistance: 4
   _separationDistance: 2
