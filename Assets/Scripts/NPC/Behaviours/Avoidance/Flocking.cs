@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Util;
+using Random = UnityEngine.Random;
 
 namespace NPC.Behaviours.Avoidance
 {
@@ -13,8 +15,10 @@ namespace NPC.Behaviours.Avoidance
     {
         protected const float minForce = 0.1f * 0.1f;
 
-        [SerializeField] private float _multiplier = 1f;
-
+        [SerializeField] private float _multiplier          = 1f;
+        [SerializeField] private float _updateTime          = 1f;
+        [SerializeField] private float _calculateForceDelay = 0.2f;
+        
         [Header("Override Settings")]
         [SerializeField] private bool  _override           = false;
         [SerializeField] private float _cohesionDistance   = 4f;
@@ -23,42 +27,77 @@ namespace NPC.Behaviours.Avoidance
         [SerializeField] private float _separationForce    = 5f;
         [SerializeField] private LayerMask _layerMask;
 
-
         protected float cohesionForce      => _override ? _cohesionForce      : settings.flockCohesionMaxForce;
         protected float cohesionDistance   => _override ? _cohesionDistance   : settings.flockCohesionDistance;
         protected float separationForce    => _override ? _separationForce    : settings.flockSeparationMaxForce;
         protected float separationDistance => _override ? _separationDistance : settings.flockSeparationDistance;
         protected LayerMask flockMask      => _override ? _layerMask : settings.flockMask;
+
+        private float       _nextUpdate;
+        private Transform[] _targets;
+        private Vector3     _force;
         
         
-        
-        public override void PhysicsUpdate()
+        protected override void Enter()
         {
-            var targets = FindTargets(cohesionDistance);
-            
-            //  Filtering targets
-
-            var center = transform.position;
-            var sqrDist  = separationDistance * separationDistance;
-            
-            var separationTargets
-                = targets.Where(t => (t.position - center).sqrMagnitude < sqrDist);
-            
-            //  Calculating forces
-
-            var targetCohesionForce   = CalculateForce(targets,           cohesionDistance,   cohesionForce);
-            var targetSeparationForce = CalculateForce(separationTargets, separationDistance, separationForce, true);
-
-            //  Checking if min force is smaller than a certain value else return force
-            
-            var force = (targetCohesionForce - targetSeparationForce) * _multiplier;
-            
-            movement.AddForce(force.sqrMagnitude < minForce
-                ? Vector3.zero
-                : force);
+            StartCoroutine(CalculateForce());
         }
 
 
+        /**
+         * Calculate the force
+         */
+        private IEnumerator CalculateForce()
+        {
+            yield return new WaitForSeconds(Random.Range(0f, _calculateForceDelay));
+            
+            while (true)
+            {
+                //  Some values
+    
+                var center = transform.position;
+                var sqrDist  = separationDistance * separationDistance;
+
+                _force = CalculateForce(center, sqrDist);
+                
+                yield return new WaitForSeconds(_calculateForceDelay);
+            }
+        }
+
+        protected virtual Vector3 CalculateForce(Vector3 center, float sqrDist)
+        {
+            var targets = FindTargets(cohesionDistance);
+                
+            var separationTargets
+                = targets.Where(t => (t.position - center).sqrMagnitude < sqrDist);
+                
+            //  Calculating forces
+    
+            var targetCohesionForce   = CalculateForce(targets,           cohesionDistance,   cohesionForce);
+            var targetSeparationForce = CalculateForce(separationTargets, separationDistance, separationForce, true);
+    
+            //  Checking if min force is smaller than a certain value else return force
+                
+            var force = (targetCohesionForce - targetSeparationForce) * _multiplier;
+
+            return force.sqrMagnitude < minForce
+                ? Vector3.zero
+                : force;
+        }
+
+
+        /**
+         * Applies the force
+         */
+        public override void PhysicsUpdate()
+        {
+            movement.AddForce(_force);
+        }
+
+
+        /**
+         * Calculate the force
+         */
         protected Vector3 CalculateForce(IEnumerable<Transform> targets, float distance, float maxForce, bool inverse = false)
         {
             var transform = this.transform;
@@ -75,6 +114,9 @@ namespace NPC.Behaviours.Avoidance
         }
 
 
+        /**
+         * Get the wanted calculation function
+         */
         private CalculatorFunction CalculateFunction(Vector3 center, float distance, float maxForce, bool inverse = false)
         {
             return inverse switch
@@ -106,12 +148,15 @@ namespace NPC.Behaviours.Avoidance
         }
 
 
-        /// <summary>
-        /// Find targets near the player
-        /// </summary>
+        /**
+         * Find the targets near the player
+         */
         private Transform[] FindTargets(float distance)
         {
-            return Physics.OverlapSphere(transform.position, distance, flockMask)
+            if (_nextUpdate > Time.time) return _targets;
+            _nextUpdate += _updateTime;
+            
+            return _targets = Physics.OverlapSphere(transform.position, distance, flockMask)
                 .Select(c => c.transform)
                 .ToArray();
         }

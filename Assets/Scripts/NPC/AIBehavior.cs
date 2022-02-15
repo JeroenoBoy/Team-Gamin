@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel.Design;
 using Controllers;
 using UnityEngine;
@@ -48,6 +50,7 @@ namespace NPC
             if(!stateController) return;
             Exit();
             stateController.RemoveBehaviour(this);
+            StopAllCoroutines();
         }
 
 
@@ -127,6 +130,59 @@ namespace NPC
         {
             started = false;
         }
+
+
+        #region Coroutines
+
+
+        private List<Coroutine> _coroutines = new List<Coroutine>();
+
+        
+        /**
+         * Start a coroutine
+         */
+        protected Coroutine StartCoroutine(IEnumerator routine)
+        {
+            Coroutine coroutine = null;
+            IEnumerator WrapCoroutine()
+            {
+                var startTime = Time.time;
+                yield return routine;
+                
+                if (Math.Abs(startTime - Time.time) < 0.0001f) yield return null;
+                
+                _coroutines.Remove(coroutine);
+            }
+            
+            coroutine = stateController.StartCoroutine(WrapCoroutine());
+            _coroutines.Add(coroutine);
+            
+            return coroutine;
+        }
+
+
+        /**
+         * Stop a single coroutine
+         */
+        protected void StopCoroutine(Coroutine coroutine)
+        {
+            stateController.StopCoroutine(coroutine);
+            _coroutines.Remove(coroutine);
+        }
+
+
+        /**
+         * Stop all coroutines
+         */
+        protected void StopAllCoroutines()
+        {
+            foreach (var coroutine in _coroutines)
+                stateController.StopCoroutine(coroutine);
+            _coroutines.Clear();
+        }
+
+
+        #endregion
 
 
         //
