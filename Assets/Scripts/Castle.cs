@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Controllers;
 
 public class Castle : MonoBehaviour
 {
@@ -10,6 +11,11 @@ public class Castle : MonoBehaviour
 
     [SerializeField]
     private UnityEvent OnGetHit;
+
+    private void Start()
+    {
+        GetComponentInChildren<Healthbar>().SetMaxHealth(GetComponent<HealthierController>().maxHealth);
+    }
 
     private void OnDamage()
     {

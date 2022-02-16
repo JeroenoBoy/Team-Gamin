@@ -6,20 +6,25 @@ namespace Controllers
     {
         [Header("Bars")]
         [SerializeField] private Healthbar _healthBar;
-        [SerializeField] private ArmorBar  _armorBar;
+        [SerializeField] private ArmorBar _armorBar;
 
 
         private void OnBind()
         {
             _healthBar.SetMaxHealth(baseHealth);
-            _armorBar.SetMaxArmor(maxDefence);
-            
+
+            if (_armorBar != null)
+                _armorBar.SetMaxArmor(maxDefence);
+
             HealthChange();
         }
-        
-        private void HealthChange() {
+
+        private void HealthChange()
+        {
             _healthBar.SetHealth(scaledHealth);
-            _armorBar.SetArmor(scaledDefence);
+
+            if (_armorBar != null)
+                _armorBar.SetArmor(scaledDefence);
         }
 
     }
