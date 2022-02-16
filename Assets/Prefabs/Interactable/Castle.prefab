@@ -50,8 +50,9 @@ MonoBehaviour:
   TimeBetweenWave: 10
   multiplier: 4
   TargetCastle: {fileID: 0}
-  targetPath1: {fileID: 0}
-  targetPath2: {fileID: 0}
+  guardPath1: {fileID: 0}
+  guardPath2: {fileID: 0}
+  paths: []
   OnWaveStart:
     m_PersistentCalls:
       m_Calls: []
@@ -80,8 +81,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6384698623316616173}
-  - component: {fileID: 6384698623316616161}
   - component: {fileID: 6384698623316616172}
+  - component: {fileID: 6384698623316616161}
   m_Layer: 10
   m_Name: Castle
   m_TagString: Untagged
@@ -106,23 +107,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6384698623316616161
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6384698623316616166}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d40e7f63f4747d888dc095f3974d2e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _health: 200
-  _maxHealth: 200
-  baseHealth: 0
-  isDead: 0
-  isBlocking: 0
 --- !u!114 &6384698623316616172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,6 +137,24 @@ MonoBehaviour:
   OnGetHit:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &6384698623316616161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6384698623316616166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d40e7f63f4747d888dc095f3974d2e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _health: 200
+  _maxHealth: 200
+  _blockingRange: 0
+  baseHealth: 0
+  isDead: 0
+  isBlocking: 0
 --- !u!1001 &387507428992755413
 PrefabInstance:
   m_ObjectHideFlags: 0
