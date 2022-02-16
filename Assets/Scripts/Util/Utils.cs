@@ -26,6 +26,16 @@ namespace Util
         /// <summary>
         /// Set a specific value of the vector
         /// </summary>
+        public static Ray ForwardRay(this Component self)
+        {
+            var transform = self.transform;
+            return new Ray(transform.position, transform.forward);
+        }
+        
+        
+        /// <summary>
+        /// Set a specific value of the vector
+        /// </summary>
         public static Quaternion Quaternion(float? x = null, float? y = null, float? z = null)
         {
             return UnityEngine.Quaternion.Euler(x ?? 0, y ?? 0, z ?? 0);

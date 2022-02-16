@@ -165,7 +165,7 @@ GameObject:
   - component: {fileID: 5642536478817043487}
   m_Layer: 5
   m_Name: CanvasHealthbar
-  m_TagString: Untagged
+  m_TagString: CanvasHealthbar
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -234,7 +234,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &5642536478817043483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -547,6 +547,7 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   fill: {fileID: 5642536478291635331}
+  canvas: {fileID: 5642536478817043460}
 --- !u!1 &5642536479952188912
 GameObject:
   m_ObjectHideFlags: 0

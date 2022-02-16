@@ -7,34 +7,22 @@ using UnityEngine;
 
 namespace NPC.Behaviours.Unit
 {
-    public class FindAllies : AIBehavior
+    public class FindAllies : UnitBehaviour
     {
-        [SerializeField] private float _forceMulti = 15f;
-        
-        private Eyes _eyes;
-
-        private UnitBrain _brain => (UnitBrain)stateController;
-        private UnitTeam   _team => _brain.team;
-        private Platoon _platoon => _brain.platoon;
-        
-        protected override void Start()
-        {
-            _eyes = GetComponent<Eyes>();
-        }
-
-
         public override void PhysicsUpdate()
         {
-            if(!_platoon) return;
+            if (!platoon) return;
             //  Finding all allies in sight
 
+            var team = unitBrain.team;
             var position = transform.position;
-            var ally = _eyes.hits
-                .Where(t => t.transform.TryGetComponent(out UnitBrain brain) && brain.platoon && brain.team == _team)
+            var ally = eyes.hits
+                .Where(t => t.transform.TryGetComponent(out UnitBrain brain) && brain.platoon && brain.team == team)
                 .OrderBy(t => (t.point - position).sqrMagnitude)
                 .FirstOrDefault();
-            
-            ally.transform.GetComponent<UnitBrain>().platoon.AddUnit(_brain);
+
+            if(ally.transform == null) return;
+            ally.transform.GetComponent<UnitBrain>().platoon.AddUnit(unitBrain);
         }
     }
 }

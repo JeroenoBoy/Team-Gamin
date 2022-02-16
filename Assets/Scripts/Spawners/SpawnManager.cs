@@ -23,9 +23,13 @@ public class SpawnManager : MonoBehaviour
     public float multiplier;
 
     public Transform TargetCastle;
-    public PathController targetPath1;
-    public PathController targetPath2;
     
+    [Header("Paths")]
+    public PathController guardPath1;
+    public PathController guardPath2;
+    public PathController[] paths;
+    
+    [Header("Events")]
     public UnityEvent OnWaveStart;
 
 
@@ -73,7 +77,13 @@ public class SpawnManager : MonoBehaviour
         go.defense = (int)statPoints.data[4].value;
         go.targetCastle = TargetCastle;
         go.state = behaviourMenu.unitState;
-        go.path = go.state == UnitState.GuardPathA ? targetPath1 : targetPath2;
+
+        go.path = go.state switch
+        {
+            UnitState.GuardPathA => guardPath1,
+            UnitState.GuardPathB => guardPath2,
+            _ => paths[behaviourMenu.pathIndex]
+        };
         
         go.Bind();
     }

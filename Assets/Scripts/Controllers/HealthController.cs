@@ -1,4 +1,5 @@
 ﻿using System;
+using NPC.UnitData;
 using UnityEngine;
 
 namespace Controllers
@@ -7,6 +8,7 @@ namespace Controllers
     {
         [SerializeField] private int _health;
         [SerializeField] private int _maxHealth;
+        [SerializeField] private float _blockingRange;
 
         public int baseHealth;
         public bool isDead;
@@ -45,9 +47,19 @@ namespace Controllers
         /// <summary>
         /// Damage the component by a certain amount
         /// </summary>
-        public int Damage(int amount)
+        public int Damage(int amount, Vector3? point = null)
         {
             if (amount < 0) throw new ArgumentException("Amount must not be lower than one");
+            
+            if (isBlocking)
+            {
+                if (point == null)
+                    return 0;
+                
+                if (Vector3.Angle(transform.forward, (Vector3)point - transform.position) <= _blockingRange)
+                    return 0;
+            }
+
             return -ChangeHealth(-amount);
         }
         

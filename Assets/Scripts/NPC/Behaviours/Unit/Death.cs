@@ -1,38 +1,48 @@
-﻿using UnityEngine;
+﻿using Controllers;
+using Effects;
+using NPC.Brains;
+using NPC.Utility;
+using UnityEngine;
 
 namespace NPC.Behaviours.Unit
 {
-    public class Death : AIBehavior
+    public class Death : StateMachineBehaviour
     {
-        [SerializeField] private float _dieAfter;
+        [SerializeField] private float     _dieAfter;
+        [SerializeField] private DeathAnim _deathAnim;
 
         private float _dieAt;
         private bool  _died;
         
-
-        protected override void Enter()
+        
+        public override void OnStateEnter(Animator anim, AnimatorStateInfo stateInfo, int layerIndex)
         {
             _dieAt = Time.time + _dieAfter;
             _died = false;
-            movement.canMove = false;
+            
+            var transform = anim.transform;
+            if(anim.TryGetComponent(out MovementController ctrl))
+                ctrl.canMove = false;
 
-            if (Physics.Raycast(transform.position, -transform.up, out var raycast, 5f))
-                transform.position = raycast.point + Vector3.up * .5f;
+            if (_deathAnim)
+                Instantiate(_deathAnim.gameObject, transform.position, transform.rotation)
+                    .GetComponent<DeathAnim>().team = transform.GetComponent<UnitBrain>().team;
         }
+        
 
-
-        protected override void Exit()
-        {
-            movement.canMove = true;
-        }
-
-
-        public override void PhysicsUpdate()
+        public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             if(_died || Time.time < _dieAt) return;
             
             _died = true;
-            stateController.gameObject.SetActive(false);
+            animator.gameObject.SetActive(false);
+        }
+
+
+        public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        {
+            if(animator.transform.TryGetComponent(out MovementController ctrl))
+                ctrl.canMove = false;
         }
     }
 }

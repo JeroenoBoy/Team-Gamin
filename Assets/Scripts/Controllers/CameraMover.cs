@@ -65,10 +65,7 @@ public class CameraMover : MonoBehaviour
         }
 
         cooldown -= Time.deltaTime;
-
-       
     }
-
 
     private void LateUpdate()
     {
@@ -146,7 +143,7 @@ public class CameraMover : MonoBehaviour
         //to be able to undo
         SavePosAndRot();
 
-        //if we are lppking at an object in the scene go to its position
+        //if we are looking at an object in the scene go to its position
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 

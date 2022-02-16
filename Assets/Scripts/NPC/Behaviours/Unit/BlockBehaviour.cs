@@ -1,24 +1,18 @@
-using NPC;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Controllers;
+using NPC.Utility;
 
-public class BlockBehaviour : AIBehavior
+namespace NPC.Behaviours.Unit
 {
-    private HealthController _health;
-    protected override void Start()
+    public class BlockBehaviour : UnitBehaviour
     {
-        base.Start();
+        protected override void Enter()
+        {
+            healthController.isBlocking = true;
+        }
 
-        _health = GetComponent<HealthController>();
-        _health.isBlocking = true;
-    }
-
-    protected override void Exit()
-    {
-        base.Exit();
-
-        _health.isBlocking = false;
+        protected override void Exit()
+        {
+            healthController.isBlocking = false;
+        }
     }
 }

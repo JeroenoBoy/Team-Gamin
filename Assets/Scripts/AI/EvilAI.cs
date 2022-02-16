@@ -1,39 +1,68 @@
 ﻿using System;
+using System.Linq;
+using NPC.UnitData;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace AI
 {
     public class EvilAI : MonoBehaviour
     {
-        public newStatPoints statPoints    { get; private set; }
-        public BehaviourMenu behaviourMenu { get; private set; }
-        public SpawnManager  spawner        { get; private set; }
+        private newStatPoints _statPoints;
+        private SpawnManager  _spawner;
+        private BehaviourMenu _behaviourMenu;
 
 
+        /**
+         * Initialize all values
+         */
         private void Awake()
         {
-            spawner       = GetComponent<SpawnManager>();
-            statPoints    = gameObject.AddComponent<newStatPoints>();
-            behaviourMenu = gameObject.AddComponent<BehaviourMenu>();
+            _spawner       = GetComponent<SpawnManager>();
+            _statPoints    = gameObject.AddComponent<newStatPoints>();
+            _behaviourMenu = gameObject.AddComponent<BehaviourMenu>();
 
-            statPoints.enabled    = false;
-            spawner.statPoints    = statPoints;
-            spawner.behaviourMenu = behaviourMenu;
+            _statPoints.enabled    = false;
+            _behaviourMenu.enabled = false;
+            _spawner.statPoints    = _statPoints;
+            _spawner.behaviourMenu = _behaviourMenu;
 
-            statPoints.statPoints = 100f;
+            _statPoints.statPoints = 100f;
+            _statPoints.data = new []
+            {
+                new statpointsdata { value = 0 },
+                new statpointsdata { value = 0 },
+                new statpointsdata { value = 0 },
+                new statpointsdata { value = 0 },
+                new statpointsdata { value = 0 },
+            };
         }
-
-
-        private void Start()
-        {
-            this.InitData();
-        }
-
-
-
+        
+        
+        /**
+         *  Randomize all data values 
+         */
         public void BeforeSpawn()
         {
-            this.Randomize();
+            var total      = _statPoints.data.Sum(data => data.value = Random.Range(0, 1f));
+            var totalMulti = _statPoints.statPoints / total;
+            
+            foreach (var data in _statPoints.data)
+            {
+                data.value *= totalMulti;
+            }
+
+            RandomizeBehaviour();
+        }
+
+
+        /**
+         * Set the behaviour to randomized values
+         */
+        private void RandomizeBehaviour()
+        {
+            _behaviourMenu.unitState = UnitStateExtensions.Random();
+            _behaviourMenu.pathIndex = Random.Range(0, 3);
         }
     }
 }
