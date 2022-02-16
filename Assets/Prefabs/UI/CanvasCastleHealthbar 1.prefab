@@ -396,3 +396,4 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   fill: {fileID: 5947836712649690192}
+  canvas: {fileID: 5947836712109499594}
