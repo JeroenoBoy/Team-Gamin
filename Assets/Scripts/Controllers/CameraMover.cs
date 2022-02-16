@@ -18,6 +18,10 @@ public class CameraMover : MonoBehaviour
     [SerializeField] private KeyCode firstUndoKey = KeyCode.LeftControl;
     [SerializeField] private KeyCode secondUndoKey = KeyCode.Z;
 
+    [Header("Clamping angles")]
+    [SerializeField] private float maxAngle =  80f;
+    [SerializeField] private float minAngle = -70f; 
+
     [Header("Speed Values")]
     [SerializeField] private float moveSpeed = 1.0f;
     [SerializeField] private float rotateSpeed = 3.0f;
@@ -73,6 +77,10 @@ public class CameraMover : MonoBehaviour
         {
             transform.RotateAround(transform.position, transform.right, _mouseMoveY * -rotateSpeed);
             transform.RotateAround(transform.position, Vector3.up, _mouseMoveX * rotateSpeed);
+
+            Vector3 angles = transform.eulerAngles;
+            float angle    = (angles.x + 180) % 360 - 180;
+            transform.eulerAngles = angles.With(x: Mathf.Clamp(angle, minAngle, maxAngle), z: 0);
         }
 
         //  Getting the Speed
