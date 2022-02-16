@@ -15,10 +15,8 @@ namespace Platoons
         [SerializeField] private List<Platoon>[] _platoons;
         
 
-        protected override void Awake()
+        private void Awake()
         {
-            base.Awake();
-            
             //  Creating an array with empty lists
             
             _platoons = new List<Platoon>[_teamAmount];

@@ -2432,6 +2432,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: EvilAI Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 9143831712040467857, guid: d3396d9dc5f743b43a94af2d841f8bd9, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9143831712040467857, guid: d3396d9dc5f743b43a94af2d841f8bd9, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d3396d9dc5f743b43a94af2d841f8bd9, type: 3}
 --- !u!1 &1159216298
@@ -5331,6 +5339,14 @@ PrefabInstance:
     - target: {fileID: 926160881494860950, guid: a8c2d3ffb2dee884cb7fdcbec524e669, type: 3}
       propertyPath: MaxSize
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1426923002083940803, guid: a8c2d3ffb2dee884cb7fdcbec524e669, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1426923002083940803, guid: a8c2d3ffb2dee884cb7fdcbec524e669, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2070588706364412068, guid: a8c2d3ffb2dee884cb7fdcbec524e669, type: 3}
       propertyPath: m_RootOrder
