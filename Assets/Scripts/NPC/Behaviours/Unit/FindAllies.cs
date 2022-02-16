@@ -9,9 +9,6 @@ namespace NPC.Behaviours.Unit
 {
     public class FindAllies : UnitBehaviour
     {
-        [SerializeField] private float _forceMulti = 15f;
-
-        
         public override void PhysicsUpdate()
         {
             if (!platoon) return;

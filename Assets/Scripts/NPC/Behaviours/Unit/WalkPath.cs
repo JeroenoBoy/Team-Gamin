@@ -2,15 +2,16 @@
 using Controllers.Paths;
 using NPC.UnitData;
 using NPC.Utility;
+using UnityEngine;
 
 namespace NPC.Behaviours.Unit
 {
     public class WalkPath : UnitBehaviour
     {
-        private int      _currentIndex;
-        private int      _indexDirection;
-        private PathNode _currentNode;
-        private int      _pathLength;
+        private int       _currentIndex;
+        private int       _indexDirection;
+        private Transform _currentNode;
+        private int       _pathLength;
 
 
         /**
@@ -24,11 +25,12 @@ namespace NPC.Behaviours.Unit
             //  Finding the closest node
 
             var position = transform.position;
-            _currentNode = stateController.path.nodes
+            var node  = stateController.path.nodes
                 .OrderBy(n => (n.position - position).sqrMagnitude)
                 .First();
 
-            _currentIndex = _currentNode.index;
+            _currentNode  = node.transform;
+            _currentIndex = node.index;
         }
 
 
@@ -60,17 +62,21 @@ namespace NPC.Behaviours.Unit
         {
             switch (_indexDirection)
             {
-                case 1 when _currentIndex != _pathLength:
+                case 1 when _currentIndex < _pathLength:
                     _currentIndex++;
                     break;
                 
                 
-                case -1 when _currentIndex != 0:
+                case -1 when _currentIndex > 0:
                     _currentIndex--;
                     break;
+                
+                default:
+                    _currentNode = unitBrain.castleTarget;
+                    return;
             }
             
-            _currentNode = stateController.path.GetNode(_currentIndex);
+            _currentNode = stateController.path.GetNode(_currentIndex).transform;
         }
     }
 }

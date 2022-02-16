@@ -6,7 +6,6 @@ using Game.Scripts.Utils;
 public class UpgradeArea : Singleton<UpgradeArea>
 {
     public Dictionary<UnitSettings, Coroutine> units = new Dictionary<UnitSettings, Coroutine>();
-    [SerializeField] private bool isInside = false;
     
     private void OnTriggerEnter(Collider other)
     {

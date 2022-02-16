@@ -5,13 +5,19 @@ using UnityEngine.UI;
 
 public class BehaviourMenu : MonoBehaviour
 {
+    [Header("States")]
     public UnitState unitState;
     public Button[] Button;
+
+    [Header("Path")]
+    public int pathIndex;
+    public Button[] pathButtons;
+    
     private int index;
 
     private void Start()
     {
-        Button[0].image.color = Color.red;
+        pathButtons[0].image.color = Button[0].image.color = Color.red;
     }
 
     public void SetBehaviour(string unit)
@@ -28,5 +34,15 @@ public class BehaviourMenu : MonoBehaviour
 
         index = Array.IndexOf(UnitStateExtensions.states, unitState);
         Button[index].image.color = Color.red;
+    }
+
+
+    public void SetPath(int i)
+    {
+        foreach (var pathButton in pathButtons)
+            pathButton.image.color = Color.black;
+
+        pathButtons[i].image.color = Color.red;
+        pathIndex = i;
     }
 }

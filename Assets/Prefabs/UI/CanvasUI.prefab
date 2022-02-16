@@ -123,8 +123,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2127768338602235631}
         m_TargetAssemblyTypeName: BehaviourMenu, Assembly-CSharp
-        m_MethodName: SetBehaviour
-        m_Mode: 5
+        m_MethodName: SetPath
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4338,6 +4338,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitState: 0
   Button: []
+  pathIndex: 1
+  pathButtons:
+  - {fileID: 5665133704972469072}
+  - {fileID: 3715413214348081939}
+  - {fileID: 4458435723189742452}
 --- !u!95 &2127768338602235630
 Animator:
   serializedVersion: 3
@@ -7899,12 +7904,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2127768338602235631}
         m_TargetAssemblyTypeName: BehaviourMenu, Assembly-CSharp
-        m_MethodName: SetBehaviour
-        m_Mode: 5
+        m_MethodName: SetPath
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -8032,12 +8037,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2127768338602235631}
         m_TargetAssemblyTypeName: BehaviourMenu, Assembly-CSharp
-        m_MethodName: SetBehaviour
-        m_Mode: 5
+        m_MethodName: SetPath
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
