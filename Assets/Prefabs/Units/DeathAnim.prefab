@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5293190838732528447}
   - component: {fileID: 4478588478505190853}
   - component: {fileID: 5095263898786645008}
+  - component: {fileID: -6813739426287076337}
   m_Layer: 0
   m_Name: DeathAnim
   m_TagString: Untagged
@@ -67,6 +68,22 @@ MonoBehaviour:
   _redTexture: {fileID: 2100000, guid: c97830f0f797f2e49b3449431deff77e, type: 2}
   _blueTexture: {fileID: 2100000, guid: c0c7e3518cd06bd499fe69cdba52c9e6, type: 2}
   _renderer: {fileID: 4831232264747717389}
+--- !u!54 &-6813739426287076337
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3055835779726031678}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &4819626430450533655
 PrefabInstance:
   m_ObjectHideFlags: 0
