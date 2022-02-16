@@ -17,7 +17,7 @@ public class BehaviourMenu : MonoBehaviour
 
     private void Start()
     {
-        pathButtons[0].image.color = Button[0].image.color = Color.red;
+        pathButtons[1].image.color = Button[0].image.color = Color.red;
     }
 
     public void SetBehaviour(string unit)
