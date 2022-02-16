@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Controllers;
 using Game.Scripts.Utils;
 using NPC.Brains;
 using NPC.UnitData;
@@ -14,7 +15,9 @@ namespace Platoons
         [SerializeField] private LayerMask       _unitLayerName;
         [SerializeField] private List<Platoon>[] _platoons;
         
-
+        public float searchRadius => _platoonSearchRadius;
+        
+        
         private void Awake()
         {
             //  Creating an array with empty lists
@@ -28,18 +31,18 @@ namespace Platoons
         /**
          * Request a platoon
          */
-        public void RequestPlatoon(UnitBrain brain)
+        public void RequestPlatoon(PlatoonController controller)
         {
-            if(brain.unitSettings.state.IsGuardPath()) return;
+            if(controller.unitSettings.state.IsGuardPath()) return;
             
             //  Initializing
             
-            var brainTransform = brain.transform;
-            var team           = brain.team;
+            var brainTransform = controller.transform;
+            var team           = controller.team;
             
             //  Assigning platoon to me
             
-            var platoon = !brain.platoon ? brain.platoon = new Platoon(team, brain) : brain.platoon;
+            var platoon = !controller.platoon ? controller.platoon = new Platoon(team, controller) : controller.platoon;
             if(platoon.Count >= _maxPlatoonSize) return;
 
             //  Finding all units near me
@@ -55,21 +58,21 @@ namespace Platoons
                 
                 //  Getting component
                 
-                if(!collider.TryGetComponent(out UnitBrain unitBrain)) continue;
+                if(!collider.TryGetComponent(out PlatoonController ctrl)) continue;
                 
                 //  Validation checks
                 
-                if(unitBrain.team != team) continue;
-                if(unitBrain.platoon == platoon) continue;
-                if(unitBrain.unitSettings.state.IsGuardPath()) continue;
+                if(ctrl.team != team) continue;
+                if(ctrl.platoon == platoon) continue;
+                if(ctrl.unitSettings.state.IsGuardPath()) continue;
     
                 //  Adding unit to platoon or migrating platoon
 
-                if (!unitBrain.platoon)
-                    platoon.AddUnit(unitBrain);
+                if (!ctrl.platoon)
+                    platoon.AddUnit(ctrl);
                 
-                else if (platoon.Count + unitBrain.platoon.Count < _maxPlatoonSize)
-                    unitBrain.platoon.MigratePlatoon(platoon);
+                else if (platoon.Count + ctrl.platoon.Count < _maxPlatoonSize)
+                    ctrl.platoon.MigratePlatoon(platoon);
             }
         }
 

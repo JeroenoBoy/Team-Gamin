@@ -20,6 +20,8 @@ namespace NPC.Brains
         private static readonly int _isDeadHash     = Animator.StringToHash("IsDead");
         private static readonly int _diedHash       = Animator.StringToHash("Died");
 
+        private PlatoonController _platoonController;
+            
         public Transform castleTarget;
 
         public HealthController healthComponent { get; private set; }
@@ -28,8 +30,13 @@ namespace NPC.Brains
         private bool _hasTarget;
         
         public Transform[]  targets { get; private set; }
-        public Platoon      platoon;
         public UnitSettings unitSettings { get; private set; }
+        
+        public Platoon platoon
+        {
+            get => _platoonController.platoon;
+            set => _platoonController.platoon = value;
+        }
 
 
         /**
@@ -37,24 +44,20 @@ namespace NPC.Brains
          */
         protected override void Awake()
         {
+            healthComponent    = GetComponent<HealthController>();
+            eyes               = GetComponent<Eyes>();
+            unitSettings       = GetComponent<UnitSettings>();
+            _platoonController = GetComponent<PlatoonController>();
             base.Awake();
-            healthComponent = GetComponent<HealthController>();
-            eyes            = GetComponent<Eyes>();
-            unitSettings    = GetComponent<UnitSettings>();
         }
 
 
         /**
          * Mainly to assign platoons
          */
-        private IEnumerator Start()
+        private void Start()
         {
             Bind();
-            while (true)
-            {
-                PlatoonManager.instance.RequestPlatoon(this);
-                yield return new WaitForSeconds(2);
-            }
         }
 
 
@@ -63,7 +66,7 @@ namespace NPC.Brains
          */
         private void OnDisable()
         {
-            platoon?.RemoveUnit(this);
+            platoon?.RemoveUnit(_platoonController);
             target = null;
             Reset();
         }
@@ -145,14 +148,25 @@ namespace NPC.Brains
          */
         private void OnStateChange()
         {
-            if(platoon && unitSettings.state.IsGuardPath()) platoon.RemoveUnit(this);
             animator.SetInteger(_stateHash, (int)unitSettings.state);
         }
 
 
+        /**
+         * Gets fired when the platoon changes
+         */
         private void OnPlatoonUpdate()
         {
             animator.SetInteger(_platoonHash, platoon.Count);
+        }
+
+
+        /**
+         * Gets fired when we found an enemy
+         */
+        private void OnEnemySpotted(Transform enemy)
+        {
+            TrySetTarget(enemy.transform);
         }
         
         #endregion
@@ -178,6 +192,7 @@ namespace NPC.Brains
                 
                 case true when !target:
                     target = closest;
+                    platoon.SendMessage("OnEnemySpotted", target);
                     return eyes.CanSee(target);
                 
                 case false when target:
@@ -207,6 +222,7 @@ namespace NPC.Brains
             SendMessage("OnBind", SendMessageOptions.DontRequireReceiver);
         }
 
+        
         #endregion
 
         

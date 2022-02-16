@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Util
@@ -26,19 +27,19 @@ namespace Util
         /// <summary>
         /// Set a specific value of the vector
         /// </summary>
-        public static Ray ForwardRay(this Component self)
+        public static Quaternion Quaternion(float? x = null, float? y = null, float? z = null)
         {
-            var transform = self.transform;
-            return new Ray(transform.position, transform.forward);
+            return UnityEngine.Quaternion.Euler(x ?? 0, y ?? 0, z ?? 0);
         }
         
         
         /// <summary>
         /// Set a specific value of the vector
         /// </summary>
-        public static Quaternion Quaternion(float? x = null, float? y = null, float? z = null)
+        public static Ray ForwardRay(this Component self)
         {
-            return UnityEngine.Quaternion.Euler(x ?? 0, y ?? 0, z ?? 0);
+            var transform = self.transform;
+            return new Ray(transform.position, transform.forward);
         }
 
 
@@ -49,6 +50,18 @@ namespace Util
         {
             var gameObject = comp.gameObject;
             return ((1 << gameObject.layer) & layer) != 0 || layer == gameObject.layer;
+        }
+
+
+        /// <summary>
+        /// Enumerate thru all the children
+        /// </summary>
+        public static IEnumerator<Transform> GetChildren(this Transform self)
+        {
+            for (int i = 0; i < self.childCount; i++)
+            {
+                yield return self.GetChild(i);
+            }
         }
     }
 }
