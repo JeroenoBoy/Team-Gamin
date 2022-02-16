@@ -11,9 +11,9 @@ namespace Game.Scripts.Utils
         public static T instance { get; private set; }
 
 
-        protected virtual void Awake()
+        protected virtual void OnEnable()
         {
-            if (!instance) instance = this as T;
+            if (!instance || instance == this) instance = this as T;
             else
             {
                 Destroy(this);
@@ -22,7 +22,7 @@ namespace Game.Scripts.Utils
         }
 
 
-        private void OnDestroy()
+        protected virtual void OnDisable()
         {
             if(instance == this) instance = null;
         }

@@ -12,8 +12,9 @@ public class HealingFountain : Singleton<HealingFountain>
     
     private List<HealthController> Agents = new List<HealthController>();
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
+        base.OnEnable();
         StartCoroutine(Heal());
     }
 

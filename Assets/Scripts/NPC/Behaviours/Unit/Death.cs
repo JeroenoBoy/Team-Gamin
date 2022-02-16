@@ -10,6 +10,7 @@ namespace NPC.Behaviours.Unit
     {
         [SerializeField] private float     _dieAfter;
         [SerializeField] private DeathAnim _deathAnim;
+        [SerializeField] private bool _destroy = false;
 
         private float _dieAt;
         private bool  _died;
@@ -35,7 +36,8 @@ namespace NPC.Behaviours.Unit
             if(_died || Time.time < _dieAt) return;
             
             _died = true;
-            animator.gameObject.SetActive(false);
+            if(_destroy) Destroy(animator.gameObject);
+            else animator.gameObject.SetActive(false);
         }
 
 
