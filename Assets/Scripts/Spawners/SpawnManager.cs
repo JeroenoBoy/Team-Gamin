@@ -31,10 +31,8 @@ public class SpawnManager : MonoBehaviour
     
     [Header("Events")]
     public UnityEvent OnWaveStart;
-
-
-    private int i;
-
+    
+    
     private void Start()
     {
         _objPool = GetComponent<ObjectPool>();
@@ -43,25 +41,19 @@ public class SpawnManager : MonoBehaviour
 
     protected virtual IEnumerator WaveSpawner()
     {
-        yield return new WaitForSeconds(TimeBetweenWave/2);
-        
-        while (i < 10)
+        while (true)
         {
-            if (i == 0)
-                OnWaveStart?.Invoke();
-
-            yield return new WaitForSeconds(TimeBetweenSpawn);
+            yield return new WaitForSeconds(TimeBetweenWave);
+            OnWaveStart?.Invoke();
             
-            i++;
-            var obj = _objPool.SpawnObject();
-            if (!obj) continue;
-            obj.transform.position = transform.position + Random.insideUnitSphere.With(y : 0) * multiplier;
-            SetValues(obj);
-
-            if (i == 10)
+            for (int i = 0; i < 10; i++)
             {
-                yield return new WaitForSeconds(TimeBetweenWave);
-                i = 0;
+                var obj = _objPool.SpawnObject();
+                if (!obj) break;
+                
+                obj.transform.position = transform.position + Random.insideUnitSphere.With(y : 0) * multiplier;
+                SetValues(obj);
+                yield return new WaitForSeconds(TimeBetweenSpawn);
             }
         }
     }

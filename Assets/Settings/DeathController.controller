@@ -63,6 +63,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dieAfter: 4
   _deathAnim: {fileID: 0}
+  _destroy: 1
 --- !u!1107 &8567374776074581718
 AnimatorStateMachine:
   serializedVersion: 6

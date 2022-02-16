@@ -1124,8 +1124,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ccdf3f747014f4caf9beaab86ec1c6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minDelay: 3
-  _maxDelay: 4
+  _minDelay: 8
+  _maxDelay: 10
   _triggerName: switchState
 --- !u!114 &-4056854915496942035
 MonoBehaviour:
@@ -2007,8 +2007,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ccdf3f747014f4caf9beaab86ec1c6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minDelay: 3
-  _maxDelay: 4
+  _minDelay: 8
+  _maxDelay: 10
   _triggerName: switchState
 --- !u!1102 &-419317227323140032
 AnimatorState:
@@ -3326,8 +3326,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ccdf3f747014f4caf9beaab86ec1c6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minDelay: 3
-  _maxDelay: 4
+  _minDelay: 8
+  _maxDelay: 10
   _triggerName: switchState
 --- !u!1102 &5208117644954623512
 AnimatorState:
@@ -3398,6 +3398,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dieAfter: 0.1
   _deathAnim: {fileID: 5095263898786645008, guid: a3811ab6e879bc2448e4f0b2e0addeeb, type: 3}
+  _destroy: 0
 --- !u!114 &5470414031355892926
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4088,8 +4089,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ccdf3f747014f4caf9beaab86ec1c6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minDelay: 3
-  _maxDelay: 4
+  _minDelay: 8
+  _maxDelay: 10
   _triggerName: switchState
 --- !u!114 &7728100710508899958
 MonoBehaviour:

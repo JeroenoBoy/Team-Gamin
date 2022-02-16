@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c04e618e52ead3445bb1297f88101493, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _mainMenuScene: 
   DefenderCastle: {fileID: 0}
   EnemyCastle: {fileID: 0}
   OnWin:
@@ -64,7 +65,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 101ebfefb6e44b56b478e9ad5676b001, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxPlatoonSize: 10
+  _maxPlatoonSize: 4
   _platoonSearchRadius: 3
   _teamAmount: 2
   _unitLayerName:

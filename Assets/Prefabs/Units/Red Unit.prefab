@@ -558,6 +558,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5513952201805270746}
   - component: {fileID: 5513952201805270748}
+  - component: {fileID: 5438905295355554303}
   - component: {fileID: 5513952201805270749}
   - component: {fileID: 5513952201805270751}
   - component: {fileID: 5513952201805270750}
@@ -607,6 +608,21 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &5438905295355554303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5513952201805270747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4943df411b8d4cebb35245064fa04ead, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _startDelay: 0.5
+  _searchDelay: 2
+  _isMaster: 0
 --- !u!114 &5513952201805270749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -636,8 +652,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 938f4c65499e465da92b6cf714df3864, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fov: 70
-  _rays: 5
+  _fov: 180
+  _rays: 7
   _minSight: 3
   _rayLength: 30
   _interactMask:

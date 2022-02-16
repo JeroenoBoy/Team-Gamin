@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Controllers;
 using NPC.Brains;
 using NPC.UnitData;
 using NPC.Utility;
@@ -9,6 +10,14 @@ namespace NPC.Behaviours.Unit
 {
     public class FindAllies : UnitBehaviour
     {
+        private PlatoonController _platoonController;
+        
+        protected override void Start()
+        {
+            _platoonController = GetComponent<PlatoonController>();
+        }
+
+
         public override void PhysicsUpdate()
         {
             if (!platoon) return;
@@ -22,7 +31,7 @@ namespace NPC.Behaviours.Unit
                 .FirstOrDefault();
 
             if(ally.transform == null) return;
-            ally.transform.GetComponent<UnitBrain>().platoon.AddUnit(unitBrain);
+            ally.transform.GetComponent<UnitBrain>().platoon.AddUnit(_platoonController);
         }
     }
 }

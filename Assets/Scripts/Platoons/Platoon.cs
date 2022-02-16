@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Controllers;
 using NPC.Brains;
 using NPC.UnitData;
 using UnityEngine;
@@ -9,18 +10,19 @@ namespace Platoons
     public class Platoon
     {
         public readonly UnitTeam team;
-        public readonly List<UnitBrain> units = new List<UnitBrain>();
+        public readonly List<PlatoonController> units = new List<PlatoonController>();
 
         public int Count => units.Count;
-
+        public PlatoonController master => units[0];
+        
 
         /**
          * Creates a new platoon
          */
-        public Platoon(UnitTeam team, UnitBrain brain)
+        public Platoon(UnitTeam team, PlatoonController controller)
         {
             this.team = team;
-            AddUnit(brain);
+            AddUnit(controller);
 
             PlatoonManager.instance.AddPlatoon(this);
         }
@@ -39,7 +41,7 @@ namespace Platoons
         /**
          * Migrates this platoon to another platoon
          */
-        public void AddUnit(UnitBrain unit)
+        public void AddUnit(PlatoonController unit)
         {
             if (unit.platoon) unit.platoon.RemoveUnit(unit);
             unit.platoon = this;
@@ -53,10 +55,20 @@ namespace Platoons
         /**
          * Migrates this platoon to another platoon
          */
-        public void RemoveUnit(UnitBrain unit)
+        public void RemoveUnit(PlatoonController unit)
         {
             unit.platoon = null;
             units.Remove(unit);
+        }
+
+
+        /**
+         * Send a message to all units in this platoon
+         */
+        public void SendMessage(string name, object obj = null)
+        {
+            foreach (var platoonController in units)
+                platoonController.SendMessage(name, obj);
         }
 
         
