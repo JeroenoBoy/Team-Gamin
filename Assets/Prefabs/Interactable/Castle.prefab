@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 933721156003645783}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.56, y: 0, z: 9.94}
+  m_LocalPosition: {x: 0, y: 0, z: 4.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6384698623316616173}
@@ -50,8 +50,9 @@ MonoBehaviour:
   TimeBetweenWave: 10
   multiplier: 4
   TargetCastle: {fileID: 0}
-  targetPath1: {fileID: 0}
-  targetPath2: {fileID: 0}
+  guardPath1: {fileID: 0}
+  guardPath2: {fileID: 0}
+  paths: []
   OnWaveStart:
     m_PersistentCalls:
       m_Calls: []
@@ -120,6 +121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _health: 200
   _maxHealth: 200
+  _blockingRange: 0
   baseHealth: 0
   isDead: 0
   isBlocking: 0
