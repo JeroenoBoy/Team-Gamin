@@ -22,6 +22,7 @@ public class CameraMover : MonoBehaviour
     [SerializeField] private float moveSpeed = 1.0f;
     [SerializeField] private float rotateSpeed = 3.0f;
     [SerializeField] private float zoomSpeed = 15.0f;
+    [SerializeField] private float moveDamp = 0.3f;
 
     //Cache last pos and rot be able to undo last focus object action.
     private Quaternion prevRot = new Quaternion();
@@ -29,24 +30,75 @@ public class CameraMover : MonoBehaviour
 
     [Header("Movement Keycodes")]
     [SerializeField] private KeyCode forwardKey = KeyCode.W;
-    [SerializeField] private KeyCode backKey = KeyCode.S;
-    [SerializeField] private KeyCode leftKey = KeyCode.A;
-    [SerializeField] private KeyCode rightKey = KeyCode.D;
-
-    [Header("Flat Move"), Tooltip("Instead of going where the camera is pointed, the camera moves only on the horizontal plane (Assuming you are working in 3D with default preferences).")]
-    [SerializeField] private KeyCode flatMoveKey = KeyCode.LeftShift;
+    [SerializeField] private KeyCode backKey    = KeyCode.S;
+    [SerializeField] private KeyCode leftKey    = KeyCode.A;
+    [SerializeField] private KeyCode rightKey   = KeyCode.D;
+    [SerializeField] private KeyCode upKey      = KeyCode.Space;
+    [SerializeField] private KeyCode downKey    = KeyCode.LeftShift;
 
     [Header("Anchored Keycodes")]
     [SerializeField] private KeyCode anchoredMoveKey = KeyCode.Mouse2;
     [SerializeField] private KeyCode anchoredRotateKey = KeyCode.Mouse1;
 
+
+    public Vector3 up => Vector3.up;
+    public Vector3 forward => transform.forward.With(y: 0).normalized;
+    public Vector3 right => transform.right.With(y: 0).normalized;
+    public Vector3 down => Vector3.down;
+    public Vector3 backward => -forward;
+    public Vector3 left => -right;
+
+    private Vector3 _vel; // Used for smoothing
+    
+    private Rigidbody _rb;
+    
     private void Start()
     {
+        _rb = GetComponent<Rigidbody>();
+        
         SavePosAndRot();
         cam = Camera.main;
     }
 
     private void Update()
+    {
+        Focus();
+        
+        float _mouseMoveY = Input.GetAxis("Mouse Y");
+        float _mouseMoveX = Input.GetAxis("Mouse X");
+
+        //rotate the camera when anchored
+        
+        if (Input.GetKey(anchoredRotateKey))
+        {
+            transform.RotateAround(transform.position, transform.right, _mouseMoveY * -rotateSpeed);
+            transform.RotateAround(transform.position, Vector3.up, _mouseMoveX * rotateSpeed);
+        }
+
+        //  Getting the Speed
+
+        Vector3 targetVel = CalculateTargetSpeed(_mouseMoveX, _mouseMoveY);
+        _rb.velocity = Vector3.SmoothDamp(_rb.velocity, targetVel, ref _vel, moveDamp, moveSpeed);
+
+
+        //clamping
+
+        if (cam.transform.position.y >= clamp.y)
+        {
+            cam.transform.position = cam.transform.position.With(y: clamp.y);
+        }
+        if (cam.transform.position.x >= clamp.x || cam.transform.position.x <= -clamp.x)
+        {
+            cam.transform.position = cam.transform.position.With(x: clamp.x * Mathf.Sign(cam.transform.position.x));
+        }
+        if (cam.transform.position.z >= clamp.z || cam.transform.position.z <= -clamp.z)
+        {
+            cam.transform.position = cam.transform.position.With(z: clamp.z * Mathf.Sign(cam.transform.position.z));
+        }
+    }
+
+
+    private void Focus()
     {
         if (!doFocus)
             return;
@@ -67,76 +119,31 @@ public class CameraMover : MonoBehaviour
         cooldown -= Time.deltaTime;
     }
 
-    private void LateUpdate()
+
+    private Vector3 CalculateTargetSpeed(float _mouseMoveX, float _mouseMoveY)
     {
-        Vector3 move = Vector3.zero;
+        Vector3 targetSpeed = Vector3.zero;
 
         //move and rotate the camera
 
-        if (Input.GetKey(forwardKey))
-            move += Vector3.forward * moveSpeed;
-
-        if (Input.GetKey(backKey))
-            move += Vector3.back * moveSpeed;
-
-        if (Input.GetKey(leftKey))
-            move += Vector3.left * moveSpeed;
-
-        if (Input.GetKey(rightKey))
-            move += Vector3.right * moveSpeed;
-
-        if (Input.GetKey(flatMoveKey))
-        {
-            float origY = transform.position.y;
-
-            transform.Translate(move);
-            transform.position = new Vector3(transform.position.x, origY, transform.position.z);
-
-            return;
-        }
-
-        float _mouseMoveY = Input.GetAxis("Mouse Y");
-        float _mouseMoveX = Input.GetAxis("Mouse X");
+        if (Input.GetKey(forwardKey)) targetSpeed +=  forward * moveSpeed;
+        if (Input.GetKey(backKey))    targetSpeed += backward * moveSpeed;
+        if (Input.GetKey(rightKey))   targetSpeed +=    right * moveSpeed;
+        if (Input.GetKey(leftKey))    targetSpeed +=     left * moveSpeed;
+        if (Input.GetKey(upKey))      targetSpeed +=       up * moveSpeed;
+        if (Input.GetKey(downKey))    targetSpeed +=     down * moveSpeed;
 
         //move the camera when anchored
+        
         if (Input.GetKey(anchoredMoveKey))
         {
-            move += Vector3.up * _mouseMoveY * -moveSpeed;
-            move += Vector3.right * _mouseMoveX * -moveSpeed;
+            targetSpeed +=    up * _mouseMoveY * -moveSpeed;
+            targetSpeed += right * _mouseMoveX * -moveSpeed;
         }
 
-        //rotate the camera when anchored
-        if (Input.GetKey(anchoredRotateKey))
-        {
-            transform.RotateAround(transform.position, transform.right, _mouseMoveY * -rotateSpeed);
-            transform.RotateAround(transform.position, Vector3.up, _mouseMoveX * rotateSpeed);
-        }
-
-        transform.Translate(move);
-
-        //scroll to zoom
-        float _mouseScroll = Input.GetAxis("Mouse ScrollWheel");
-        transform.Translate(Vector3.forward * _mouseScroll * zoomSpeed);
-
-
-        //clamping
-        if (cam.transform.position.y <= 10)
-        {
-            cam.transform.position = cam.transform.position.With(y: 10);
-        }
-        if (cam.transform.position.y >= clamp.y)
-        {
-            cam.transform.position = cam.transform.position.With(y: clamp.y);
-        }
-        if (cam.transform.position.x >= clamp.x || cam.transform.position.x <= -clamp.x)
-        {
-            cam.transform.position = cam.transform.position.With(x: clamp.x * Mathf.Sign(cam.transform.position.x));
-        }
-        if (cam.transform.position.z >= clamp.z || cam.transform.position.z <= -clamp.z)
-        {
-            cam.transform.position = cam.transform.position.With(z: clamp.z * Mathf.Sign(cam.transform.position.z));
-        }
+        return targetSpeed;
     }
+    
 
     private void FocusObject()
     {
