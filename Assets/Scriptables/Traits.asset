@@ -40,6 +40,12 @@ MonoBehaviour:
   - name: Billy
     atkdmg: 10
     atkspd: 10
+    movspd: 0
+    defense: 0
+    sightRange: 0
+  - name: Bob
+    atkdmg: 0
+    atkspd: 0
     movspd: 10
     defense: 10
     sightRange: 10
