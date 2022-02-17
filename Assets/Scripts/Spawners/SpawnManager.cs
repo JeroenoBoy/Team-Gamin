@@ -148,7 +148,7 @@ public class SpawnManager : MonoBehaviour
             go.sightRange += allTraits.TraitsClass[a].sightRange;
             go.defense += allTraits.TraitsClass[a].defense;
 
-            go.name = string.Format(go.name + " [" + allTraits.TraitsClass[a].name + "]");
+            //go.name = string.Format(go.name + " [" + allTraits.TraitsClass[a].name + "]");
             t--;
         }
 
