@@ -848,10 +848,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4efbe73f23d08b4390e01a2ea6ee4db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allTraits: {fileID: 11400000, guid: b80576446cd8dfa41abe90a7acb0dd70, type: 2}
   statPoints: {fileID: 680971321}
+  behaviourMenu: {fileID: 0}
   TimeBetweenSpawn: 0.2
   TimeBetweenWave: 10
   multiplier: 1
+  TargetCastle: {fileID: 0}
+  guardPath1: {fileID: 0}
+  guardPath2: {fileID: 0}
+  paths: []
   OnWaveStart:
     m_PersistentCalls:
       m_Calls: []
@@ -4502,6 +4508,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitState: 0
+  Button: []
+  pathIndex: 0
+  pathButtons: []
 --- !u!114 &1341125048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5235,6 +5244,14 @@ PrefabInstance:
     - target: {fileID: 1450828097, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
       propertyPath: TimeBetweenSpawn
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6334952852790913674, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6334952852790913674, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6384698623316616166, guid: 38f90b7c276547043bf97f04dfa0c86b, type: 3}
       propertyPath: m_Name

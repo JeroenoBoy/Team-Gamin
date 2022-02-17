@@ -10,6 +10,8 @@ public class SpawnManager : MonoBehaviour
 {
     private ObjectPool _objPool;
 
+    public Traits allTraits;
+
     public newStatPoints statPoints;
     public BehaviourMenu behaviourMenu;
 
@@ -23,16 +25,16 @@ public class SpawnManager : MonoBehaviour
     public float multiplier;
 
     public Transform TargetCastle;
-    
+
     [Header("Paths")]
     public PathController guardPath1;
     public PathController guardPath2;
     public PathController[] paths;
-    
+
     [Header("Events")]
     public UnityEvent OnWaveStart;
-    
-    
+
+
     private void Start()
     {
         _objPool = GetComponent<ObjectPool>();
@@ -45,13 +47,13 @@ public class SpawnManager : MonoBehaviour
         {
             yield return new WaitForSeconds(TimeBetweenWave);
             OnWaveStart?.Invoke();
-            
+
             for (int i = 0; i < 10; i++)
             {
                 var obj = _objPool.SpawnObject();
                 if (!obj) break;
-                
-                obj.transform.position = transform.position + Random.insideUnitSphere.With(y : 0) * multiplier;
+
+                obj.transform.position = transform.position + Random.insideUnitSphere.With(y: 0) * multiplier;
                 SetValues(obj);
                 yield return new WaitForSeconds(TimeBetweenSpawn);
             }
@@ -62,13 +64,7 @@ public class SpawnManager : MonoBehaviour
     {
         var go = obj.GetComponent<UnitSettings>();
 
-        go.attackDamage = (int)statPoints.data[0].value;
-        go.attackSpeed = statPoints.data[1].value;
-        go.movementSpeed = statPoints.data[2].value;
-        go.sightRange = (int)statPoints.data[3].value;
-        go.defense = (int)statPoints.data[4].value;
-        go.targetCastle = TargetCastle;
-        go.state = behaviourMenu.unitState;
+        GetRandomTrait(go);
 
         go.path = go.state switch
         {
@@ -76,7 +72,21 @@ public class SpawnManager : MonoBehaviour
             UnitState.GuardPathB => guardPath2,
             _ => paths[behaviourMenu.pathIndex]
         };
-        
+
         go.Bind();
+    }
+
+    private void GetRandomTrait(UnitSettings go)
+    {
+        var i = Random.Range(0, allTraits.TraitsClass.Length);
+
+        go.attackDamage = (int)statPoints.data[0].value + allTraits.TraitsClass[i].atkdmg;
+        go.attackSpeed = statPoints.data[1].value + allTraits.TraitsClass[i].atkspd;
+        go.movementSpeed = statPoints.data[2].value + allTraits.TraitsClass[i].movspd;
+        go.sightRange = (int)statPoints.data[3].value + allTraits.TraitsClass[i].sightRange;
+        go.defense = (int)statPoints.data[4].value + allTraits.TraitsClass[i].defense;
+        go.targetCastle = TargetCastle;
+        go.state = behaviourMenu.unitState;
+        go.name = string.Format(go.name + " [" + allTraits.TraitsClass[i].name + "]") ;
     }
 }

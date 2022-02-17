@@ -10,7 +10,7 @@ namespace NPC.UnitData
     {
         public UnitTeam team;
         [SerializeField] private UnitState _state;
-        
+
         [SerializeField] private float _movementSpeed;
         [SerializeField] private float _attackSpeed;
         [SerializeField] private int   _attackDamage;
