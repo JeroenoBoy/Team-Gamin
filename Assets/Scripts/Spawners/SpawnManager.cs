@@ -130,15 +130,29 @@ public class SpawnManager : MonoBehaviour
     /// <param name="go"></param>
     private void GetRandomTrait(UnitSettings go)
     {
-        var i = Random.Range(0, allTraits.TraitsClass.Length);
+        int t = Random.Range(1, 3);
 
-        go.attackDamage = (int)statPoints.data[0].value + allTraits.TraitsClass[i].atkdmg;
-        go.attackSpeed = statPoints.data[1].value + allTraits.TraitsClass[i].atkspd;
-        go.movementSpeed = statPoints.data[2].value + allTraits.TraitsClass[i].movspd;
-        go.sightRange = (int)statPoints.data[3].value + allTraits.TraitsClass[i].sightRange;
-        go.defense = (int)statPoints.data[4].value + allTraits.TraitsClass[i].defense;
+        go.attackDamage = (int)statPoints.data[0].value;
+        go.attackSpeed = statPoints.data[1].value;
+        go.movementSpeed = statPoints.data[2].value;
+        go.sightRange = (int)statPoints.data[3].value;
+        go.defense = (int)statPoints.data[4].value;
+
+        while (t > 0)
+        {
+            int a = Random.Range(0, allTraits.TraitsClass.Length);
+
+            go.attackDamage += allTraits.TraitsClass[a].atkdmg;
+            go.attackSpeed += allTraits.TraitsClass[a].atkspd;
+            go.movementSpeed += allTraits.TraitsClass[a].movspd;
+            go.sightRange += allTraits.TraitsClass[a].sightRange;
+            go.defense += allTraits.TraitsClass[a].defense;
+
+            go.name = string.Format(go.name + " [" + allTraits.TraitsClass[a].name + "]");
+            t--;
+        }
+
         go.targetCastle = TargetCastle;
         go.state = behaviourMenu.unitState;
-        go.name = string.Format(go.name + " [" + allTraits.TraitsClass[i].name + "]") ;
     }
 }
