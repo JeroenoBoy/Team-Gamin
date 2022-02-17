@@ -68,7 +68,7 @@ namespace Platoons
         public void SendMessage(string name, object obj = null)
         {
             foreach (var platoonController in units)
-                platoonController.SendMessage(name, obj);
+                platoonController.gameObject.SendMessage(name, obj);
         }
 
         

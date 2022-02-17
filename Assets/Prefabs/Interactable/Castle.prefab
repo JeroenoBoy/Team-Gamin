@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4efbe73f23d08b4390e01a2ea6ee4db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Team: 0
   statPoints: {fileID: 0}
   behaviourMenu: {fileID: 0}
   TimeBetweenSpawn: 0.1
@@ -53,6 +54,9 @@ MonoBehaviour:
   guardPath1: {fileID: 0}
   guardPath2: {fileID: 0}
   paths: []
+  CurrentPenalty: 0
+  PenaltyDistance: 30
+  PenaltyWait: 0.4
   OnWaveStart:
     m_PersistentCalls:
       m_Calls: []

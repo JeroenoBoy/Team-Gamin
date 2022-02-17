@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Controllers.Paths;
@@ -5,9 +6,13 @@ using UnityEngine;
 using Util;
 using NPC.UnitData;
 using UnityEngine.Events;
+using Random = UnityEngine.Random;
 
 public class SpawnManager : MonoBehaviour
 {
+
+    public UnitTeam Team;
+    
     private ObjectPool _objPool;
 
     public Traits allTraits;
@@ -30,9 +35,42 @@ public class SpawnManager : MonoBehaviour
     public PathController guardPath1;
     public PathController guardPath2;
     public PathController[] paths;
-
+    
+    [Header("Penalty")]
+    public float CurrentPenalty;
+    public float PenaltyDistance = 15f;
+    public float PenaltyWait;
+    
     [Header("Events")]
     public UnityEvent OnWaveStart;
+    
+    
+
+    #region Singleton ish
+    public static readonly Dictionary<UnitTeam, SpawnManager> managers = new Dictionary<UnitTeam, SpawnManager>();
+    
+
+    private void Awake()
+    {
+        if (managers.ContainsKey(Team))
+        {
+            Debug.LogError("This manager already exists!");
+            Destroy(this);
+            return;
+        }
+        
+        managers.Add(Team, this);
+    }
+
+
+    private void OnDestroy()
+    {
+        if (managers.TryGetValue(Team, out var manager) && manager == this)
+            managers.Remove(Team);
+    }
+
+    #endregion
+
 
     private void Start()
     {
@@ -45,6 +83,13 @@ public class SpawnManager : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(TimeBetweenWave);
+
+            while (CurrentPenalty > 0)
+            {
+                CurrentPenalty--;
+                yield return new WaitForSeconds(PenaltyWait);
+            }
+            
             OnWaveStart?.Invoke();
 
             for (int i = 0; i < 10; i++)
