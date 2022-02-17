@@ -7,8 +7,9 @@ public class Traits : ScriptableObject
 }
 
 [System.Serializable]
-public class TraitsClass
+public class TraitsClass //class to store trait values
 {
+    
     public string name;
 
     //values to assign in unity

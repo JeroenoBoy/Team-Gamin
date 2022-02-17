@@ -13,6 +13,10 @@ public class ArmorBar : MonoBehaviour
         slider = GetComponent<Slider>();
     }
 
+    /// <summary>
+    /// function to set the armorbar max value
+    /// </summary>
+    /// <param name="armor"></param>
     public void SetMaxArmor(int armor)
     {
         slider.maxValue = armor;
@@ -21,6 +25,10 @@ public class ArmorBar : MonoBehaviour
         fill.color = gradient.Evaluate(1f);
     }
 
+    /// <summary>
+    /// function to update the armorbar slider
+    /// </summary>
+    /// <param name="armor"></param>
     public void SetArmor(int armor)
     {
         slider.value = armor;
