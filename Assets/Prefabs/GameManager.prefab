@@ -65,8 +65,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 101ebfefb6e44b56b478e9ad5676b001, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxPlatoonSize: 4
-  _platoonSearchRadius: 3
+  _maxPlatoonSize: 10
+  _platoonSearchRadius: 6
   _teamAmount: 2
   _unitLayerName:
     serializedVersion: 2

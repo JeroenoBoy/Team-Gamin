@@ -630,8 +630,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ccdf3f747014f4caf9beaab86ec1c6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minDelay: 2
-  _maxDelay: 2
+  _minDelay: 8
+  _maxDelay: 10
   _triggerName: switchState
 --- !u!114 &-6333824791916598973
 MonoBehaviour:
@@ -2305,8 +2305,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ccdf3f747014f4caf9beaab86ec1c6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minDelay: 2
-  _maxDelay: 2
+  _minDelay: 8
+  _maxDelay: 10
   _triggerName: switchState
 --- !u!1101 &418893987458217719
 AnimatorStateTransition:
@@ -2745,7 +2745,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 01b94eb4432f49b6935ff44d4ea70dde, type: 3}
   m_Name: 
@@ -3214,8 +3214,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ccdf3f747014f4caf9beaab86ec1c6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minDelay: 2
-  _maxDelay: 2
+  _minDelay: 8
+  _maxDelay: 10
   _triggerName: switchState
 --- !u!1102 &4838550336253676773
 AnimatorState:
@@ -4171,7 +4171,7 @@ MonoBehaviour:
   _updateTime: 1
   _calculateForceDelay: 0.2
   _override: 0
-  _cohesionDistance: 4
+  _cohesionDistance: 8
   _separationDistance: 2
   _cohesionForce: 5
   _separationForce: 5
@@ -4392,8 +4392,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ccdf3f747014f4caf9beaab86ec1c6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minDelay: 2
-  _maxDelay: 2
+  _minDelay: 8
+  _maxDelay: 10
   _triggerName: switchState
 --- !u!1101 &8967619485661957593
 AnimatorStateTransition:
