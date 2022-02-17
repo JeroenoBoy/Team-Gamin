@@ -13,6 +13,10 @@ public class Healthbar : MonoBehaviour
         slider = GetComponent<Slider>();
     }
 
+    /// <summary>
+    /// function to set the max value of the healthbar
+    /// </summary>
+    /// <param name="health"></param>
     public void SetMaxHealth(int health)
     {
         slider.maxValue = health;
@@ -21,6 +25,10 @@ public class Healthbar : MonoBehaviour
         fill.color = gradient.Evaluate(1f);
     }
 
+    /// <summary>
+    /// function to update the healthbar slider, call this when units take damage
+    /// </summary>
+    /// <param name="health"></param>
     public void SetHealth(int health)
     {
         slider.value = health;
@@ -30,6 +38,7 @@ public class Healthbar : MonoBehaviour
 
     public void OnEnable()
     {
+        //adds the healthbar canvas to a canvas list
         TurnOffHealthBars.instance.canvasses.Add(canvas);
         canvas.enabled = TurnOffHealthBars.instance.toggled;
     }
@@ -38,6 +47,7 @@ public class Healthbar : MonoBehaviour
     {
         if (TurnOffHealthBars.instance)
         {
+            //removes the canvas from canvas list
             TurnOffHealthBars.instance.canvasses.Remove(canvas);
         }
     }
