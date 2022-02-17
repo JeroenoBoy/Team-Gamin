@@ -44,11 +44,12 @@ namespace Controllers
         private IEnumerator SearchLoop()
         {
             yield return new WaitForSeconds(_startDelay);
+            PlatoonManager.instance.RequestPlatoon(this);
             
             while (true)
             {
-                PlatoonManager.instance.RequestPlatoon(this);
                 yield return new WaitForSeconds(_searchDelay);
+                if (_isMaster) PlatoonManager.instance.RequestPlatoon(this);
             }
         }
 

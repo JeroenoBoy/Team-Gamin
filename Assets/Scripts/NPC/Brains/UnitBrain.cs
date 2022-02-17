@@ -140,6 +140,10 @@ namespace NPC.Brains
         {
             animator.SetTrigger(_diedHash);
             animator.SetBool(_isDeadHash, true);
+
+            if (!SpawnManager.managers.TryGetValue(team, out var manager)) return;
+            if ((manager.transform.position - transform.position).sqrMagnitude > manager.PenaltyDistance * manager.PenaltyDistance) return;
+            manager.CurrentPenalty++;
         }
 
 

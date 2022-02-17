@@ -15,7 +15,7 @@ MonoBehaviour:
   minSeekDistance: 0.5
   maxFleeDistance: 1000000
   pursueLookAhead: 2
-  minNodeDistance: 3
+  minNodeDistance: 5
   stopDistance: 0.5
   slowDistance: 2
   wanderCircleDistance: 4
@@ -38,8 +38,8 @@ MonoBehaviour:
   hideMask:
     serializedVersion: 2
     m_Bits: 0
-  flockCohesionDistance: 20
-  flockCohesionMaxForce: 4
+  flockCohesionDistance: 8
+  flockCohesionMaxForce: 3
   flockSeparationDistance: 2.65
   flockSeparationMaxForce: 8
   flockMask:
