@@ -2281,6 +2281,10 @@ PrefabInstance:
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 7269784269978884671, guid: d3396d9dc5f743b43a94af2d841f8bd9, type: 3}
+      propertyPath: allTraits
+      value: 
+      objectReference: {fileID: 11400000, guid: b80576446cd8dfa41abe90a7acb0dd70, type: 2}
+    - target: {fileID: 7269784269978884671, guid: d3396d9dc5f743b43a94af2d841f8bd9, type: 3}
       propertyPath: guardPath1
       value: 
       objectReference: {fileID: 1330154677}
@@ -5292,6 +5296,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 705779611392540269, guid: a8c2d3ffb2dee884cb7fdcbec524e669, type: 3}
+      propertyPath: allTraits
+      value: 
+      objectReference: {fileID: 11400000, guid: b80576446cd8dfa41abe90a7acb0dd70, type: 2}
     - target: {fileID: 705779611392540269, guid: a8c2d3ffb2dee884cb7fdcbec524e669, type: 3}
       propertyPath: guardPath1
       value: 

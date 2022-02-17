@@ -34,7 +34,6 @@ public class SpawnManager : MonoBehaviour
     [Header("Events")]
     public UnityEvent OnWaveStart;
 
-
     private void Start()
     {
         _objPool = GetComponent<ObjectPool>();
@@ -60,6 +59,10 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Set all the values the agent needs
+    /// </summary>
+    /// <param name="obj"></param>
     private void SetValues(GameObject obj)
     {
         var go = obj.GetComponent<UnitSettings>();
@@ -76,6 +79,10 @@ public class SpawnManager : MonoBehaviour
         go.Bind();
     }
 
+    /// <summary>
+    /// Get random trait and add them to the current stats
+    /// </summary>
+    /// <param name="go"></param>
     private void GetRandomTrait(UnitSettings go)
     {
         var i = Random.Range(0, allTraits.TraitsClass.Length);
