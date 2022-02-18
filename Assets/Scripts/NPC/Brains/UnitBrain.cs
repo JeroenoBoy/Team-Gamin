@@ -128,7 +128,7 @@ namespace NPC.Brains
         public void UpdateNearUpgradeArea()
         {
             var upPos = UpgradeArea.Instance.transform.position;
-            Animator.SetBool(_nearUpgrade, (upPos - transform.position).sqrMagnitude < _nearUpgrade * _nearUpgrade);
+            Animator.SetBool(_nearUpgrade, (upPos - transform.position).sqrMagnitude < upgradeArea * upgradeArea);
         }
 
         #endregion
