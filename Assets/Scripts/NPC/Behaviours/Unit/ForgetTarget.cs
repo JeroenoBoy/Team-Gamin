@@ -5,7 +5,7 @@ namespace NPC.Behaviours.Unit {
     {
         public override void PhysicsUpdate()
         {
-            stateController.target = null;
+            stateController.Target = null;
         }
     }
 }

@@ -24,7 +24,7 @@ namespace NPC
         /// <summary>
         /// Get the target of this controller
         /// </summary>
-        public virtual Transform target
+        public virtual Transform Target
         {
             get => _target;
             set => _target = value;

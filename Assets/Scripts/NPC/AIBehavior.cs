@@ -19,7 +19,7 @@ namespace NPC
         protected Animator          animator        { get; private set; }
         protected AnimatorStateInfo stateInfo       { get; private set; }
         
-        protected Transform target            => stateController.target;
+        protected Transform target            => stateController.Target;
         protected Transform transform         => stateController.transform;
         protected NPCSettings settings        => stateController.settings;
         protected MovementController movement => stateController.movementController;

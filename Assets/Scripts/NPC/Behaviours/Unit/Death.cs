@@ -27,7 +27,7 @@ namespace NPC.Behaviours.Unit
 
             if (_deathAnim)
                 Instantiate(_deathAnim.gameObject, transform.position, transform.rotation)
-                    .GetComponent<DeathAnim>().team = transform.GetComponent<UnitBrain>().team;
+                    .GetComponent<DeathAnim>().team = transform.GetComponent<UnitBrain>().Team;
         }
         
 

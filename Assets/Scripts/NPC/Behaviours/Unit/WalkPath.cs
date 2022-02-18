@@ -21,7 +21,7 @@ namespace NPC.Behaviours.Unit
         protected override void Start()
         {
             _pathLength     = stateController.path.totalNotes;
-            _indexDirection = unitBrain.team == UnitTeam.Blue ? 1 : -1;
+            _indexDirection = unitBrain.Team == UnitTeam.Blue ? 1 : -1;
         }
 
 

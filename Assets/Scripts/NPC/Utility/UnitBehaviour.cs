@@ -8,15 +8,15 @@ namespace NPC.Utility
     public class UnitBehaviour : AIBehavior
     {
         protected UnitBrain        unitBrain => (UnitBrain)stateController;
-        protected UnitSettings     unitSettings => unitBrain.unitSettings;
-        protected HealthController healthController => unitBrain.healthComponent;
-        protected Eyes eyes => unitBrain.eyes;
+        protected UnitSettings     unitSettings => unitBrain.UnitSettings;
+        protected HealthController healthController => unitBrain.HealthComponent;
+        protected Eyes eyes => unitBrain.Eyes;
 
         
         protected Platoon platoon
         {
-            get => unitBrain.platoon;
-            set => unitBrain.platoon = value;
+            get => unitBrain.Platoon;
+            set => unitBrain.Platoon = value;
         }
     }
 }

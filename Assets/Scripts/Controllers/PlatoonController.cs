@@ -22,7 +22,7 @@ namespace Controllers
         
         #region Properties
 
-        public UnitSettings unitSettings => _brain.unitSettings;
+        public UnitSettings unitSettings => _brain.UnitSettings;
         public UnitTeam team => unitSettings.team;
         private bool isMaster => _isMaster;
 

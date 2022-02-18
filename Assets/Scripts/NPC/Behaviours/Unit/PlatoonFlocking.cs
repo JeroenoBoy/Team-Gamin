@@ -8,14 +8,14 @@ namespace NPC.Behaviours.Unit
 {
     public class PlatoonFlocking : Flocking
     {
-        public Platoon platoon => ((UnitBrain)stateController).platoon;
+        private Platoon _platoon => ((UnitBrain)stateController).Platoon;
 
 
         protected override Vector3 CalculateForce(Vector3 center, float sqrDist)
         {
-            if(!platoon) return Vector3.zero;
+            if(!_platoon) return Vector3.zero;
             
-            var units = platoon.units.Select(t=>t.transform).ToArray();
+            var units = _platoon.units.Select(t=>t.transform).ToArray();
             var separationTargets = units.Where(t => (t.position - center).sqrMagnitude < sqrDist);
             
             //  Calculating forces
