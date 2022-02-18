@@ -37,18 +37,18 @@ namespace NPC.Behaviours.Avoidance
                 .Where(t => t.transform && t.transform.HasLayer(_layer))
                 .ToArray();
             
-            var addForce = movement.maxSpeed * settings.avoidObstacleForce;
+            var addForce = movement.maxSpeed * settings.AvoidObstacleForce;
             
             //  Looping thru all obstacles
 
             foreach (var hit in obstacles)
             {
                 var distance = (transform.position - hit.point).magnitude;
-                if(distance > settings.avoidObstacleDistance) continue;
+                if(distance > settings.AvoidObstacleDistance) continue;
                 
                 //  Calculating target force
              
-                var percentageDistance = distance / settings.avoidObstacleDistance;
+                var percentageDistance = distance / settings.AvoidObstacleDistance;
                 movement.AddForce(hit.normal.With(y: 0) * percentageDistance * addForce);
             }
         }
@@ -62,7 +62,7 @@ namespace NPC.Behaviours.Avoidance
         {
             if(_eyes.Hits == null) return;
             
-            foreach (var hit in _eyes.Hits.Where(t => t.transform.HasLayer(_layer) && (t.point - transform.position).sqrMagnitude < settings.avoidObstacleDistance*settings.avoidObstacleDistance))
+            foreach (var hit in _eyes.Hits.Where(t => t.transform.HasLayer(_layer) && (t.point - transform.position).sqrMagnitude < settings.AvoidObstacleDistance*settings.AvoidObstacleDistance))
             {
                 Gizmos.color = Handles.color = Color.magenta;
                 

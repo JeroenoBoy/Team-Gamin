@@ -88,7 +88,7 @@ namespace NPC
             //  Checking if the player is close enough to the target
          
             var distance = direction.sqrMagnitude;   
-            return distance < settings.minSeekDistance * settings.minSeekDistance
+            return distance < settings.MinSeekDistance * settings.MinSeekDistance
                 ? Vector3.zero
                 : direction.ClampMagnitude(speed);
         }
@@ -108,12 +108,12 @@ namespace NPC
             var direction = (targetPosition - position).With(y: 0);
             var distance = direction.magnitude;
             
-            if(distance < settings.stopDistance)
+            if(distance < settings.StopDistance)
                 return Vector3.zero;
             
             //  Calculating the force based on slowing distance
 
-            var slowDistance   = settings.slowDistance + settings.stopDistance;
+            var slowDistance   = settings.SlowDistance + settings.StopDistance;
             var currentSpeed = movement.velocity;
 
             var percentageDistance = distance / slowDistance;

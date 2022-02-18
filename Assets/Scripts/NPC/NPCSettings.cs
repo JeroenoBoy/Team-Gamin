@@ -1,44 +1,45 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace NPC
 {
     [CreateAssetMenu(fileName = "NPCSettings", menuName = "NPCSettings", order = 0)]
     public class NPCSettings : ScriptableObject
     {
-        public float minSeekDistance;
-        public float maxFleeDistance;
-        public float pursueLookAhead;
+         public float MinSeekDistance;
+         public float MaxFleeDistance;
+         public float PursueLookAhead;
         
-        [Header("Path Finding")]
-        public float minNodeDistance;
+         [Header("Path Finding")]
+         public float minNodeDistance;
 
-        [Header("Arrive Settings")]
-        public float stopDistance;
-        public float slowDistance;
+         [Header("Arrive Settings")]
+         public float StopDistance;
+         public float SlowDistance;
 
-        [Header("Wander Setting")]
-        public float wanderCircleDistance;
-        public float wanderCircleRadius;
-        public float wanderNoiseAngle;
+         [Header("Wander Setting")]
+         public float WanderCircleDistance;
+         public float WanderCircleRadius;
+         public float WanderNoiseAngle;
 
-        [Header("Avoid Object")]
-        public float     avoidObstacleForce;
-        public float     avoidObstacleDistance;
-        public float     inverseAvoidAngleOffset;
-        public LayerMask avoidObstacleMask;
+         [Header("Avoid Object")]
+         public float     AvoidObstacleForce;
+         public float     AvoidObstacleDistance;
+         public float     InverseAvoidAngleOffset;
+         public LayerMask AvoidObstacleMask;
 
-        [Header("Hiding")]
-        public float     hideMaxDistance;
-        public float     hideLookInterval;
-        public float     hideTargetDistance;
-        public LayerMask hideMask;
+         [Header("Hiding")]
+         public float     HideMaxDistance;
+         public float     HideLookInterval;
+         public float     HideTargetDistance;
+         public LayerMask HideMask;
 
-        [Header("Flocking")]
-        public float     flockCohesionDistance;
-        public float     flockCohesionMaxForce;
-        public float     flockSeparationDistance;
-        public float     flockSeparationMaxForce;
-        public LayerMask flockMask;
+         [Header("Flocking")]
+         public float     FlockCohesionDistance;
+         public float     FlockCohesionMaxForce;
+         public float     FlockSeparationDistance;
+         public float     FlockSeparationMaxForce;
+         public LayerMask FlockMask;
 
         [Header("Castle Settings")]
         public float castleDistance;

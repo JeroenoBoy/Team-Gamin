@@ -13,7 +13,7 @@ namespace NPC.Behaviours.Steering
             //  If the distance is higher than a certain amount, dont run at all
 
             var distance = direction.sqrMagnitude;
-            if(distance > settings.maxFleeDistance * settings.maxFleeDistance) return;
+            if(distance > settings.MaxFleeDistance * settings.MaxFleeDistance) return;
             
             //  Exactly like Seek but inversed
 

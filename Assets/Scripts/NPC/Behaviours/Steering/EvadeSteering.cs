@@ -14,7 +14,7 @@ namespace NPC.Behaviours.Steering
             var direction = position - targetPos;
             var distance    = direction.sqrMagnitude;
 
-            if (distance > settings.maxFleeDistance * settings.maxFleeDistance) return;
+            if (distance > settings.MaxFleeDistance * settings.MaxFleeDistance) return;
             
             //  Applying the force
             
