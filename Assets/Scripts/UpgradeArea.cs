@@ -7,7 +7,7 @@ using Util;
 public class UpgradeArea : Singleton<UpgradeArea>
 {
     //makes a dictionary with the settings and a coroutine
-    public Dictionary<UnitSettings, Coroutine> units = new Dictionary<UnitSettings, Coroutine>();
+    private Dictionary<UnitSettings, Coroutine> _units = new Dictionary<UnitSettings, Coroutine>();
 
     
     private void OnTriggerEnter(Collider other)
@@ -16,7 +16,7 @@ public class UpgradeArea : Singleton<UpgradeArea>
         {
             //makes a coroutine and adds it to a unit
             var coroutine = StartCoroutine(AddAttackDamage(unit));
-            units.Add(unit, coroutine);
+            _units.Add(unit, coroutine);
         }
     }
 
@@ -26,9 +26,9 @@ public class UpgradeArea : Singleton<UpgradeArea>
         if (other.TryGetComponent(out UnitSettings unit))
         {
             //removes the coroutine and removes the units from the dictionary
-            var coroutine = units[unit];
+            var coroutine = _units[unit];
             StopCoroutine(coroutine);
-            units.Remove(unit);
+            _units.Remove(unit);
         }
     }
 
