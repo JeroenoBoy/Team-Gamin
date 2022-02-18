@@ -15,7 +15,7 @@ namespace UI
         public int pathIndex;
         public Button[] pathButtons;
     
-        private int index;
+        private int _index;
 
         private void Start()
         {
@@ -41,10 +41,10 @@ namespace UI
             else
                 Debug.LogError("Invalid State!");
 
-            index = Array.IndexOf(UnitStateExtensions.states, unitState);
+            _index = Array.IndexOf(UnitStateExtensions.states, unitState);
 
             //sets selected button to red
-            Button[index].image.color = Color.red;
+            Button[_index].image.color = Color.red;
         }
 
         /// <summary>

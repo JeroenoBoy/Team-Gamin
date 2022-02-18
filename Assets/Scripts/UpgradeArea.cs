@@ -8,6 +8,7 @@ public class UpgradeArea : Singleton<UpgradeArea>
 {
     //makes a dictionary with the settings and a coroutine
     public Dictionary<UnitSettings, Coroutine> units = new Dictionary<UnitSettings, Coroutine>();
+
     
     private void OnTriggerEnter(Collider other)
     {
@@ -18,6 +19,7 @@ public class UpgradeArea : Singleton<UpgradeArea>
             units.Add(unit, coroutine);
         }
     }
+
 
     private void OnTriggerExit(Collider other)
     {
@@ -30,6 +32,7 @@ public class UpgradeArea : Singleton<UpgradeArea>
         }
     }
 
+    
     /// <summary>
     /// function to be called when inside upgrade area 
     /// </summary>
@@ -40,7 +43,7 @@ public class UpgradeArea : Singleton<UpgradeArea>
         yield return new WaitForSeconds(5);
 
         //increase attack for all units in the trigger
-        unit.attackDamage = 200;
+        unit.AttackDamage = 200;
         unit.Upgrade();
     }
 }

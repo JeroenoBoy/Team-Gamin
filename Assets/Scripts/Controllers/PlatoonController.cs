@@ -42,12 +42,12 @@ namespace Controllers
         private IEnumerator SearchLoop()
         {
             yield return new WaitForSeconds(_startDelay);
-            PlatoonManager.instance.RequestPlatoon(this);
+            PlatoonManager.Instance.RequestPlatoon(this);
             
             while (true)
             {
                 yield return new WaitForSeconds(_searchDelay);
-                if (_isMaster) PlatoonManager.instance.RequestPlatoon(this);
+                if (_isMaster) PlatoonManager.Instance.RequestPlatoon(this);
             }
         }
 
@@ -60,7 +60,7 @@ namespace Controllers
             if(_isMaster || !Platoon) return;
             
             var direction = Platoon.Master.transform.position - transform.position;
-            var man = PlatoonManager.instance;
+            var man = PlatoonManager.Instance;
 
             if (direction.sqrMagnitude > man.SearchRadius * man.SearchRadius)
                 Platoon.RemoveUnit(this);

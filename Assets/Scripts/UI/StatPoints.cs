@@ -11,8 +11,8 @@ namespace UI
 
         [Header("Values")]
         public float statPoints = 100;
-        [SerializeField]private float usedStatPoints;
-        [SerializeField]private float multiplier = 5;
+        [SerializeField] private float usedStatPoints;
+        [SerializeField] private float multiplier = 5;
 
         [Header("Text")]
         [SerializeField] private TextMeshProUGUI statPointsText;

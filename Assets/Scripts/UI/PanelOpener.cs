@@ -8,41 +8,43 @@ namespace UI
         public GameObject StatsPanel;
         public GameObject BehaviourPanel;
 
-        private Animator animA;
-        private Animator animB;
+        private Animator _animA;
+        private Animator _animB;
 
+        
         private void Start()
         {
-            animA = StatsPanel.GetComponent<Animator>();
-
-            animB = BehaviourPanel.GetComponent<Animator>();
+            _animA = StatsPanel.GetComponent<Animator>();
+            _animB = BehaviourPanel.GetComponent<Animator>();
         }
 
+        
         /// <summary>
         /// funtion to open the statpoint panel
         /// </summary>
         public void OpenStatsPanel()
         {
-            if (animA != null)
+            if (_animA != null)
             {
                 //reference to the Animator parameter
-                bool isOpen = animA.GetBool("stats");
+                bool isOpen = _animA.GetBool("stats");
 
-                animA.SetBool("stats", !isOpen);
+                _animA.SetBool("stats", !isOpen);
             }
         }
 
+        
         /// <summary>
         /// function to open the behaviour select panel
         /// </summary>
         public void OpenBehaviourPanel()
         {
-            if (animB != null)
+            if (_animB != null)
             {
                 //reference to the Animator parameter
-                bool isOpen = animB.GetBool("behaviour");
+                bool isOpen = _animB.GetBool("behaviour");
 
-                animB.SetBool("behaviour", !isOpen);
+                _animB.SetBool("behaviour", !isOpen);
             }
         }
     }

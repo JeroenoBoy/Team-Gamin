@@ -7,12 +7,12 @@ namespace Util
     /// </summary>
     public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     {
-        public static T instance { get; private set; }
+        public static T Instance { get; private set; }
 
 
         protected virtual void OnEnable()
         {
-            if (!instance || instance == this) instance = this as T;
+            if (!Instance || Instance == this) Instance = this as T;
             else
             {
                 Destroy(this);
@@ -23,7 +23,7 @@ namespace Util
 
         protected virtual void OnDisable()
         {
-            if(instance == this) instance = null;
+            if(Instance == this) Instance = null;
         }
     }
 }

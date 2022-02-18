@@ -4,18 +4,18 @@ namespace UI
 {
     public class Billboard : MonoBehaviour
     {
-        public Transform cam;
+        private Transform _cam;
 
         private void Start()
         {
             //gets camera reference
-            cam = Camera.main.transform;
+            _cam = Camera.main.transform;
         }
 
-        void LateUpdate()
+        private void LateUpdate()
         {
             //rotates ui object towards camera
-            transform.LookAt(transform.position + cam.forward);
+            transform.LookAt(transform.position + _cam.forward);
         }
     }
 }

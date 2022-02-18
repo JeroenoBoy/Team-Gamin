@@ -15,6 +15,7 @@ namespace UI
             slider = GetComponent<Slider>();
         }
 
+        
         /// <summary>
         /// function to set the max value of the healthbar
         /// </summary>
@@ -27,6 +28,7 @@ namespace UI
             fill.color = gradient.Evaluate(1f);
         }
 
+        
         /// <summary>
         /// function to update the healthbar slider, call this when units take damage
         /// </summary>
@@ -38,19 +40,21 @@ namespace UI
             fill.color = gradient.Evaluate(slider.normalizedValue);
         }
 
-        public void OnEnable()
+        
+        private void OnEnable()
         {
             //adds the healthbar canvas to a canvas list
-            TurnOffHealthBars.instance.canvasses.Add(canvas);
-            canvas.enabled = TurnOffHealthBars.instance.toggled;
+            TurnOffHealthBars.Instance.canvasses.Add(canvas);
+            canvas.enabled = TurnOffHealthBars.Instance.toggled;
         }
 
-        public void OnDisable()
+        
+        private void OnDisable()
         {
-            if (TurnOffHealthBars.instance)
+            if (TurnOffHealthBars.Instance)
             {
                 //removes the canvas from canvas list
-                TurnOffHealthBars.instance.canvasses.Remove(canvas);
+                TurnOffHealthBars.Instance.canvasses.Remove(canvas);
             }
         }
     }

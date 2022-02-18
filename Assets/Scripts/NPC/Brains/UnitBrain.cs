@@ -127,7 +127,7 @@ namespace NPC.Brains
          */
         public void UpdateNearUpgradeArea()
         {
-            var upPos = UpgradeArea.instance.transform.position;
+            var upPos = UpgradeArea.Instance.transform.position;
             Animator.SetBool(_nearUpgrade, (upPos - transform.position).sqrMagnitude < _nearUpgrade * _nearUpgrade);
         }
 
@@ -231,11 +231,11 @@ namespace NPC.Brains
          */
         public void Bind()
         {
-            MovementController.MaxSpeed = UnitSettings.movementSpeed;
-            Eyes.RayLength              = (int)UnitSettings.sightRange;
-            HealthComponent.maxHealth   = (int)UnitSettings.defense;
+            MovementController.MaxSpeed = UnitSettings.MovementSpeed;
+            Eyes.RayLength              = (int)UnitSettings.SightRange;
+            HealthComponent.maxHealth   = (int)UnitSettings.Defense;
             HealthComponent.health      = HealthComponent.maxHealth;
-            HealthComponent.baseHealth  = UnitSettings.baseDefence;
+            HealthComponent.baseHealth  = UnitSettings.BaseDefence;
 
             Target = null;
             

@@ -24,7 +24,7 @@ namespace Platoons
             Team = team;
             AddUnit(controller);
 
-            PlatoonManager.instance.AddPlatoon(this);
+            PlatoonManager.Instance.AddPlatoon(this);
         }
 
 
@@ -34,7 +34,7 @@ namespace Platoons
         public void MigratePlatoon(Platoon targetPlatoon)
         {
             while (Units.Count > 0) targetPlatoon.AddUnit(Units.First());
-            PlatoonManager.instance.RemovePlatoon(this);
+            PlatoonManager.Instance.RemovePlatoon(this);
         }
 
 

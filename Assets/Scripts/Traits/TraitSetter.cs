@@ -25,14 +25,14 @@ namespace Traits
         public void SetTraitText(UnitSettings settings)
         {
             //sets the current trait text
-            Trait.text = "Trait : " + settings.traits;
+            Trait.text = "Trait : " + settings.Traits;
 
             //sets the stats text
-            AtkDmg.text = string.Format("ATK DMG : {0}", settings.attackDamage.ToString("F"));
-            AtkSpd.text = string.Format("ATK SPD : {0}", settings.attackSpeed.ToString("F"));
-            MovSpd.text = string.Format("Speed : {0}", settings.movementSpeed.ToString("F"));
-            Defence.text = string.Format("Defence : {0}", settings.defense.ToString("F"));
-            SightRange.text = string.Format("Sight : {0}", settings.sightRange.ToString("F"));
+            AtkDmg.text = string.Format("ATK DMG : {0}", settings.AttackDamage.ToString("F"));
+            AtkSpd.text = string.Format("ATK SPD : {0}", settings.AttackSpeed.ToString("F"));
+            MovSpd.text = string.Format("Speed : {0}", settings.MovementSpeed.ToString("F"));
+            Defence.text = string.Format("Defence : {0}", settings.Defense.ToString("F"));
+            SightRange.text = string.Format("Sight : {0}", settings.SightRange.ToString("F"));
         }
     }
 }

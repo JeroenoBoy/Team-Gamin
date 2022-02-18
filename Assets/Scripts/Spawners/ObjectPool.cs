@@ -14,7 +14,7 @@ namespace Spawners
         [HideInInspector] public bool AutoExpand;
         [HideInInspector] public int MaxSize;
     
-        //  Max sise and the currentSize of the pool
+        //  Max size and the currentSize of the pool
         private int _currentSize;
         private int _poolSize = 0;
 

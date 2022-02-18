@@ -4,7 +4,7 @@
     {
         public override void PhysicsUpdate()
         {
-            movement.AddForce(MoveWithArrive(UpgradeArea.instance.transform.position));
+            movement.AddForce(MoveWithArrive(UpgradeArea.Instance.transform.position));
         }
     }
 }

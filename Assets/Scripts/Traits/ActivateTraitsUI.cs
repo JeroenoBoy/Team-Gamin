@@ -5,18 +5,23 @@ namespace Traits
 {
     public class ActivateTraitsUI : MonoBehaviour
     {
-        private UnitSettings settings;
+        private UnitSettings _settings;
 
+        
         private void Start()
         {
-            settings = GetComponent<UnitSettings>();
+            _settings = GetComponent<UnitSettings>();
         }
 
+        
+        /**
+         * Detects when clicked upon
+         */
         public void OnMouseDown()
         {
-            //when clicked on a unit call the set text function and turn on the panel in the ui
-            TraitSetter.instance.SetTraitText(settings);
-            TraitSetter.instance.TraitsPanel.SetActive(true);
+            //  When clicked on a unit call the set text function and turn on the panel in the ui
+            TraitSetter.Instance.SetTraitText(_settings);
+            TraitSetter.Instance.TraitsPanel.SetActive(true);
         }
     }
 }

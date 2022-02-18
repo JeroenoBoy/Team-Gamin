@@ -12,11 +12,13 @@ public class HealingFountain : Singleton<HealingFountain>
     
     private List<HealthController> Agents = new List<HealthController>();
 
+
     protected override void OnEnable()
     {
         base.OnEnable();
         StartCoroutine(Heal());
     }
+
 
     private void OnTriggerEnter(Collider coll)
     {
@@ -26,6 +28,7 @@ public class HealingFountain : Singleton<HealingFountain>
         Agents.Add(agent);
     }
 
+
     private void OnTriggerExit(Collider coll)
     {
         //Remove agent from the list
@@ -33,6 +36,7 @@ public class HealingFountain : Singleton<HealingFountain>
         
         Agents.Remove(agent);
     }
+
 
     /// <summary>
     /// Heal every agent in the AgentsArray every time the _healDelay is over

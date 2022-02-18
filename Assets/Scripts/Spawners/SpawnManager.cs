@@ -15,20 +15,14 @@ namespace Spawners
         private ObjectPool _objPool;
 
         public UnitTeam Team;
-
         public Traits.Traits allTraits;
 
         public StatPoints statPoints;
         public BehaviourMenu behaviourMenu;
 
-        [Range(0.1f, 1f)]
-        public float TimeBetweenSpawn;
-
-        [Range(0.1f, 20f)]
-        public float TimeBetweenWave;
-
-        [Range(1f, 20f)]
-        public float multiplier;
+        [Range(0.1f, 1f)]  public float TimeBetweenSpawn;
+        [Range(0.1f, 20f)] public float TimeBetweenWave;
+        [Range(1f, 20f)]   public float Multiplier = 4f;
 
         public Transform TargetCastle;
 
@@ -45,10 +39,14 @@ namespace Spawners
         [Header("Events")]
         public UnityEvent OnWaveStart;
 
+        
         #region Singleton ish
         public static readonly Dictionary<UnitTeam, SpawnManager> managers = new Dictionary<UnitTeam, SpawnManager>();
 
 
+        /**
+         * Adds this to the list of managers
+         */
         private void Awake()
         {
             if (managers.ContainsKey(Team))
@@ -62,6 +60,9 @@ namespace Spawners
         }
 
 
+        /**
+         * Destroys the manager
+         */
         private void OnDestroy()
         {
             if (managers.TryGetValue(Team, out var manager) && manager == this)
@@ -70,6 +71,7 @@ namespace Spawners
 
         #endregion
 
+        
         private void Start()
         {
             _objPool = GetComponent<ObjectPool>();
@@ -79,7 +81,6 @@ namespace Spawners
         /// <summary>
         /// Spawn the agents with the objectPool
         /// </summary>
-        /// <returns></returns>
         protected virtual IEnumerator WaveSpawner()
         {
             while (true)
@@ -99,13 +100,14 @@ namespace Spawners
                     var obj = _objPool.SpawnObject(); //Use the objectPool
                     if (!obj) break;
 
-                    obj.transform.position = transform.position + Random.insideUnitSphere.With(y: 0) * multiplier;
+                    obj.transform.position = transform.position + Random.insideUnitSphere.With(y: 0) * Multiplier;
                     SetValues(obj); //Give the agent his traits
                     yield return new WaitForSeconds(TimeBetweenSpawn);
                 }
             }
         }
 
+        
         /// <summary>
         /// Set all the values the agent needs
         /// </summary>
@@ -135,11 +137,11 @@ namespace Spawners
             int t = Random.Range(1, 3);
 
             //Set all the base values
-            go.attackDamage = (int)statPoints.data[0].value;
-            go.attackSpeed = statPoints.data[1].value;
-            go.movementSpeed = statPoints.data[2].value;
-            go.sightRange = (int)statPoints.data[3].value;
-            go.defense = (int)statPoints.data[4].value;
+            go.AttackDamage = (int)statPoints.data[0].value;
+            go.AttackSpeed = statPoints.data[1].value;
+            go.MovementSpeed = statPoints.data[2].value;
+            go.SightRange = (int)statPoints.data[3].value;
+            go.Defense = (int)statPoints.data[4].value;
 
             string traits = "";
 
@@ -147,11 +149,11 @@ namespace Spawners
             {
                 int a = Random.Range(0, allTraits.TraitsClass.Length);
 
-                go.attackDamage += allTraits.TraitsClass[a].atkdmg;
-                go.attackSpeed += allTraits.TraitsClass[a].atkspd;
-                go.movementSpeed += allTraits.TraitsClass[a].movspd;
-                go.sightRange += allTraits.TraitsClass[a].sightRange;
-                go.defense += allTraits.TraitsClass[a].defense;
+                go.AttackDamage += allTraits.TraitsClass[a].atkdmg;
+                go.AttackSpeed += allTraits.TraitsClass[a].atkspd;
+                go.MovementSpeed += allTraits.TraitsClass[a].movspd;
+                go.SightRange += allTraits.TraitsClass[a].sightRange;
+                go.Defense += allTraits.TraitsClass[a].defense;
 
                 traits = string.Format(traits + " " + allTraits.TraitsClass[a].name);
 
@@ -160,7 +162,7 @@ namespace Spawners
                 t--;
             }
 
-            go.traits = traits.ToString();
+            go.Traits = traits.ToString();
             go.targetCastle = TargetCastle;
             go.state = behaviourMenu.unitState;
         }
