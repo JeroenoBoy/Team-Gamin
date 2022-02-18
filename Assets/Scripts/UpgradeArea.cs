@@ -40,5 +40,6 @@ public class UpgradeArea : Singleton<UpgradeArea>
 
         //increase attack for all units in the trigger
         unit.attackDamage = 200;
+        unit.Upgrade();
     }
 }

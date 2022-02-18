@@ -19,9 +19,12 @@ namespace NPC.Brains
         private static readonly int _nearCastleHash = Animator.StringToHash("NearCastle");
         private static readonly int _isDeadHash     = Animator.StringToHash("IsDead");
         private static readonly int _diedHash       = Animator.StringToHash("Died");
+        private static readonly int _nearUpgrade    = Animator.StringToHash("NearUpgrade");
+        private static readonly int _isUpgraded     = Animator.StringToHash("IsUpgraded");
 
         private PlatoonController _platoonController;
-            
+
+        public float     upgradeArea;
         public Transform castleTarget;
 
         public HealthController healthComponent { get; private set; }
@@ -82,6 +85,7 @@ namespace NPC.Brains
         {
             base.FixedUpdate();
             UpdateCastleInRange();
+            UpdateNearUpgradeArea();
             if(eyes.hits != null) UpdateTarget();
         }
 
@@ -116,6 +120,16 @@ namespace NPC.Brains
             //  Updating animator values
             
             animator.SetFloat(_distanceHash, (target.position - position).magnitude);
+        }
+
+
+        /**
+         * Updates when I get near the upgrade area
+         */
+        public void UpdateNearUpgradeArea()
+        {
+            var upPos = UpgradeArea.instance.transform.position;
+            animator.SetBool(_nearUpgrade, (upPos - transform.position).sqrMagnitude < _nearUpgrade * _nearUpgrade);
         }
 
         #endregion
@@ -225,6 +239,15 @@ namespace NPC.Brains
             
             SendMessage("OnBind", SendMessageOptions.DontRequireReceiver);
         }
+
+
+        /**
+         * Invoke the upgrading variables
+         */
+        public void Upgrade()
+        {
+            animator.SetBool(_isUpgraded, true);
+        } 
 
         
         #endregion

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Cryptography;
 using Controllers;
 using Controllers.Paths;
 using NPC.Brains;
@@ -126,6 +127,12 @@ namespace NPC.UnitData
         public void Bind()
         {
             _brain.Bind();
+        }
+
+
+        public void Upgrade()
+        {
+            _brain.Upgrade();
         }
     }
 }

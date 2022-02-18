@@ -640,6 +640,7 @@ MonoBehaviour:
   _settings: {fileID: 11400000, guid: 0add9ce45b80fa34dabeaefb9f45648f, type: 2}
   path: {fileID: 0}
   _behaviours: []
+  upgradeArea: 15
   castleTarget: {fileID: 0}
 --- !u!114 &5513952201805270751
 MonoBehaviour:
@@ -769,7 +770,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0af4ec35304f4249874bec7b6d0c955, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TraitsPanel: {fileID: 0}
 --- !u!1 &7116092693942520203
 GameObject:
   m_ObjectHideFlags: 0
