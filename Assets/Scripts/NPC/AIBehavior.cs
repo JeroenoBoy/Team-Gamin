@@ -21,8 +21,8 @@ namespace NPC
         
         protected Transform target            => stateController.Target;
         protected Transform transform         => stateController.transform;
-        protected NPCSettings settings        => stateController.settings;
-        protected MovementController movement => stateController.movementController;
+        protected NPCSettings settings        => stateController.Settings;
+        protected MovementController movement => stateController.MovementController;
 
         #endregion
         
@@ -135,7 +135,7 @@ namespace NPC
         #region Coroutines
 
 
-        private List<Coroutine> _coroutines = new List<Coroutine>();
+        private readonly List<Coroutine> _coroutines = new List<Coroutine>();
 
         
         /**
@@ -146,13 +146,18 @@ namespace NPC
             Coroutine coroutine = null;
             IEnumerator WrapCoroutine()
             {
+                //  Executing coroutine
                 var startTime = Time.time;
                 yield return routine;
                 
+                //  Avoid potential error
                 if (Math.Abs(startTime - Time.time) < 0.0001f) yield return null;
                 
+                //  Removing the coroutine
                 _coroutines.Remove(coroutine);
             }
+            
+            //  Starting the coroutine
             
             coroutine = stateController.StartCoroutine(WrapCoroutine());
             _coroutines.Add(coroutine);

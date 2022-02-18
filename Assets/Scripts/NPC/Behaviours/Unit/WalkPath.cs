@@ -20,7 +20,7 @@ namespace NPC.Behaviours.Unit
          */
         protected override void Start()
         {
-            _pathLength     = stateController.path.totalNotes;
+            _pathLength     = stateController.Path.totalNotes;
             _indexDirection = unitBrain.Team == UnitTeam.Blue ? 1 : -1;
         }
 
@@ -33,7 +33,7 @@ namespace NPC.Behaviours.Unit
             //  Finding the closest node
 
             var pos = transform.position;
-            var node = stateController.path.nodes
+            var node = stateController.Path.nodes
                 .OrderBy(n => (n.position - pos).sqrMagnitude)
                 .First();
 
@@ -97,7 +97,7 @@ namespace NPC.Behaviours.Unit
                     return;
             }
             
-            _currentNode = stateController.path.GetNode(_currentIndex).transform;
+            _currentNode = stateController.Path.GetNode(_currentIndex).transform;
         }
     }
 }

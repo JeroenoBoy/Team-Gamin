@@ -66,7 +66,7 @@ namespace NPC.Brains
         {
             Platoon?.RemoveUnit(_platoonController);
             Target = null;
-            Reset();
+            ResetUnit();
         }
 
 
@@ -81,7 +81,7 @@ namespace NPC.Brains
             base.FixedUpdate();
             UpdateCastleInRange();
             UpdateNearUpgradeArea();
-            if(Eyes.hits != null) UpdateTarget();
+            if(Eyes.Hits != null) UpdateTarget();
         }
 
 
@@ -90,10 +90,10 @@ namespace NPC.Brains
          */
         private void UpdateCastleInRange()
         {
-            animator.SetBool(_nearCastleHash, (castleTarget.position - transform.position).sqrMagnitude < settings.castleDistance * settings.castleDistance);
+            Animator.SetBool(_nearCastleHash, (castleTarget.position - transform.position).sqrMagnitude < Settings.castleDistance * Settings.castleDistance);
 
             if (_hasTarget) return;
-            animator.SetFloat(_distanceHash, (castleTarget.position - transform.position).magnitude);
+            Animator.SetFloat(_distanceHash, (castleTarget.position - transform.position).magnitude);
         }
 
 
@@ -106,7 +106,7 @@ namespace NPC.Brains
             
             //  Getting the closest unit in the other team
 
-            var closest = Eyes.hits
+            var closest = Eyes.Hits
                 .Where  (t => t.transform.TryGetComponent(out UnitBrain brain) && brain.Team != Team)
                 .OrderBy(t => (t.transform.position - position).sqrMagnitude)
                 .FirstOrDefault().transform;
@@ -117,7 +117,7 @@ namespace NPC.Brains
             
             //  Updating animator values
             
-            animator.SetFloat(_distanceHash, (Target.position - position).magnitude);
+            Animator.SetFloat(_distanceHash, (Target.position - position).magnitude);
         }
 
 
@@ -127,7 +127,7 @@ namespace NPC.Brains
         public void UpdateNearUpgradeArea()
         {
             var upPos = UpgradeArea.instance.transform.position;
-            animator.SetBool(_nearUpgrade, (upPos - transform.position).sqrMagnitude < _nearUpgrade * _nearUpgrade);
+            Animator.SetBool(_nearUpgrade, (upPos - transform.position).sqrMagnitude < _nearUpgrade * _nearUpgrade);
         }
 
         #endregion
@@ -141,7 +141,7 @@ namespace NPC.Brains
          */
         private void HealthChange()
         {
-            animator.SetInteger(_healthHash, HealthComponent.health);
+            Animator.SetInteger(_healthHash, HealthComponent.health);
         }
         
         
@@ -150,8 +150,8 @@ namespace NPC.Brains
          */
         private void OnDeath()
         {
-            animator.SetTrigger(_diedHash);
-            animator.SetBool(_isDeadHash, true);
+            Animator.SetTrigger(_diedHash);
+            Animator.SetBool(_isDeadHash, true);
 
             if (!SpawnManager.managers.TryGetValue(Team, out var manager)) return;
             if ((manager.transform.position - transform.position).sqrMagnitude > manager.PenaltyDistance * manager.PenaltyDistance) return;
@@ -164,7 +164,7 @@ namespace NPC.Brains
          */
         private void OnStateChange()
         {
-            animator.SetInteger(_stateHash, (int)UnitSettings.state);
+            Animator.SetInteger(_stateHash, (int)UnitSettings.state);
         }
 
 
@@ -173,7 +173,7 @@ namespace NPC.Brains
          */
         private void OnPlatoonUpdate()
         {
-            animator.SetInteger(_platoonHash, Platoon.Count);
+            Animator.SetInteger(_platoonHash, Platoon.Count);
         }
 
 
@@ -230,8 +230,8 @@ namespace NPC.Brains
          */
         public void Bind()
         {
-            movementController.maxSpeed = UnitSettings.movementSpeed;
-            Eyes.rayLength              = (int)UnitSettings.sightRange;
+            MovementController.maxSpeed = UnitSettings.movementSpeed;
+            Eyes.RayLength              = (int)UnitSettings.sightRange;
             HealthComponent.maxHealth   = (int)UnitSettings.defense;
             HealthComponent.health      = HealthComponent.maxHealth;
             HealthComponent.baseHealth  = UnitSettings.baseDefence;
@@ -247,7 +247,7 @@ namespace NPC.Brains
          */
         public void Upgrade()
         {
-            animator.SetBool(_isUpgraded, true);
+            Animator.SetBool(_isUpgraded, true);
         } 
 
         
@@ -288,11 +288,11 @@ namespace NPC.Brains
             {
                 //  Say to the animator that I lost my target
                 if (_hasTarget && !value)
-                    animator.SetBool(_targetHash, _hasTarget = false);
+                    Animator.SetBool(_targetHash, _hasTarget = false);
                 
                 //  Say to the animator that I have a target
                 else if (!_hasTarget && value)
-                    animator.SetBool(_targetHash, _hasTarget = true);
+                    Animator.SetBool(_targetHash, _hasTarget = true);
 
                 base.Target = value;
             }

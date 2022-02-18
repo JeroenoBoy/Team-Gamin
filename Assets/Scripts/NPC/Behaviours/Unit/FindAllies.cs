@@ -25,7 +25,7 @@ namespace NPC.Behaviours.Unit
 
             var team = unitBrain.Team;
             var position = transform.position;
-            var ally = eyes.hits
+            var ally = eyes.Hits
                 .Where(t => t.transform.TryGetComponent(out UnitBrain brain) && brain.Platoon && brain.Team == team)
                 .OrderBy(t => (t.point - position).sqrMagnitude)
                 .FirstOrDefault();

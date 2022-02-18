@@ -20,13 +20,13 @@ namespace NPC.Behaviours.Steering
         /// </summary>
         protected override void Enter()
         {;
-            _pathLength     = stateController.path.totalNotes;
+            _pathLength     = stateController.Path.totalNotes;
             _indexDirection = 1;
             
             //  Finding the closest node
 
             var position = transform.position;
-            _currentNode = stateController.path.nodes
+            _currentNode = stateController.Path.nodes
                 .OrderBy(n => (n.position - position).sqrMagnitude)
                 .First();
 
@@ -60,7 +60,7 @@ namespace NPC.Behaviours.Steering
         /// </summary>
         private void NextNode()
         {
-            switch (stateController.path.type)
+            switch (stateController.Path.type)
             {
                 //  The loop Case
                 
@@ -107,7 +107,7 @@ namespace NPC.Behaviours.Steering
                     throw new ArgumentOutOfRangeException();
             }
             
-            _currentNode = stateController.path.GetNode(_currentIndex);
+            _currentNode = stateController.Path.GetNode(_currentIndex);
         }
 
 

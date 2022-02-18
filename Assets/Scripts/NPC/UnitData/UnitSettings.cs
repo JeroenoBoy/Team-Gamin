@@ -94,8 +94,8 @@ namespace NPC.UnitData
          */
         public PathController path
         {
-            get => _brain.path;
-            set => _brain.path = value;
+            get => _brain.Path;
+            set => _brain.Path = value;
         }
 
 

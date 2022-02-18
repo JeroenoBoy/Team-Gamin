@@ -27,11 +27,6 @@ namespace NPC
         public float     inverseAvoidAngleOffset;
         public LayerMask avoidObstacleMask;
 
-        [Header("Avoid Wall")]
-        public float     avoidWallForce;
-        public float     avoidWallDistance;
-        public LayerMask avoidWallMask;
-
         [Header("Hiding")]
         public float     hideMaxDistance;
         public float     hideLookInterval;
