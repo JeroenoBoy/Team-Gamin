@@ -1611,17 +1611,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toggled: 1
   canvasses: []
---- !u!114 &553383559 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2127768338705593863, guid: 02a75062e5c9bb84dba933c95eb05ce7, type: 3}
-  m_PrefabInstance: {fileID: 524840957}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 553383555}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4290e5ae0987c64fb7915b8960608a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &607969383
 GameObject:
   m_ObjectHideFlags: 0
@@ -2718,7 +2707,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1084297857
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4539,6 +4528,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Healing Area
       objectReference: {fileID: 0}
+    - target: {fileID: 1672924485411572485, guid: 8fee3b3083aba7d4581f9c5486541fc8, type: 3}
+      propertyPath: Speed.z
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 1672924485411572536, guid: 8fee3b3083aba7d4581f9c5486541fc8, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -5862,8 +5855,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1911.2175, y: 587.2474}
-  m_SizeDelta: {x: 59.1315, y: 44.878}
+  m_AnchoredPosition: {x: 417.2, y: -55.286}
+  m_SizeDelta: {x: 94.395, y: 58.171}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1969581121
 MonoBehaviour:
@@ -5909,10 +5902,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 553383559}
-        m_TargetAssemblyTypeName: PanelOpener, Assembly-CSharp
-        m_MethodName: OpenBehaviourPanel
-        m_Mode: 1
+      - m_Target: {fileID: 1084297856}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -6288,6 +6281,10 @@ PrefabInstance:
     - target: {fileID: 3900650375929913209, guid: 6b88d4b7d9ec92b42ab006d342c7c16c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3900650375929913212, guid: 6b88d4b7d9ec92b42ab006d342c7c16c, type: 3}
+      propertyPath: Speed.z
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3900650375929913213, guid: 6b88d4b7d9ec92b42ab006d342c7c16c, type: 3}
       propertyPath: m_Name
