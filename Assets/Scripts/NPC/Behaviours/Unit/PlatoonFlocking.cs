@@ -15,7 +15,7 @@ namespace NPC.Behaviours.Unit
         {
             if(!_platoon) return Vector3.zero;
             
-            var units = _platoon.units.Select(t=>t.transform).ToArray();
+            var units = _platoon.Units.Select(t=>t.transform).ToArray();
             var separationTargets = units.Where(t => (t.position - center).sqrMagnitude < sqrDist);
             
             //  Calculating forces

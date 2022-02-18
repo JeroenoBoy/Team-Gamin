@@ -15,7 +15,7 @@ namespace Platoons
         [SerializeField] private LayerMask       _unitLayerName;
         [SerializeField] private List<Platoon>[] _platoons;
         
-        public float searchRadius => _platoonSearchRadius;
+        public float SearchRadius => _platoonSearchRadius;
         
         
         private void Awake()
@@ -82,7 +82,7 @@ namespace Platoons
          */
         public void AddPlatoon(Platoon platoon)
         {
-            _platoons[(int)platoon.team].Add(platoon);
+            _platoons[(int)platoon.Team].Add(platoon);
         }
 
 
@@ -91,7 +91,7 @@ namespace Platoons
          */
         public void RemovePlatoon(Platoon platoon)
         {
-            _platoons[(int)platoon.team].Remove(platoon);
+            _platoons[(int)platoon.Team].Remove(platoon);
         }
     }
 }

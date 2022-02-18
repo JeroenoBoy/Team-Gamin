@@ -61,10 +61,10 @@ namespace Controllers
         {
             if(_isMaster || !platoon) return;
             
-            var direction = platoon.master.transform.position - transform.position;
+            var direction = platoon.Master.transform.position - transform.position;
             var man = PlatoonManager.instance;
 
-            if (direction.sqrMagnitude > man.searchRadius * man.searchRadius)
+            if (direction.sqrMagnitude > man.SearchRadius * man.SearchRadius)
                 platoon.RemoveUnit(this);
         }
 
@@ -107,7 +107,7 @@ namespace Controllers
 
         private void OnPlatoonUpdate()
         {
-            _isMaster = platoon.master == this;
+            _isMaster = platoon.Master == this;
         }
 
         #endregion
