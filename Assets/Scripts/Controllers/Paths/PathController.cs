@@ -24,10 +24,7 @@ namespace Controllers.Paths
         /**
          * Collect all nodes when i awake
          */
-        private void Awake()
-        {
-            CollectNodes();
-        }
+        private void Awake() => CollectNodes();
 
 
         /**
