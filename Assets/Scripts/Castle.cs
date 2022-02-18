@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using Controllers;
+using UI;
 
 public class Castle : MonoBehaviour
 {
-    [SerializeField]
-    private UnityEvent OnDie;
-
-    [SerializeField]
-    private UnityEvent OnGetHit;
+    public UnityEvent OnDie;
+    public UnityEvent OnGetHit;
 
     private void Start()
     {

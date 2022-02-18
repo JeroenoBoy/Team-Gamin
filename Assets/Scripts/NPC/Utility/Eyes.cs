@@ -15,17 +15,19 @@ namespace NPC.Utility
         [SerializeField] private int       _minSight  = 3;
         [SerializeField] private int       _rayLength = 30;
         [SerializeField] private LayerMask _interactMask;
+        
+        public RaycastHit[] Hits { get; private set; }
 
-
-        public RaycastHit[] hits { get; private set; }
-
-        public int rayLength
+        public int RayLength
         {
             get => _rayLength;
             set => _rayLength = value;
         }
-
-
+        
+        
+        /**
+         * Simple checks to avoid infinite loops 
+         */
         private void OnValidate()
         {
             if (_fov       < 1) _fov = 1;
@@ -35,19 +37,19 @@ namespace NPC.Utility
 
 
         
-        /// <summary>
-        /// Find all the last targets
-        /// </summary>
+        /**
+         * Find all the last targets
+         */
         private void FixedUpdate()
         {
-            hits = FindTargets().ToArray();
+            Hits = FindTargets().ToArray();
         }
 
 
-        /// <summary>
-        /// Casts all rays to find targets
-        /// Can use break in a foreach to optimize
-        /// </summary>
+        /**
+         * Casts all rays to find targets
+         * Can use break in a foreach to optimize
+         */
         public IEnumerable<RaycastHit> FindTargets()
         {
             var halfov = _fov * .5f;
@@ -65,9 +67,12 @@ namespace NPC.Utility
             var position = transform.position;
             var ray = new Ray(position, Vector3.zero);
             
+            //  Looping thru all the enemies nearby 
             foreach (var collider in Physics.OverlapSphere(position, _minSight, _interactMask))
             {
                 if (collider.transform == transform) continue;
+                
+                //  Getting the raycastHit
                 
                 ray.direction = (collider.transform.position - position).normalized;
                 if (ray.direction == Vector3.zero) continue;
@@ -78,9 +83,9 @@ namespace NPC.Utility
         }
 
 
-        /// <summary>
-        /// Casts a single ray at the given angle
-        /// </summary>
+        /**
+         * Casts a single ray at the given angle
+         */
         private bool CastRay(float angle, out RaycastHit hitInfo)
         {
             var direction = Utils.Quaternion(y: angle) * transform.forward;
@@ -88,9 +93,9 @@ namespace NPC.Utility
         }
 
 
-        /// <summary>
-        /// Checks if the target is still in range
-        /// </summary>
+        /**
+         * Checks if the target is still in range
+         */
         public bool CanSee(Transform target)
         {
             if (!target || !target.gameObject.activeInHierarchy) return false;
@@ -101,9 +106,9 @@ namespace NPC.Utility
 
 
 #if UNITY_EDITOR
-        /// <summary>
-        /// Draws the utility rays
-        /// </summary>
+        /**
+         * Draws the utility rays
+         */
         private void OnDrawGizmos()
         {
             var halfov = _fov * .5f;

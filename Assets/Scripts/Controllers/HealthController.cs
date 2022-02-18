@@ -12,7 +12,7 @@ namespace Controllers
 
         public int baseHealth;
         public bool isDead;
-        public bool isBlocking;
+        public bool IsBlocking;
         
 
         #region Properties
@@ -37,6 +37,9 @@ namespace Controllers
         #endregion
 
 
+        /**
+         * Reset death & health
+         */
         private void OnEnable()
         {
             isDead = false;
@@ -44,29 +47,32 @@ namespace Controllers
         }
 
 
-        /// <summary>
-        /// Damage the component by a certain amount
-        /// </summary>
+        /**
+         * Damage the component by a certain amount
+         */
         public int Damage(int amount, Vector3? point = null)
         {
             if (amount < 0) throw new ArgumentException("Amount must not be lower than one");
-            
-            if (isBlocking)
+
+            //  Checks for blocking
+
+            switch (IsBlocking)
             {
-                if (point == null)
+                //  Start blocking
+                case true when point == null:
+                case true when Vector3.Angle(transform.forward, (Vector3) point - transform.position) <= _blockingRange:
                     return 0;
                 
-                if (Vector3.Angle(transform.forward, (Vector3)point - transform.position) <= _blockingRange)
-                    return 0;
+                //  Do default damage
+                default:
+                    return ChangeHealth(-amount);
             }
-
-            return -ChangeHealth(-amount);
         }
         
 
-        /// <summary>
-        /// Heal the component by a certain amount 
-        /// </summary>
+        /**
+         * Heal the component by a certain amount 
+         */
         public int Heal(int amount)
         {
             if (amount < 1) throw new ArgumentException("Amount must not be lower than one");
@@ -74,9 +80,9 @@ namespace Controllers
         }
 
 
-        /// <summary>
-        /// Chane the current health 
-        /// </summary>
+        /**
+         * Chane the current health 
+         */
         private int ChangeHealth(int amount)
         {
             if (isDead) return 0;

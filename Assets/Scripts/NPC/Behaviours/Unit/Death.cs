@@ -23,11 +23,11 @@ namespace NPC.Behaviours.Unit
             
             var transform = anim.transform;
             if(anim.TryGetComponent(out MovementController ctrl))
-                ctrl.canMove = false;
+                ctrl.CanMove = false;
 
             if (_deathAnim)
                 Instantiate(_deathAnim.gameObject, transform.position, transform.rotation)
-                    .GetComponent<DeathAnim>().team = transform.GetComponent<UnitBrain>().team;
+                    .GetComponent<DeathAnim>().Team = transform.GetComponent<UnitBrain>().Team;
         }
         
 
@@ -44,7 +44,7 @@ namespace NPC.Behaviours.Unit
         public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             if(animator.transform.TryGetComponent(out MovementController ctrl))
-                ctrl.canMove = false;
+                ctrl.CanMove = false;
         }
     }
 }

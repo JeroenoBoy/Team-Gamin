@@ -5,12 +5,15 @@ using Controllers;
 using NPC.UnitData;
 using NPC.Utility;
 using Platoons;
+using Spawners;
 using UnityEngine;
 
 namespace NPC.Brains
 {
     public class UnitBrain : StateController
     {
+        #region Animator hashes
+        
         private static readonly int _healthHash     = Animator.StringToHash("Health");
         private static readonly int _stateHash      = Animator.StringToHash("State");
         private static readonly int _distanceHash   = Animator.StringToHash("Distance");
@@ -22,34 +25,30 @@ namespace NPC.Brains
         private static readonly int _nearUpgrade    = Animator.StringToHash("NearUpgrade");
         private static readonly int _isUpgraded     = Animator.StringToHash("IsUpgraded");
 
-        private PlatoonController _platoonController;
-
+        #endregion
+        
+        
         public float     upgradeArea;
         public Transform castleTarget;
-
-        public HealthController healthComponent { get; private set; }
-        public Eyes             eyes { get; private set; }
-
-        private bool _hasTarget;
         
-        public Transform[]  targets { get; private set; }
-        public UnitSettings unitSettings { get; private set; }
         
-        public Platoon platoon
-        {
-            get => _platoonController.platoon;
-            set => _platoonController.platoon = value;
-        }
+        public HealthController HealthComponent { get; private set; }
+        public Eyes                        Eyes { get; private set; }
+        public UnitSettings        UnitSettings { get; private set; }
+        
 
+        private bool              _hasTarget;
+        private PlatoonController _platoonController;
+        
 
         /**
          * Initiate the script
          */
         protected override void Awake()
         {
-            healthComponent    = GetComponent<HealthController>();
-            eyes               = GetComponent<Eyes>();
-            unitSettings       = GetComponent<UnitSettings>();
+            HealthComponent    = GetComponent<HealthController>();
+            Eyes               = GetComponent<Eyes>();
+            UnitSettings       = GetComponent<UnitSettings>();
             _platoonController = GetComponent<PlatoonController>();
             base.Awake();
         }
@@ -58,10 +57,7 @@ namespace NPC.Brains
         /**
          * Mainly to assign platoons
          */
-        private void Start()
-        {
-            Bind();
-        }
+        private void Start() => Bind();
 
 
         /**
@@ -69,9 +65,9 @@ namespace NPC.Brains
          */
         private void OnDisable()
         {
-            platoon?.RemoveUnit(_platoonController);
-            target = null;
-            Reset();
+            Platoon?.RemoveUnit(_platoonController);
+            Target = null;
+            ResetUnit();
         }
 
 
@@ -86,16 +82,19 @@ namespace NPC.Brains
             base.FixedUpdate();
             UpdateCastleInRange();
             UpdateNearUpgradeArea();
-            if(eyes.hits != null) UpdateTarget();
+            if(Eyes.Hits != null) UpdateTarget();
         }
 
 
+        /**
+         * Passes if the users is near the castle to the animator
+         */
         private void UpdateCastleInRange()
         {
-            animator.SetBool(_nearCastleHash, (castleTarget.position - transform.position).sqrMagnitude < settings.castleDistance * settings.castleDistance);
-            
-            if(!_hasTarget)
-                animator.SetFloat(_distanceHash, (castleTarget.position - transform.position).magnitude);
+            Animator.SetBool(_nearCastleHash, (castleTarget.position - transform.position).sqrMagnitude < Settings.castleDistance * Settings.castleDistance);
+
+            if (_hasTarget) return;
+            Animator.SetFloat(_distanceHash, (castleTarget.position - transform.position).magnitude);
         }
 
 
@@ -108,8 +107,8 @@ namespace NPC.Brains
             
             //  Getting the closest unit in the other team
 
-            var closest = eyes.hits
-                .Where  (t => t.transform.TryGetComponent(out UnitBrain brain) && brain.team != team)
+            var closest = Eyes.Hits
+                .Where  (t => t.transform.TryGetComponent(out UnitBrain brain) && brain.Team != Team)
                 .OrderBy(t => (t.transform.position - position).sqrMagnitude)
                 .FirstOrDefault().transform;
 
@@ -119,7 +118,7 @@ namespace NPC.Brains
             
             //  Updating animator values
             
-            animator.SetFloat(_distanceHash, (target.position - position).magnitude);
+            Animator.SetFloat(_distanceHash, (Target.position - position).magnitude);
         }
 
 
@@ -128,8 +127,8 @@ namespace NPC.Brains
          */
         public void UpdateNearUpgradeArea()
         {
-            var upPos = UpgradeArea.instance.transform.position;
-            animator.SetBool(_nearUpgrade, (upPos - transform.position).sqrMagnitude < _nearUpgrade * _nearUpgrade);
+            var upPos = UpgradeArea.Instance.transform.position;
+            Animator.SetBool(_nearUpgrade, (upPos - transform.position).sqrMagnitude < upgradeArea * upgradeArea);
         }
 
         #endregion
@@ -143,7 +142,7 @@ namespace NPC.Brains
          */
         private void HealthChange()
         {
-            animator.SetInteger(_healthHash, healthComponent.health);
+            Animator.SetInteger(_healthHash, HealthComponent.health);
         }
         
         
@@ -152,10 +151,10 @@ namespace NPC.Brains
          */
         private void OnDeath()
         {
-            animator.SetTrigger(_diedHash);
-            animator.SetBool(_isDeadHash, true);
+            Animator.SetTrigger(_diedHash);
+            Animator.SetBool(_isDeadHash, true);
 
-            if (!SpawnManager.managers.TryGetValue(team, out var manager)) return;
+            if (!SpawnManager.managers.TryGetValue(Team, out var manager)) return;
             if ((manager.transform.position - transform.position).sqrMagnitude > manager.PenaltyDistance * manager.PenaltyDistance) return;
             manager.CurrentPenalty++;
         }
@@ -166,7 +165,7 @@ namespace NPC.Brains
          */
         private void OnStateChange()
         {
-            animator.SetInteger(_stateHash, (int)unitSettings.state);
+            Animator.SetInteger(_stateHash, (int)UnitSettings.state);
         }
 
 
@@ -175,7 +174,7 @@ namespace NPC.Brains
          */
         private void OnPlatoonUpdate()
         {
-            animator.SetInteger(_platoonHash, platoon.Count);
+            Animator.SetInteger(_platoonHash, Platoon.Count);
         }
 
 
@@ -201,25 +200,28 @@ namespace NPC.Brains
             
             switch (closest != null)
             {
-                case true when target:
-                    var closestDistance = (closest.position - position).sqrMagnitude;
-                    var currentDistance =  (target.position - position).sqrMagnitude;
-
-                    if (closestDistance < currentDistance) target = closest;
+                
+                //  Sets the new target
+                case true when !Target:
+                    Target = closest;
+                    Platoon.SendMessage("OnEnemySpotted", Target);
                     return true;
                 
-                case true when !target:
-                    target = closest;
-                    platoon.SendMessage("OnEnemySpotted", target);
-                    return eyes.CanSee(target);
+                //  Sets the target to which one is closest
+                case true when Target:
+                    var closestDistance = (closest.position - position).sqrMagnitude;
+                    var currentDistance =  (Target.position - position).sqrMagnitude;
+
+                    if (closestDistance < currentDistance) Target = closest;
+                    return true;
                 
-                case false when target:
-                    if (eyes.CanSee(target)) return true;
-                    target = null;
+                //  Resets the target when its out of sight
+                case false when Target:
+                    if (Eyes.CanSee(Target)) return true;
+                    Target = null;
                     return false;
                 
-                default:
-                    return false;
+                default: return false;
             }
         }
         
@@ -229,13 +231,13 @@ namespace NPC.Brains
          */
         public void Bind()
         {
-            movementController.maxSpeed = unitSettings.movementSpeed;
-            eyes.rayLength              = (int)unitSettings.sightRange;
-            healthComponent.maxHealth   = (int)unitSettings.defense;
-            healthComponent.health      = healthComponent.maxHealth;
-            healthComponent.baseHealth  = unitSettings.baseDefence;
+            MovementController.MaxSpeed = UnitSettings.MovementSpeed;
+            Eyes.RayLength              = (int)UnitSettings.SightRange;
+            HealthComponent.maxHealth   = (int)UnitSettings.Defense;
+            HealthComponent.health      = HealthComponent.maxHealth;
+            HealthComponent.baseHealth  = UnitSettings.BaseDefence;
 
-            target = null;
+            Target = null;
             
             SendMessage("OnBind", SendMessageOptions.DontRequireReceiver);
         }
@@ -246,7 +248,7 @@ namespace NPC.Brains
          */
         public void Upgrade()
         {
-            animator.SetBool(_isUpgraded, true);
+            Animator.SetBool(_isUpgraded, true);
         } 
 
         
@@ -256,42 +258,55 @@ namespace NPC.Brains
         #region properties
 
 
-        public UnitTeam team
+        /**
+         * Get my team
+         */
+        public UnitTeam Team
         {
-            get => unitSettings.team;
-            set => unitSettings.team = value;
+            get => UnitSettings.team;
+            set => UnitSettings.team = value;
         }
         
 
-        public override Transform target
+        /**
+         * Get & set the target
+         */
+        public override Transform Target
         {
             get
             {
-                //  To avoid some 
-                if (!base.target && _hasTarget)
-                    target = null;
-                if (_hasTarget && !base.target.gameObject.activeInHierarchy)
-                    target = null;
+                //  Sets the target to null when the target is destroyed
+                if (!base.Target && _hasTarget)
+                    Target = null;
                 
+                //  Resets the target when its deactivated
+                if (_hasTarget && !base.Target.gameObject.activeInHierarchy)
+                    Target = null;
                 
-                return base.target ? base.target : castleTarget;
+                return base.Target ? base.Target : castleTarget;
             }
             set
             {
-                //  More efficient on the animator
-                switch (_hasTarget)
-                {
-                    case true when !value:
-                        animator.SetBool(_targetHash, _hasTarget = false);
-                        break;
-                    
-                    case false when value:
-                        animator.SetBool(_targetHash, _hasTarget = true);
-                        break;
-                }
+                //  Say to the animator that I lost my target
+                if (_hasTarget && !value)
+                    Animator.SetBool(_targetHash, _hasTarget = false);
+                
+                //  Say to the animator that I have a target
+                else if (!_hasTarget && value)
+                    Animator.SetBool(_targetHash, _hasTarget = true);
 
-                base.target = value;
+                base.Target = value;
             }
+        }
+        
+        
+        /**
+         * Get my platoon
+         */
+        public Platoon Platoon
+        {
+            get => _platoonController.Platoon;
+            set => _platoonController.Platoon = value;
         }
 
         #endregion

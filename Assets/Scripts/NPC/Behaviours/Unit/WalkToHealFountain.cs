@@ -4,7 +4,7 @@
     {
         public override void PhysicsUpdate()
         {
-            var position = HealingFountain.instance.transform.position;
+            var position = HealingFountain.Instance.transform.position;
             movement.AddForce(MoveWithArrive(position));
         }
     }

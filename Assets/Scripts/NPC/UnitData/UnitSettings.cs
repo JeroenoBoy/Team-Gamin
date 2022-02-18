@@ -32,47 +32,48 @@ namespace NPC.UnitData
         [SerializeField] private float _sightMulti;
         [SerializeField] private float _defenceMutli;
 
-        public string traits;
+        public string Traits;
+        
         
         #region Properties
         
         
-        public float movementSpeed
+        public float MovementSpeed
         {
             get => _movementSpeed;
             set => _movementSpeed = _baseSpeed + value * _speedMulti;
         }
 
 
-        public float attackSpeed
+        public float AttackSpeed
         {
             get => _attackSpeed;
             set => _attackSpeed = _baseAttackSpeed - value * _attackSpeedMulti;
         }
 
 
-        public float attackDamage
+        public float AttackDamage
         {
             get => _attackDamage;
             set => _attackDamage = (int)(_baseDamage + value * _dmgMulti);
         }
 
 
-        public float sightRange
+        public float SightRange
         {
             get => _sightRange;
             set => _sightRange = (int)(_baseSightRange + value * _sightMulti);
         }
 
 
-        public float defense
+        public float Defense
         {
             get => _defense;
             set => _defense = (int)(_baseDefence + value * _defenceMutli);
         }
 
 
-        public int baseDefence => (int)_baseDefence;
+        public int BaseDefence => (int)_baseDefence;
 
         #endregion
 
@@ -95,8 +96,8 @@ namespace NPC.UnitData
          */
         public PathController path
         {
-            get => _brain.path;
-            set => _brain.path = value;
+            get => _brain.Path;
+            set => _brain.Path = value;
         }
 
 

@@ -1,45 +1,53 @@
 using UnityEngine;
-public class PanelOpener : MonoBehaviour
+
+namespace UI
 {
-    [Header("Panels")]
-    public GameObject StatsPanel;
-    public GameObject BehaviourPanel;
-
-    private Animator animA;
-    private Animator animB;
-
-    private void Start()
+    public class PanelOpener : MonoBehaviour
     {
-        animA = StatsPanel.GetComponent<Animator>();
+        [Header("Panels")]
+        public GameObject StatsPanel;
+        public GameObject BehaviourPanel;
 
-        animB = BehaviourPanel.GetComponent<Animator>();
-    }
+        private Animator _animA;
+        private Animator _animB;
+        private static readonly int _stats = Animator.StringToHash("stats");
+        private static readonly int _behaviour = Animator.StringToHash("behaviour");
 
-    /// <summary>
-    /// funtion to open the statpoint panel
-    /// </summary>
-    public void OpenStatsPanel()
-    {
-        if (animA != null)
+
+        private void Start()
         {
-            //reference to the Animator parameter
-            bool isOpen = animA.GetBool("stats");
-
-            animA.SetBool("stats", !isOpen);
+            _animA = StatsPanel.GetComponent<Animator>();
+            _animB = BehaviourPanel.GetComponent<Animator>();
         }
-    }
 
-    /// <summary>
-    /// function to open the behaviour select panel
-    /// </summary>
-    public void OpenBehaviourPanel()
-    {
-        if (animB != null)
+        
+        /// <summary>
+        /// function to open the stat point panel
+        /// </summary>
+        public void OpenStatsPanel()
         {
-            //reference to the Animator parameter
-            bool isOpen = animB.GetBool("behaviour");
+            if (_animA != null)
+            {
+                //reference to the Animator parameter
+                bool isOpen = _animA.GetBool(_stats);
 
-            animB.SetBool("behaviour", !isOpen);
+                _animA.SetBool(_stats, !isOpen);
+            }
+        }
+
+        
+        /// <summary>
+        /// function to open the behaviour select panel
+        /// </summary>
+        public void OpenBehaviourPanel()
+        {
+            if (_animB != null)
+            {
+                //reference to the Animator parameter
+                bool isOpen = _animB.GetBool(_behaviour);
+
+                _animB.SetBool(_behaviour, !isOpen);
+            }
         }
     }
 }

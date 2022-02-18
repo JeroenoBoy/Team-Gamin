@@ -27,11 +27,11 @@ namespace NPC.Behaviours.Avoidance
         [SerializeField] private float _separationForce    = 5f;
         [SerializeField] private LayerMask _layerMask;
 
-        protected float cohesionForce      => _override ? _cohesionForce      : settings.flockCohesionMaxForce;
-        protected float cohesionDistance   => _override ? _cohesionDistance   : settings.flockCohesionDistance;
-        protected float separationForce    => _override ? _separationForce    : settings.flockSeparationMaxForce;
-        protected float separationDistance => _override ? _separationDistance : settings.flockSeparationDistance;
-        protected LayerMask flockMask      => _override ? _layerMask : settings.flockMask;
+        protected float cohesionForce      => _override ? _cohesionForce      : settings.FlockCohesionMaxForce;
+        protected float cohesionDistance   => _override ? _cohesionDistance   : settings.FlockCohesionDistance;
+        protected float separationForce    => _override ? _separationForce    : settings.FlockSeparationMaxForce;
+        protected float separationDistance => _override ? _separationDistance : settings.FlockSeparationDistance;
+        protected LayerMask flockMask      => _override ? _layerMask : settings.FlockMask;
 
         private float       _nextUpdate;
         private Transform[] _targets;

@@ -3,6 +3,7 @@ using System.Linq;
 using Controllers;
 using Controllers.Paths;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace NPC
 {
@@ -11,87 +12,86 @@ namespace NPC
     {
         [SerializeField] private Transform      _target;
         [SerializeField] private NPCSettings    _settings;
-        public PathController path;
-        
+        [SerializeField] public  PathController Path;
+        [Space]
         [SerializeField] private AIBehavior[] _behaviours;
         
+        public MovementController MovementController { get; private set; }
+        public Animator Animator { get; private set; }
         
-        #region Getters & Setters
-
-        public MovementController movementController { get; private set; }
-        public Animator animator { get; private set; }
-
-        /// <summary>
-        /// Get the target of this controller
-        /// </summary>
-        public virtual Transform target
+        
+        #region Properties
+        
+        /**
+         * Get the target of this controller
+         */
+        public virtual Transform Target
         {
             get => _target;
             set => _target = value;
         }
 
-        /// <summary>
-        /// Get the settings of this controller
-        /// </summary>
-        public NPCSettings settings => _settings;
+        /**
+         * Get the settings of this controller
+         */
+        public NPCSettings Settings => _settings;
 
         #endregion
 
 
         protected virtual void Awake()
         {
-            movementController = GetComponent<MovementController>();
-            animator = GetComponent<Animator>();
+            MovementController = GetComponent<MovementController>();
+            Animator = GetComponent<Animator>();
         }
 
 
-        /// <summary>
-        /// Add a behaviour & start a behaviour
-        /// </summary>
+        /**
+         * Add a behaviour & start a behaviour
+         */
         public void AddBehaviour(AIBehavior behavior)
         {
             _behaviours = _behaviours.Append(behavior).ToArray();
         }
     
         
-        /// <summary>
-        /// Remove a behaviour
-        /// </summary>
+        /**
+         * Remove a behaviour
+         */
         public void RemoveBehaviour(AIBehavior behavior)
         {
             _behaviours = _behaviours.Where(b => b != behavior).ToArray();
         }
 
 
-        /// <summary>
-        /// Send PhysicsUpdates to all behaviors
-        /// </summary>
+        /**
+         * Send PhysicsUpdates to all behaviors
+         */
         protected virtual void FixedUpdate()
         {
             foreach (var behaviour in _behaviours)
-            {
                 behaviour.PhysicsUpdate();
-            }
         }
 
 
-        protected void Reset()
+        /**
+         * Reset the behaviour
+         */
+        protected void ResetUnit()
         {
             _behaviours = Array.Empty<AIBehavior>();
-            animator.Rebind();
-            movementController.canMove = true;
+            Animator.Rebind();
+            MovementController.CanMove = true;
         }
 
 
-        /// <summary>
-        /// Execute the OnDrawGizmos in the behaviours
-        /// </summary>
+        /**
+         * Execute the OnDrawGizmos in the behaviours
+         */
         protected virtual void OnDrawGizmos()
         {
             foreach (var behaviour in _behaviours)
-            {
                 behaviour.OnDrawGizmos();
-            }
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Effects
         [SerializeField] private SkinnedMeshRenderer _renderer;
 
         private UnitTeam _team;
-        public UnitTeam team
+        public UnitTeam Team
         {
             get => _team;
             set

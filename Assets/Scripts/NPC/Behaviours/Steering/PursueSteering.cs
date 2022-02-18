@@ -24,7 +24,7 @@ namespace NPC.Behaviours.Steering
             var prevTargetPos = _targetPos;
             _targetPos = target.position;
 
-            return _targetPos + (prevTargetPos - _targetPos) / Time.fixedDeltaTime * settings.pursueLookAhead;
+            return _targetPos + (prevTargetPos - _targetPos) / Time.fixedDeltaTime * settings.PursueLookAhead;
         }
     }
 }

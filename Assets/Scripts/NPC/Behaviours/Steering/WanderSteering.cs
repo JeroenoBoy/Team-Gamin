@@ -14,14 +14,14 @@ namespace NPC.Behaviours.Steering
         {
             //  Updating the point angle
             
-            _pointAngle += Random.Range(-settings.wanderNoiseAngle, settings.wanderNoiseAngle) * Time.fixedDeltaTime;
+            _pointAngle += Random.Range(-settings.WanderNoiseAngle, settings.WanderNoiseAngle) * Time.fixedDeltaTime;
             
             //  Setting targetVel to the point
 
             var forward       = transform.forward;
-            var distance      = settings.wanderCircleDistance * forward;
+            var distance      = settings.WanderCircleDistance * forward;
             var rotation      = Quaternion.Euler(0,_pointAngle,0) * forward;
-            var relativePoint = rotation * settings.wanderCircleRadius;
+            var relativePoint = rotation * settings.WanderCircleRadius;
 
             movement.AddForce((relativePoint + distance) * _forceMultiplier);
         }
@@ -34,8 +34,8 @@ namespace NPC.Behaviours.Steering
             var currentPos = transform.position;
             var forward    = transform.forward;
             
-            var centerPos  = currentPos + forward * settings.wanderCircleDistance;
-            var pointPos   = Quaternion.Euler(0,_pointAngle,0) * forward * settings.wanderCircleRadius + centerPos;
+            var centerPos  = currentPos + forward * settings.WanderCircleDistance;
+            var pointPos   = Quaternion.Euler(0,_pointAngle,0) * forward * settings.WanderCircleRadius + centerPos;
             
             //  Drawing the distance line
             
@@ -45,7 +45,7 @@ namespace NPC.Behaviours.Steering
             //  Drawing the wander disc
             
             Handles.color = Color.green;
-            Handles.DrawWireDisc(centerPos, Vector3.up, settings.wanderCircleRadius);
+            Handles.DrawWireDisc(centerPos, Vector3.up, settings.WanderCircleRadius);
             
             //  Drawing the target point
             

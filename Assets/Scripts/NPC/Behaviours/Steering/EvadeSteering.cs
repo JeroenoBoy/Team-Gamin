@@ -14,12 +14,12 @@ namespace NPC.Behaviours.Steering
             var direction = position - targetPos;
             var distance    = direction.sqrMagnitude;
 
-            if (distance > settings.maxFleeDistance * settings.maxFleeDistance) return;
+            if (distance > settings.MaxFleeDistance * settings.MaxFleeDistance) return;
             
             //  Applying the force
             
             var estimatePos = GetFutureTargetPos(target);
-            movement.AddForce(GetDirection((position - estimatePos).normalized * movement.maxSpeed));
+            movement.AddForce(GetDirection((position - estimatePos).normalized * movement.MaxSpeed));
         }
     }
 }

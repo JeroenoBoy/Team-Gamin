@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Controllers;
-using Game.Scripts.Utils;
 using NPC.Brains;
 using NPC.UnitData;
 using UnityEngine;
+using Util;
 
 namespace Platoons
 {
@@ -15,7 +15,7 @@ namespace Platoons
         [SerializeField] private LayerMask       _unitLayerName;
         [SerializeField] private List<Platoon>[] _platoons;
         
-        public float searchRadius => _platoonSearchRadius;
+        public float SearchRadius => _platoonSearchRadius;
         
         
         private void Awake()
@@ -33,16 +33,16 @@ namespace Platoons
          */
         public void RequestPlatoon(PlatoonController controller)
         {
-            if(controller.unitSettings.state.IsGuardPath()) return;
+            if(controller.UnitSettings.state.IsGuardPath()) return;
             
             //  Initializing
             
             var brainTransform = controller.transform;
-            var team           = controller.team;
+            var team           = controller.Team;
             
             //  Assigning platoon to me
             
-            var platoon = !controller.platoon ? controller.platoon = new Platoon(team, controller) : controller.platoon;
+            var platoon = !controller.Platoon ? controller.Platoon = new Platoon(team, controller) : controller.Platoon;
             if(platoon.Count >= _maxPlatoonSize) return;
 
             //  Finding all units near me
@@ -62,17 +62,17 @@ namespace Platoons
                 
                 //  Validation checks
                 
-                if(ctrl.team != team) continue;
-                if(ctrl.platoon == platoon) continue;
-                if(ctrl.unitSettings.state.IsGuardPath()) continue;
+                if(ctrl.Team != team) continue;
+                if(ctrl.Platoon == platoon) continue;
+                if(ctrl.UnitSettings.state.IsGuardPath()) continue;
     
                 //  Adding unit to platoon or migrating platoon
 
-                if (!ctrl.platoon)
+                if (!ctrl.Platoon)
                     platoon.AddUnit(ctrl);
                 
-                else if (platoon.Count + ctrl.platoon.Count < _maxPlatoonSize)
-                    ctrl.platoon.MigratePlatoon(platoon);
+                else if (platoon.Count + ctrl.Platoon.Count < _maxPlatoonSize)
+                    ctrl.Platoon.MigratePlatoon(platoon);
             }
         }
 
@@ -82,7 +82,7 @@ namespace Platoons
          */
         public void AddPlatoon(Platoon platoon)
         {
-            _platoons[(int)platoon.team].Add(platoon);
+            _platoons[(int)platoon.Team].Add(platoon);
         }
 
 
@@ -91,7 +91,7 @@ namespace Platoons
          */
         public void RemovePlatoon(Platoon platoon)
         {
-            _platoons[(int)platoon.team].Remove(platoon);
+            _platoons[(int)platoon.Team].Remove(platoon);
         }
     }
 }

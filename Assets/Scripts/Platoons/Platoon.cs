@@ -9,11 +9,11 @@ namespace Platoons
 {
     public class Platoon
     {
-        public readonly UnitTeam team;
-        public readonly List<PlatoonController> units = new List<PlatoonController>();
+        public readonly UnitTeam Team;
+        public readonly List<PlatoonController> Units = new List<PlatoonController>();
 
-        public int Count => units.Count;
-        public PlatoonController master => units[0];
+        public int Count => Units.Count;
+        public PlatoonController Master => Units[0];
         
 
         /**
@@ -21,10 +21,10 @@ namespace Platoons
          */
         public Platoon(UnitTeam team, PlatoonController controller)
         {
-            this.team = team;
+            Team = team;
             AddUnit(controller);
 
-            PlatoonManager.instance.AddPlatoon(this);
+            PlatoonManager.Instance.AddPlatoon(this);
         }
 
 
@@ -33,8 +33,8 @@ namespace Platoons
          */
         public void MigratePlatoon(Platoon targetPlatoon)
         {
-            while (units.Count > 0) targetPlatoon.AddUnit(units.First());
-            PlatoonManager.instance.RemovePlatoon(this);
+            while (Units.Count > 0) targetPlatoon.AddUnit(Units.First());
+            PlatoonManager.Instance.RemovePlatoon(this);
         }
 
 
@@ -43,11 +43,11 @@ namespace Platoons
          */
         public void AddUnit(PlatoonController unit)
         {
-            if (unit.platoon) unit.platoon.RemoveUnit(unit);
-            unit.platoon = this;
-            units.Add(unit);
+            if (unit.Platoon) unit.Platoon.RemoveUnit(unit);
+            unit.Platoon = this;
+            Units.Add(unit);
             
-            foreach (var unitBrain in units)
+            foreach (var unitBrain in Units)
                 unitBrain.SendMessage("OnPlatoonUpdate", SendMessageOptions.RequireReceiver);
         }
 
@@ -57,8 +57,8 @@ namespace Platoons
          */
         public void RemoveUnit(PlatoonController unit)
         {
-            unit.platoon = null;
-            units.Remove(unit);
+            unit.Platoon = null;
+            Units.Remove(unit);
         }
 
 
@@ -67,7 +67,7 @@ namespace Platoons
          */
         public void SendMessage(string name, object obj = null)
         {
-            foreach (var platoonController in units)
+            foreach (var platoonController in Units)
                 platoonController.gameObject.SendMessage(name, obj);
         }
 

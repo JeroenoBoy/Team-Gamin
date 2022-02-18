@@ -23,15 +23,15 @@ namespace NPC.Behaviours.Unit
             if (!platoon) return;
             //  Finding all allies in sight
 
-            var team = unitBrain.team;
+            var team = unitBrain.Team;
             var position = transform.position;
-            var ally = eyes.hits
-                .Where(t => t.transform.TryGetComponent(out UnitBrain brain) && brain.platoon && brain.team == team)
+            var ally = eyes.Hits
+                .Where(t => t.transform.TryGetComponent(out UnitBrain brain) && brain.Platoon && brain.Team == team)
                 .OrderBy(t => (t.point - position).sqrMagnitude)
                 .FirstOrDefault();
 
             if(ally.transform == null) return;
-            ally.transform.GetComponent<UnitBrain>().platoon.AddUnit(_platoonController);
+            ally.transform.GetComponent<UnitBrain>().Platoon.AddUnit(_platoonController);
         }
     }
 }

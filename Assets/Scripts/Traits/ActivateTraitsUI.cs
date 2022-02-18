@@ -1,19 +1,27 @@
-using UnityEngine;
 using NPC.UnitData;
+using UnityEngine;
 
-public class ActivateTraitsUI : MonoBehaviour
+namespace Traits
 {
-    private UnitSettings settings;
-
-    private void Start()
+    public class ActivateTraitsUI : MonoBehaviour
     {
-        settings = GetComponent<UnitSettings>();
-    }
+        private UnitSettings _settings;
 
-    public void OnMouseDown()
-    {
-        //when clicked on a unit call the set text function and turn on the panel in the ui
-        TraitSetter.instance.SetTraitText(settings);
-        TraitSetter.instance.TraitsPanel.SetActive(true);
+        
+        private void Start()
+        {
+            _settings = GetComponent<UnitSettings>();
+        }
+
+        
+        /**
+         * Detects when clicked upon
+         */
+        public void OnMouseDown()
+        {
+            //  When clicked on a unit call the set text function and turn on the panel in the ui
+            TraitSetter.Instance.SetTraitText(_settings);
+            TraitSetter.Instance.TraitsPanel.SetActive(true);
+        }
     }
 }

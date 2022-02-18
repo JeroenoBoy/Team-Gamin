@@ -21,7 +21,7 @@ namespace NPC.Behaviours.Avoidance
             var targetPos   = target.position;
             var obstaclePos = _targetObstacle.position;
             var direction   = (obstaclePos - targetPos).normalized;
-            var relativePos = direction * _targetObstacle.lossyScale.magnitude * .5f + direction * settings.hideTargetDistance;
+            var relativePos = direction * _targetObstacle.lossyScale.magnitude * .5f + direction * settings.HideTargetDistance;
             
             //  Move towards the target with arrive
 
@@ -37,8 +37,8 @@ namespace NPC.Behaviours.Avoidance
         {
             //  Find all nearby obstacles
             
-            var distance = settings.hideMaxDistance;
-            var mask = settings.hideMask;
+            var distance = settings.HideMaxDistance;
+            var mask = settings.HideMask;
                 
             var colliders = Physics.OverlapSphere(transform.position, distance, mask);
             
@@ -60,7 +60,7 @@ namespace NPC.Behaviours.Avoidance
                 _targetObstacle = null;
             }
             
-            _nextLook = Time.time + settings.hideLookInterval;
+            _nextLook = Time.time + settings.HideLookInterval;
         }
 
 
@@ -70,7 +70,7 @@ namespace NPC.Behaviours.Avoidance
         public override void OnDrawGizmos()
         {
             Gizmos.color = Color.magenta;
-            Gizmos.DrawWireSphere(transform.position, settings.hideMaxDistance);
+            Gizmos.DrawWireSphere(transform.position, settings.HideMaxDistance);
             Gizmos.DrawSphere(_targetPos, .5f);
         }
     }

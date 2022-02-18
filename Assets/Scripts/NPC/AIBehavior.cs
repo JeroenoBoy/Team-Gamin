@@ -19,10 +19,10 @@ namespace NPC
         protected Animator          animator        { get; private set; }
         protected AnimatorStateInfo stateInfo       { get; private set; }
         
-        protected Transform target            => stateController.target;
+        protected Transform target            => stateController.Target;
         protected Transform transform         => stateController.transform;
-        protected NPCSettings settings        => stateController.settings;
-        protected MovementController movement => stateController.movementController;
+        protected NPCSettings settings        => stateController.Settings;
+        protected MovementController movement => stateController.MovementController;
 
         #endregion
         
@@ -82,13 +82,13 @@ namespace NPC
         /// </summary>
         protected Vector3 GetDirection(Vector3 direction, float speed = -1)
         {
-            speed = speed < 0 ? movement.maxSpeed : speed;
+            speed = speed < 0 ? movement.MaxSpeed : speed;
             direction = direction.With(y: 0);
             
             //  Checking if the player is close enough to the target
          
             var distance = direction.sqrMagnitude;   
-            return distance < settings.minSeekDistance * settings.minSeekDistance
+            return distance < settings.MinSeekDistance * settings.MinSeekDistance
                 ? Vector3.zero
                 : direction.ClampMagnitude(speed);
         }
@@ -99,7 +99,7 @@ namespace NPC
         /// </summary>
         protected Vector3 MoveWithArrive(Vector3 targetPosition, float targetSpeed = -1)
         {
-            targetSpeed = targetSpeed < 0 ? movement.maxSpeed : targetSpeed;
+            targetSpeed = targetSpeed < 0 ? movement.MaxSpeed : targetSpeed;
 
             var position = transform.position;
 
@@ -108,13 +108,13 @@ namespace NPC
             var direction = (targetPosition - position).With(y: 0);
             var distance = direction.magnitude;
             
-            if(distance < settings.stopDistance)
+            if(distance < settings.StopDistance)
                 return Vector3.zero;
             
             //  Calculating the force based on slowing distance
 
-            var slowDistance   = settings.slowDistance + settings.stopDistance;
-            var currentSpeed = movement.velocity;
+            var slowDistance   = settings.SlowDistance + settings.StopDistance;
+            var currentSpeed = movement.Velocity;
 
             var percentageDistance = distance / slowDistance;
             var desiredSpeed       = percentageDistance * targetSpeed;
@@ -135,7 +135,7 @@ namespace NPC
         #region Coroutines
 
 
-        private List<Coroutine> _coroutines = new List<Coroutine>();
+        private readonly List<Coroutine> _coroutines = new List<Coroutine>();
 
         
         /**
@@ -146,13 +146,18 @@ namespace NPC
             Coroutine coroutine = null;
             IEnumerator WrapCoroutine()
             {
+                //  Executing coroutine
                 var startTime = Time.time;
                 yield return routine;
                 
+                //  Avoid potential error
                 if (Math.Abs(startTime - Time.time) < 0.0001f) yield return null;
                 
+                //  Removing the coroutine
                 _coroutines.Remove(coroutine);
             }
+            
+            //  Starting the coroutine
             
             coroutine = stateController.StartCoroutine(WrapCoroutine());
             _coroutines.Add(coroutine);
