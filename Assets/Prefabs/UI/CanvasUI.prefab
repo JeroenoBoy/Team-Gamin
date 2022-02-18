@@ -6809,7 +6809,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2127768339341091856}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef1f3192b4d00524eb593447743b49ed, type: 3}
+  m_Script: {fileID: 11500000, guid: fd6dda4d6930aeb418e4a834f43a3f17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   data:
@@ -6845,7 +6845,7 @@ MonoBehaviour:
     plus: {fileID: 2127768338876108939}
   statPoints: 100
   usedStatPoints: 0
-  multiplier: 1
+  multiplier: 5
   statPointsText: {fileID: 2127768339275765653}
   currentMultiplier: {fileID: 2127768338100411610}
 --- !u!95 &2127768339341091863
