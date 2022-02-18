@@ -74,7 +74,7 @@ public class CameraMover : MonoBehaviour
             transform.RotateAround(transform.position, Vector3.up, mouseMoveX * _rotateSpeed);
 
             Vector3 angles = transform.eulerAngles;
-            float angle    = (angles.x + 180) % 360 - 180;
+            float   angle  = (angles.x + 180) % 360 - 180;
             transform.eulerAngles = angles.With(x: Mathf.Clamp(angle, _minAngle, _maxAngle), z: 0);
         }
 
