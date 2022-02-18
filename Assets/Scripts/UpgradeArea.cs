@@ -38,7 +38,7 @@ public class UpgradeArea : Singleton<UpgradeArea>
     /// </summary>
     /// <param name="unit"></param>
     /// <returns></returns>
-    IEnumerator AddAttackDamage(UnitSettings unit)
+    private IEnumerator AddAttackDamage(UnitSettings unit)
     {
         yield return new WaitForSeconds(5);
 
