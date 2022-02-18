@@ -35,7 +35,7 @@ namespace UI
         }
 
         /// <summary>
-        /// function to increase statpoints depending on what button you click
+        /// function to increase stat points depending on what button you click
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -56,7 +56,7 @@ namespace UI
         }
 
         /// <summary>
-        /// function to decrease statpoints depending on what button you click
+        /// function to decrease stat points depending on what button you click
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
