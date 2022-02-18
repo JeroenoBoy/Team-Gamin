@@ -138,6 +138,8 @@ public class SpawnManager : MonoBehaviour
         go.sightRange = (int)statPoints.data[3].value;
         go.defense = (int)statPoints.data[4].value;
 
+        string traits = "";
+
         while (t > 0) //Add all the extra traits 
         {
             int a = Random.Range(0, allTraits.TraitsClass.Length);
@@ -148,13 +150,14 @@ public class SpawnManager : MonoBehaviour
             go.sightRange += allTraits.TraitsClass[a].sightRange;
             go.defense += allTraits.TraitsClass[a].defense;
 
-            go.name = string.Format(go.name + " " + allTraits.TraitsClass[a].name);
+            traits = string.Format(traits + " " + allTraits.TraitsClass[a].name);
 
             // --- Rip 2/17/2022 --- //
             //go.name = string.Format(go.name + " [" + allTraits.TraitsClass[a].name + "]");
             t--;
         }
 
+        go.traits = traits.ToString();
         go.targetCastle = TargetCastle;
         go.state = behaviourMenu.unitState;
     }
