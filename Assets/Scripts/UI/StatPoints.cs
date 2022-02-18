@@ -1,88 +1,95 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using TMPro;
 using UnityEngine.UI;
+using UnityEngine;
+using UnityEngine.Events;
+using TMPro;
 
 public class StatPoints : MonoBehaviour
 {
-    [SerializeField] private float statPoints = 100;
-    [SerializeField] private TextMeshProUGUI statPointText;
+    public statpointsdata[] data;
 
-    [Header("stat points")]
-    [SerializeField]private float atk;
-    [SerializeField]private float atk_speed;
-    [SerializeField]private float move_speed;
-    [SerializeField]private float sight_range;
-    [SerializeField]private float defence;
+    [Header("Values")]
+    public float statPoints = 100;
+    [SerializeField]private float usedStatPoints;
+    [SerializeField]private float multiplier = 5;
 
-    private float sum;
-
-    [SerializeField] private data[] dataArray;
+    [Header("Text")]
+    [SerializeField] private TextMeshProUGUI statPointsText;
+    [SerializeField] private TextMeshProUGUI currentMultiplier;
 
     private void Start()
     {
-        OnValueChange();
-    }
-
-    void Update()
-    {
-        //sets the statpoint text
-        statPointText.text = string.Format("StatPoints : {0}", statPoints);
-
-        //check if all stat points are used up    
-        if (statPoints <= 0)
+        //adds listeners to + and - buttons in the stats panel
+        for (int i = 0; i < data.Length; i++)
         {
-            Debug.Log("Insuffient statpoints");
-            //make it so you cant use anymore statpoints but can decrease other sliders to get statpoints back
-          
+            data[i].plus.onClick.AddListener(IncreasePoints(data[i]));
+            data[i].minus.onClick.AddListener(DecreasePoints(data[i]));
         }
     }
-
-    private void CalculateSum()
+    private void Update()
     {
-        var unusedStatPoints = 0f;
-
-        for (int i = 0; i < dataArray.Length; i++)
-        {
-            unusedStatPoints += dataArray[i].slider.value;
-        }
-
-        sum = 100 - unusedStatPoints;
+        //updates the text
+        statPointsText.text = string.Format("StatPoints : {0}/100", usedStatPoints);
+        currentMultiplier.text = string.Format("Current Multiplier : {0}", multiplier + "x");
     }
 
-    public void OnValueChange()
+    /// <summary>
+    /// function to increase statpoints depending on what button you click
+    /// </summary>
+    /// <param name="data"></param>
+    /// <returns></returns>
+    public UnityAction IncreasePoints(statpointsdata data)
     {
-        CalculateSum();
+        return () =>
+         {
+             //clamps the stat points
+             var newStatPoints = Mathf.Clamp(usedStatPoints + multiplier, 0, statPoints);
+             var changed = newStatPoints - usedStatPoints;
+             usedStatPoints = newStatPoints;
 
-        statPoints = sum;
+             //updates the text
+             data.slider.value = data.value += changed;
+             data.slidersText.text = string.Format(data.slidersName + " : {0}", data.slider.value);
 
-        //sets the statpoint slider text
-        for (int i = 0; i < dataArray.Length; i++)
-        {
-            dataArray[i].slidersText.text = string.Format(dataArray[i].slidersName + " : {0}", dataArray[i].slider.value);
-        }
-
-        //change max value to how many statpoints are left
+         };
     }
 
-    public void SetAttack()
+    /// <summary>
+    /// function to decrease statpoints depending on what button you click
+    /// </summary>
+    /// <param name="data"></param>
+    /// <returns></returns>
+    public UnityAction DecreasePoints(statpointsdata data)
     {
-        float newValue = dataArray[0].slider.value;
-        float atksum   = (statPoints - atk) / (statPoints + newValue);
-        
-        atk = newValue;
-        atk_speed *= atksum;
-        move_speed *= atksum;
-        sight_range *= atksum;
-        defence *= atksum;
+        return () =>
+        {
+            //clamps the stat points
+            var newStatPoints = Mathf.Clamp(data.value - multiplier, 0, statPoints);
+            var changed = newStatPoints - data.value;
+            usedStatPoints += changed;
+
+            //updates the text
+            data.slider.value = data.value += changed;
+            data.slidersText.text = string.Format(data.slidersName + " : {0}", data.slider.value);
+        };
+    }
+
+    /// <summary>
+    /// function to change the current multiplier with a parameter, call this function on a button
+    /// </summary>
+    /// <param name="amount"></param>
+    public void ChangeMultiplier(float amount)
+    {
+        multiplier = amount;
     }
 }
 
 [System.Serializable]
-public struct data //struct to store slider data
+public class statpointsdata //class to store slider data
 {
     public string slidersName;
     public TextMeshProUGUI slidersText;
     public Slider slider;
+    public float value;
+    public Button minus;
+    public Button plus;
 }

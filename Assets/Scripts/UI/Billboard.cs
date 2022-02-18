@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Billboard : MonoBehaviour
@@ -8,11 +6,13 @@ public class Billboard : MonoBehaviour
 
     private void Start()
     {
+        //gets camera reference
         cam = Camera.main.transform;
     }
 
     void LateUpdate()
     {
+        //rotates ui object towards camera
         transform.LookAt(transform.position + cam.forward);
     }
 }

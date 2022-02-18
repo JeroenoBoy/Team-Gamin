@@ -31,7 +31,8 @@ namespace NPC.UnitData
         [SerializeField] private float _attackSpeedMulti;
         [SerializeField] private float _sightMulti;
         [SerializeField] private float _defenceMutli;
-        
+
+        public string traits;
         
         #region Properties
         

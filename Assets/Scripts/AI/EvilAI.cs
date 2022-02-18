@@ -8,7 +8,7 @@ namespace AI
 {
     public class EvilAI : MonoBehaviour
     {
-        private newStatPoints _statPoints;
+        private StatPoints _statPoints;
         private SpawnManager  _spawner;
         private BehaviourMenu _behaviourMenu;
 
@@ -19,7 +19,7 @@ namespace AI
         private void Awake()
         {
             _spawner       = GetComponent<SpawnManager>();
-            _statPoints    = gameObject.AddComponent<newStatPoints>();
+            _statPoints    = gameObject.AddComponent<StatPoints>();
             _behaviourMenu = gameObject.AddComponent<BehaviourMenu>();
 
             _statPoints.enabled    = false;
