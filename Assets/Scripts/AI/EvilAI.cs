@@ -6,6 +6,7 @@ using Random = UnityEngine.Random;
 
 namespace AI
 {
+    
     public class EvilAI : MonoBehaviour
     {
         private StatPoints _statPoints;
