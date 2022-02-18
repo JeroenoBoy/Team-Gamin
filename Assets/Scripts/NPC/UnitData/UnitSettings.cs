@@ -1,6 +1,4 @@
-﻿using System;
-using Controllers;
-using Controllers.Paths;
+﻿using Controllers.Paths;
 using NPC.Brains;
 using UnityEngine;
 
