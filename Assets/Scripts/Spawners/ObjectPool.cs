@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -43,7 +42,7 @@ public class ObjectPool : MonoBehaviour
             currentObject = _objectToSpawn;
         }
 
-        GameObject spawnedObject = GetPooledObject();
+        GameObject spawnedObject = GetPooledObject(); //Get inactive objects
 
         if (_poolSize == MaxSize && _currentSize == _poolSize)
         {
@@ -55,14 +54,14 @@ public class ObjectPool : MonoBehaviour
                 spawnedObject.transform.rotation = Quaternion.identity;
             }
         }
-        else if (spawnedObject == null || AutoExpand && spawnedObject == null)
+        else if (spawnedObject == null || AutoExpand && spawnedObject == null) //Spawn a new object
         {
             spawnedObject = Instantiate(currentObject, _parentPool.transform.position, Quaternion.identity, _parentPool);
             spawnedObject.name = currentObject.name + "_" + _currentSize;
             _currentSize++;
         }
         else
-        {
+        {   //Reuse the object
             spawnedObject.transform.position = _parentPool.transform.position;
             spawnedObject.transform.rotation = Quaternion.identity;
         }
@@ -72,13 +71,17 @@ public class ObjectPool : MonoBehaviour
         return spawnedObject;
     }
 
+    /// <summary>
+    /// Get all the children of the objectPool and return the object that is inactive
+    /// </summary>
+    /// <returns></returns>
     private GameObject GetPooledObject()
     {
         for (int i = 0; i < transform.childCount; i++)
         {
-            if (!transform.GetChild(i).gameObject.activeInHierarchy)
+            if (!transform.GetChild(i).gameObject.activeInHierarchy) //Check if its not active
             {
-                return transform.GetChild(i).gameObject;
+                return transform.GetChild(i).gameObject; //Return object
             }
         }
 

@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Controllers.Paths;
@@ -10,10 +9,9 @@ using Random = UnityEngine.Random;
 
 public class SpawnManager : MonoBehaviour
 {
+    private ObjectPool _objPool;
 
     public UnitTeam Team;
-    
-    private ObjectPool _objPool;
 
     public Traits allTraits;
 
@@ -35,20 +33,18 @@ public class SpawnManager : MonoBehaviour
     public PathController guardPath1;
     public PathController guardPath2;
     public PathController[] paths;
-    
+
     [Header("Penalty")]
     public float CurrentPenalty;
     public float PenaltyDistance = 15f;
     public float PenaltyWait;
-    
+
     [Header("Events")]
     public UnityEvent OnWaveStart;
-    
-    
 
     #region Singleton ish
     public static readonly Dictionary<UnitTeam, SpawnManager> managers = new Dictionary<UnitTeam, SpawnManager>();
-    
+
 
     private void Awake()
     {
@@ -58,7 +54,7 @@ public class SpawnManager : MonoBehaviour
             Destroy(this);
             return;
         }
-        
+
         managers.Add(Team, this);
     }
 
@@ -71,13 +67,16 @@ public class SpawnManager : MonoBehaviour
 
     #endregion
 
-
     private void Start()
     {
         _objPool = GetComponent<ObjectPool>();
         StartCoroutine(WaveSpawner());
     }
 
+    /// <summary>
+    /// Spawn the agents with the objectPool
+    /// </summary>
+    /// <returns></returns>
     protected virtual IEnumerator WaveSpawner()
     {
         while (true)
@@ -89,16 +88,16 @@ public class SpawnManager : MonoBehaviour
                 CurrentPenalty--;
                 yield return new WaitForSeconds(PenaltyWait);
             }
-            
+
             OnWaveStart?.Invoke();
 
             for (int i = 0; i < 10; i++)
             {
-                var obj = _objPool.SpawnObject();
+                var obj = _objPool.SpawnObject(); //Use the objectPool
                 if (!obj) break;
 
                 obj.transform.position = transform.position + Random.insideUnitSphere.With(y: 0) * multiplier;
-                SetValues(obj);
+                SetValues(obj); //Give the agent his traits
                 yield return new WaitForSeconds(TimeBetweenSpawn);
             }
         }
@@ -132,13 +131,14 @@ public class SpawnManager : MonoBehaviour
     {
         int t = Random.Range(1, 3);
 
+        //Set all the base values
         go.attackDamage = (int)statPoints.data[0].value;
         go.attackSpeed = statPoints.data[1].value;
         go.movementSpeed = statPoints.data[2].value;
         go.sightRange = (int)statPoints.data[3].value;
         go.defense = (int)statPoints.data[4].value;
 
-        while (t > 0)
+        while (t > 0) //Add all the extra traits 
         {
             int a = Random.Range(0, allTraits.TraitsClass.Length);
 
@@ -148,6 +148,7 @@ public class SpawnManager : MonoBehaviour
             go.sightRange += allTraits.TraitsClass[a].sightRange;
             go.defense += allTraits.TraitsClass[a].defense;
 
+            // --- Rip 2/17/2022 --- //
             //go.name = string.Format(go.name + " [" + allTraits.TraitsClass[a].name + "]");
             t--;
         }

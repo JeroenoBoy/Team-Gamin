@@ -14,6 +14,7 @@ public class Castle : MonoBehaviour
 
     private void Start()
     {
+        //Set the value of the healthSlider
         GetComponentInChildren<Healthbar>().SetMaxHealth(GetComponent<HealthierController>().maxHealth);
     }
 
