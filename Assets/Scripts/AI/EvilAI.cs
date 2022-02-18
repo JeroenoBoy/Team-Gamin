@@ -11,7 +11,9 @@ namespace AI
     
     public class EvilAI : MonoBehaviour
     {
-        private StatPoints _statPoints;
+        [SerializeField] private float _totalStatPoints = 150f;
+        
+        private StatPoints    _statPoints;
         private SpawnManager  _spawner;
         private BehaviourMenu _behaviourMenu;
 
@@ -30,7 +32,7 @@ namespace AI
             _spawner.statPoints    = _statPoints;
             _spawner.behaviourMenu = _behaviourMenu;
 
-            _statPoints.statPoints = 100f;
+            _statPoints.statPoints = _totalStatPoints;
             _statPoints.data = new []
             {
                 new statpointsdata { value = 0 },
