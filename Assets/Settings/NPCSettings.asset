@@ -12,37 +12,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d94c5d511b8748daad557976389c89c5, type: 3}
   m_Name: NPCSettings
   m_EditorClassIdentifier: 
-  minSeekDistance: 0.5
-  maxFleeDistance: 1000000
-  pursueLookAhead: 2
+  MinSeekDistance: 0.5
+  MaxFleeDistance: 1000000
+  PursueLookAhead: 2
   minNodeDistance: 5
-  stopDistance: 0.5
-  slowDistance: 2
-  wanderCircleDistance: 4
-  wanderCircleRadius: 3
-  wanderNoiseAngle: 1000
-  avoidObstacleForce: 15
-  avoidObstacleDistance: 4
-  inverseAvoidAngleOffset: 75
-  avoidObstacleMask:
+  StopDistance: 0.5
+  SlowDistance: 2
+  WanderCircleDistance: 4
+  WanderCircleRadius: 3
+  WanderNoiseAngle: 1000
+  AvoidObstacleForce: 15
+  AvoidObstacleDistance: 4
+  InverseAvoidAngleOffset: 75
+  AvoidObstacleMask:
     serializedVersion: 2
     m_Bits: 128
-  avoidWallForce: 0
-  avoidWallDistance: 0
-  avoidWallMask:
-    serializedVersion: 2
-    m_Bits: 256
-  hideMaxDistance: 0
-  hideLookInterval: 0
-  hideTargetDistance: 0
-  hideMask:
+  HideMaxDistance: 0
+  HideLookInterval: 0
+  HideTargetDistance: 0
+  HideMask:
     serializedVersion: 2
     m_Bits: 0
-  flockCohesionDistance: 8
-  flockCohesionMaxForce: 3
-  flockSeparationDistance: 2.65
-  flockSeparationMaxForce: 8
-  flockMask:
+  FlockCohesionDistance: 8
+  FlockCohesionMaxForce: 3
+  FlockSeparationDistance: 2.65
+  FlockSeparationMaxForce: 8
+  FlockMask:
     serializedVersion: 2
     m_Bits: 512
-  castleDistance: 5
+  castleDistance: 10
