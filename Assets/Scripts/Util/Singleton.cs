@@ -1,7 +1,6 @@
-using System;
 using UnityEngine;
 
-namespace Game.Scripts.Utils
+namespace Util
 {
     /// <summary>
     /// Your simple and everyday singleton class

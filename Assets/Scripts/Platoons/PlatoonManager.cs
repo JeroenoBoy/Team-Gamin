@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Controllers;
-using Game.Scripts.Utils;
 using NPC.Brains;
 using NPC.UnitData;
 using UnityEngine;
+using Util;
 
 namespace Platoons
 {

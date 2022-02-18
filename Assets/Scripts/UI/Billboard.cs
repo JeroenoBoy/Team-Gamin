@@ -1,18 +1,21 @@
 using UnityEngine;
 
-public class Billboard : MonoBehaviour
+namespace UI
 {
-    public Transform cam;
-
-    private void Start()
+    public class Billboard : MonoBehaviour
     {
-        //gets camera reference
-        cam = Camera.main.transform;
-    }
+        public Transform cam;
 
-    void LateUpdate()
-    {
-        //rotates ui object towards camera
-        transform.LookAt(transform.position + cam.forward);
+        private void Start()
+        {
+            //gets camera reference
+            cam = Camera.main.transform;
+        }
+
+        void LateUpdate()
+        {
+            //rotates ui object towards camera
+            transform.LookAt(transform.position + cam.forward);
+        }
     }
 }

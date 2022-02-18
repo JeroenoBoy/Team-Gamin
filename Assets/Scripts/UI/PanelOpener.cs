@@ -1,45 +1,49 @@
 using UnityEngine;
-public class PanelOpener : MonoBehaviour
+
+namespace UI
 {
-    [Header("Panels")]
-    public GameObject StatsPanel;
-    public GameObject BehaviourPanel;
-
-    private Animator animA;
-    private Animator animB;
-
-    private void Start()
+    public class PanelOpener : MonoBehaviour
     {
-        animA = StatsPanel.GetComponent<Animator>();
+        [Header("Panels")]
+        public GameObject StatsPanel;
+        public GameObject BehaviourPanel;
 
-        animB = BehaviourPanel.GetComponent<Animator>();
-    }
+        private Animator animA;
+        private Animator animB;
 
-    /// <summary>
-    /// funtion to open the statpoint panel
-    /// </summary>
-    public void OpenStatsPanel()
-    {
-        if (animA != null)
+        private void Start()
         {
-            //reference to the Animator parameter
-            bool isOpen = animA.GetBool("stats");
+            animA = StatsPanel.GetComponent<Animator>();
 
-            animA.SetBool("stats", !isOpen);
+            animB = BehaviourPanel.GetComponent<Animator>();
         }
-    }
 
-    /// <summary>
-    /// function to open the behaviour select panel
-    /// </summary>
-    public void OpenBehaviourPanel()
-    {
-        if (animB != null)
+        /// <summary>
+        /// funtion to open the statpoint panel
+        /// </summary>
+        public void OpenStatsPanel()
         {
-            //reference to the Animator parameter
-            bool isOpen = animB.GetBool("behaviour");
+            if (animA != null)
+            {
+                //reference to the Animator parameter
+                bool isOpen = animA.GetBool("stats");
 
-            animB.SetBool("behaviour", !isOpen);
+                animA.SetBool("stats", !isOpen);
+            }
+        }
+
+        /// <summary>
+        /// function to open the behaviour select panel
+        /// </summary>
+        public void OpenBehaviourPanel()
+        {
+            if (animB != null)
+            {
+                //reference to the Animator parameter
+                bool isOpen = animB.GetBool("behaviour");
+
+                animB.SetBool("behaviour", !isOpen);
+            }
         }
     }
 }

@@ -1,60 +1,63 @@
-using UnityEngine;
 using System;
 using NPC.UnitData;
+using UnityEngine;
 using UnityEngine.UI;
 
-public class BehaviourMenu : MonoBehaviour
+namespace UI
 {
-    [Header("States")]
-    public UnitState unitState;
-    public Button[] Button;
+    public class BehaviourMenu : MonoBehaviour
+    {
+        [Header("States")]
+        public UnitState unitState;
+        public Button[] Button;
 
-    [Header("Path")]
-    public int pathIndex;
-    public Button[] pathButtons;
+        [Header("Path")]
+        public int pathIndex;
+        public Button[] pathButtons;
     
-    private int index;
+        private int index;
 
-    private void Start()
-    {
-        //gives the starting behaviour the color red to indicate it being selected
-        pathButtons[1].image.color = Button[0].image.color = Color.red;
-    }
-
-    /// <summary>
-    /// function to set behaviour to what behaviour you clicked on in the ui, call this function with a button
-    /// </summary>
-    /// <param name="unit"></param>
-    public void SetBehaviour(string unit)
-    {
-        //sets all the buttons color to black
-        for (int i = 0; i < Button.Length; i++)
+        private void Start()
         {
-            Button[i].image.color = Color.black;
+            //gives the starting behaviour the color red to indicate it being selected
+            pathButtons[1].image.color = Button[0].image.color = Color.red;
         }
 
-        //changes string to enum, returns the state
-        if (UnitState.TryParse(unit, out UnitState state))
-            unitState = state;
-        else
-            Debug.LogError("Invalid State!");
+        /// <summary>
+        /// function to set behaviour to what behaviour you clicked on in the ui, call this function with a button
+        /// </summary>
+        /// <param name="unit"></param>
+        public void SetBehaviour(string unit)
+        {
+            //sets all the buttons color to black
+            for (int i = 0; i < Button.Length; i++)
+            {
+                Button[i].image.color = Color.black;
+            }
 
-        index = Array.IndexOf(UnitStateExtensions.states, unitState);
+            //changes string to enum, returns the state
+            if (UnitState.TryParse(unit, out UnitState state))
+                unitState = state;
+            else
+                Debug.LogError("Invalid State!");
 
-        //sets selected button to red
-        Button[index].image.color = Color.red;
-    }
+            index = Array.IndexOf(UnitStateExtensions.states, unitState);
 
-    /// <summary>
-    /// function to set the path, call this with a button in the UI
-    /// </summary>
-    /// <param name="i"></param>
-    public void SetPath(int i)
-    {
-        foreach (var pathButton in pathButtons)
-            pathButton.image.color = Color.black;
+            //sets selected button to red
+            Button[index].image.color = Color.red;
+        }
 
-        pathButtons[i].image.color = Color.red;
-        pathIndex = i;
+        /// <summary>
+        /// function to set the path, call this with a button in the UI
+        /// </summary>
+        /// <param name="i"></param>
+        public void SetPath(int i)
+        {
+            foreach (var pathButton in pathButtons)
+                pathButton.image.color = Color.black;
+
+            pathButtons[i].image.color = Color.red;
+            pathIndex = i;
+        }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Controllers;
-using Game.Scripts.Utils;
+using Util;
 
 public class HealingFountain : Singleton<HealingFountain>
 {

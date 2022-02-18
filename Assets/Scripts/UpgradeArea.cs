@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using NPC.UnitData;
-using Game.Scripts.Utils;
+using Util;
+
 public class UpgradeArea : Singleton<UpgradeArea>
 {
     //makes a dictionary with the settings and a coroutine

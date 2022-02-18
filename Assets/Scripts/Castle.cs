@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using Controllers;
+using UI;
 
 public class Castle : MonoBehaviour
 {

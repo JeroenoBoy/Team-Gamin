@@ -1,37 +1,40 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ArmorBar : MonoBehaviour
+namespace UI
 {
-    private Slider slider;
-    [SerializeField] private Gradient gradient;
-    [SerializeField] private Image fill;
-
-    private void Awake()
+    public class ArmorBar : MonoBehaviour
     {
-        slider = GetComponent<Slider>();
-    }
+        private Slider slider;
+        [SerializeField] private Gradient gradient;
+        [SerializeField] private Image fill;
 
-    /// <summary>
-    /// function to set the armorbar max value
-    /// </summary>
-    /// <param name="armor"></param>
-    public void SetMaxArmor(int armor)
-    {
-        slider.maxValue = armor;
-        slider.value = armor;
+        private void Awake()
+        {
+            slider = GetComponent<Slider>();
+        }
 
-        fill.color = gradient.Evaluate(1f);
-    }
+        /// <summary>
+        /// function to set the armorbar max value
+        /// </summary>
+        /// <param name="armor"></param>
+        public void SetMaxArmor(int armor)
+        {
+            slider.maxValue = armor;
+            slider.value = armor;
 
-    /// <summary>
-    /// function to update the armorbar slider
-    /// </summary>
-    /// <param name="armor"></param>
-    public void SetArmor(int armor)
-    {
-        slider.value = armor;
+            fill.color = gradient.Evaluate(1f);
+        }
 
-        fill.color = gradient.Evaluate(slider.normalizedValue);
+        /// <summary>
+        /// function to update the armorbar slider
+        /// </summary>
+        /// <param name="armor"></param>
+        public void SetArmor(int armor)
+        {
+            slider.value = armor;
+
+            fill.color = gradient.Evaluate(slider.normalizedValue);
+        }
     }
 }
