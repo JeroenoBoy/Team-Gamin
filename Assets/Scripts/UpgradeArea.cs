@@ -7,7 +7,7 @@ using Util;
 public class UpgradeArea : Singleton<UpgradeArea>
 {
     //makes a dictionary with the settings and a coroutine
-    private Dictionary<UnitSettings, Coroutine> _units = new Dictionary<UnitSettings, Coroutine>();
+    private readonly Dictionary<UnitSettings, Coroutine> _units = new Dictionary<UnitSettings, Coroutine>();
 
     
     private void OnTriggerEnter(Collider other)
