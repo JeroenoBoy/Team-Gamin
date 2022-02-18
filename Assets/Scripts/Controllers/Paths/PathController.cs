@@ -3,42 +3,43 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Util;
 
 namespace Controllers.Paths
 {
     public class PathController : MonoBehaviour, IEnumerable
     {
-        public enum Type { PingPong, Loop, ReverseLoop, Random }
-        [SerializeField] private Type       _type;
+        public enum PathType { PingPong, Loop, ReverseLoop, Random }
+        [SerializeField] private PathType   _type;
         [SerializeField] private bool       _autoPath;
         [SerializeField] private bool       _revealNodes;
         [SerializeField] private PathNode[] _nodes;
 
-        public int totalNotes => _nodes.Length;
-        public Type type => _type;
-        public PathNode[] nodes => _nodes;
+        public int TotalNotes => _nodes.Length;
+        public PathType Type => _type;
+        public PathNode[] Nodes => _nodes;
 
 
-        /// <summary>
-        /// Collect all nodes when i awake
-        /// </summary>
+        /**
+         * Collect all nodes when i awake
+         */
         private void Awake()
         {
             CollectNodes();
         }
 
 
-        /// <summary>
-        /// Gets all the nodes in the children
-        /// </summary>
+        /**
+         * Gets all the nodes in the children
+         */
         private void CollectNodes()
         {
             if (!_autoPath) return;
             
             _nodes = GetComponentsInChildren<PathNode>();
             for (var i = 0; i < _nodes.Length; i++)
-                _nodes[i].index = i;
+                _nodes[i].Index = i;
         }
 
 
@@ -51,23 +52,21 @@ namespace Controllers.Paths
         //  the job & its is editor only.
 
         
-        /// <summary>
-        /// Update the node collection
-        /// </summary>
-        public void NodeAdded()
-            => CollectNodes();
+        /**
+         * Update the node collection
+         */
+        public void NodeAdded() => CollectNodes();
 
         
-        /// <summary>
-        /// Checks if a node contains this node
-        /// </summary>
-        public bool Contains(PathNode node)
-            => _nodes.Contains(node);
+        /**
+         * Checks if a node contains this node
+         */
+        public bool Contains(PathNode node) => _nodes.Contains(node);
 
 
-        /// <summary>
-        /// Reveals the nodes when the input changes
-        /// </summary>
+        /**
+         * Reveals the nodes when the input changes
+         */
         private void OnValidate()
         {
             if (_revealNodes) CollectNodes();
@@ -76,16 +75,15 @@ namespace Controllers.Paths
         #endif
         
         
-        /// <summary>
-        /// Get the node at an certain index
-        /// </summary>
-        public PathNode GetNode(int index)
-            => _nodes[index % _nodes.Length];
+        /**
+         * Get the node at an certain index
+         */
+        public PathNode GetNode(int index) => _nodes[index % _nodes.Length];
 
 
-        /// <summary>
-        /// Draws all the nodes in the object
-        /// </summary>
+        /**
+         * Draws all the nodes in the object
+         */
         private void OnDrawGizmos()
         {
             if(!_revealNodes) return;
@@ -96,7 +94,7 @@ namespace Controllers.Paths
             var previous = _nodes[0];
             
             Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(previous.position, 0.5f);
+            Gizmos.DrawWireSphere(previous.Position, 0.5f);
             
             //  Drawing spheres with lines
             
@@ -114,31 +112,30 @@ namespace Controllers.Paths
                 
                 //  Draw the gizmos
 
-                if (_type != Type.Random)
+                if (_type != PathType.Random)
                 {
                     Gizmos.color = Color.red;
-                    Gizmos.DrawLine(node.position, previous.position);   
+                    Gizmos.DrawLine(node.Position, previous.Position);   
                 }
                 
                 Gizmos.color = Color.green;
-                Gizmos.DrawWireSphere(node.position, 0.5f);
+                Gizmos.DrawWireSphere(node.Position, 0.5f);
 
                 previous = node;
             }
             
             //  Drawing a line between the last and first if looping is true
             
-            if(_type != Type.Loop && _type != Type.ReverseLoop) return;
+            if(_type != PathType.Loop && _type != PathType.ReverseLoop) return;
             
             Gizmos.color = Color.red;
-            Gizmos.DrawLine(_nodes[0].position, previous.position);
+            Gizmos.DrawLine(_nodes[0].Position, previous.Position);
         }
         
         
-
-        public IEnumerator GetEnumerator()
-        {
-            return _nodes.GetEnumerator();
-        }
+        /**
+         * Get all nodes
+         */
+        public IEnumerator GetEnumerator() => _nodes.GetEnumerator();
     }
 }

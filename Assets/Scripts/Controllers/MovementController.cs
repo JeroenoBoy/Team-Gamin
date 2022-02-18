@@ -21,11 +21,11 @@ namespace Controllers
         [SerializeField] private float _rotationSpeed;
 
         [Space]
-        public bool canMove = true;
+        public bool CanMove = true;
 
-        public  Vector3 velocity            { get; set; }
-        public  float   angularVelocity     { get; set; }
-        public  Vector3 currentForce        { get; set; }
+        public  Vector3 Velocity            { get; set; }
+        public  float   AngularVelocity     { get; set; }
+        public  Vector3 CurrentForce        { get; set; }
         public  float   currentAngularForce { get; set; }
         private Vector3 _oldForce;
 
@@ -35,7 +35,7 @@ namespace Controllers
         /// <summary>
         /// Get the current max speed of the controller 
         /// </summary>
-        public float maxSpeed
+        public float MaxSpeed
         {
             get => _maxSpeed;
             set => _maxSpeed = value;
@@ -44,24 +44,13 @@ namespace Controllers
         /// <summary>
         /// Get the current max speed of the controller 
         /// </summary>
-        public float weight
+        public float Weight
         {
             get => _weight;
             set => _weight = value;
         }
-
-        /// <summary>
-        /// Get the current force
-        /// </summary>
-        public Vector3 lastForce => _oldForce;
-
-        #endregion
         
-
-        /// <summary>
-        /// Fixes input is zero
-        /// </summary>
-        private Quaternion _forward => Quaternion.LookRotation(velocity == Vector3.zero ? transform.forward : velocity);
+        #endregion
 
 
         /// <summary>
@@ -71,29 +60,29 @@ namespace Controllers
         {
             //  calculating the desired new velocity
 
-            _oldForce = currentForce = Vector3.ClampMagnitude(currentForce, maxSpeed);
+            _oldForce = CurrentForce = Vector3.ClampMagnitude(CurrentForce, MaxSpeed);
             
-            var direction  = (currentForce - velocity);
+            var direction  = CurrentForce - Velocity;
             var desiredVel = direction.normalized * _acceleration / _weight;
 
             //  Applying velocity
             
-            velocity += desiredVel * Time.fixedDeltaTime;
+            Velocity += desiredVel * Time.fixedDeltaTime;
             
             //  Checking if the velocity is lower than a certain value
 
             var velSqr = _minVelocity * _minVelocity;
-            if(currentForce.sqrMagnitude <= velSqr && velocity.sqrMagnitude < velSqr)
-                velocity = Vector3.zero;
+            if(CurrentForce.sqrMagnitude <= velSqr && Velocity.sqrMagnitude < velSqr)
+                Velocity = Vector3.zero;
             
             //  Rotating towards
 
-            angularVelocity = Mathf.Clamp(currentAngularForce, -_rotationSpeed, _rotationSpeed);
+            AngularVelocity = Mathf.Clamp(currentAngularForce, -_rotationSpeed, _rotationSpeed);
             
             //  Resetting the force
             
-            currentAngularForce = Vector3.SignedAngle(transform.forward, currentForce, transform.up);
-            currentForce        = Vector3.zero;
+            currentAngularForce = Vector3.SignedAngle(transform.forward, CurrentForce, transform.up);
+            CurrentForce        = Vector3.zero;
         }
 
 
@@ -102,10 +91,10 @@ namespace Controllers
         /// </summary>
         private void Update()
         {
-            if(!canMove) return;
+            if(!CanMove) return;
             
-            transform.position    += velocity * Time.deltaTime;
-            transform.eulerAngles += new Vector3(0, Mathf.Clamp(angularVelocity, -_rotationSpeed, _rotationSpeed) * Time.deltaTime, 0);
+            transform.position    += Velocity * Time.deltaTime;
+            transform.eulerAngles += new Vector3(0, Mathf.Clamp(AngularVelocity, -_rotationSpeed, _rotationSpeed) * Time.deltaTime, 0);
         }
 
         
@@ -116,7 +105,7 @@ namespace Controllers
         {
             var pos = transform.position;
             
-            DisplayVector.Draw(pos, velocity,  Color.blue);
+            DisplayVector.Draw(pos, Velocity,  Color.blue);
             DisplayVector.Draw(pos, _oldForce, Color.red);
         }
 
@@ -126,14 +115,12 @@ namespace Controllers
         /// <summary>
         /// Add a force to this controller
         /// </summary>
-        public void AddForce(Vector3 addForce)
-            => currentForce += addForce;
+        public void AddForce(Vector3 addForce) => CurrentForce += addForce;
 
         /// <summary>
         /// Add a force to this controller
         /// </summary>
-        public void AddAngularVelocity(float addForce)
-            => currentAngularForce += addForce;
+        public void AddAngularVelocity(float addForce) => currentAngularForce += addForce;
 
         #endregion
     }

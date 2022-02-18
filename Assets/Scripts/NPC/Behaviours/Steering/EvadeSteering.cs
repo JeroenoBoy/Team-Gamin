@@ -19,7 +19,7 @@ namespace NPC.Behaviours.Steering
             //  Applying the force
             
             var estimatePos = GetFutureTargetPos(target);
-            movement.AddForce(GetDirection((position - estimatePos).normalized * movement.maxSpeed));
+            movement.AddForce(GetDirection((position - estimatePos).normalized * movement.MaxSpeed));
         }
     }
 }

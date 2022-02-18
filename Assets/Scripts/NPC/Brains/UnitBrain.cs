@@ -230,7 +230,7 @@ namespace NPC.Brains
          */
         public void Bind()
         {
-            MovementController.maxSpeed = UnitSettings.movementSpeed;
+            MovementController.MaxSpeed = UnitSettings.movementSpeed;
             Eyes.RayLength              = (int)UnitSettings.sightRange;
             HealthComponent.maxHealth   = (int)UnitSettings.defense;
             HealthComponent.health      = HealthComponent.maxHealth;
@@ -304,8 +304,8 @@ namespace NPC.Brains
          */
         public Platoon Platoon
         {
-            get => _platoonController.platoon;
-            set => _platoonController.platoon = value;
+            get => _platoonController.Platoon;
+            set => _platoonController.Platoon = value;
         }
 
         #endregion

@@ -17,7 +17,7 @@ namespace NPC.Behaviours.Steering
             
             //  Exactly like Seek but inversed
 
-            movement.AddForce(GetDirection(direction.normalized * movement.maxSpeed));
+            movement.AddForce(GetDirection(direction.normalized * movement.MaxSpeed));
         }
     }
 }

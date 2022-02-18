@@ -9,6 +9,9 @@ namespace Controllers
         [SerializeField] private ArmorBar _armorBar;
 
 
+        /**
+         * Sets the defence & armor after everything has been binded
+         */
         private void OnBind()
         {
             _healthBar.SetMaxHealth(baseHealth);
@@ -19,6 +22,10 @@ namespace Controllers
             HealthChange();
         }
 
+        
+        /**
+         * Updates the bars
+         */
         private void HealthChange()
         {
             _healthBar.SetHealth(scaledHealth);

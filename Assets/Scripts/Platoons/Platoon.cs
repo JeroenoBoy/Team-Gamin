@@ -43,8 +43,8 @@ namespace Platoons
          */
         public void AddUnit(PlatoonController unit)
         {
-            if (unit.platoon) unit.platoon.RemoveUnit(unit);
-            unit.platoon = this;
+            if (unit.Platoon) unit.Platoon.RemoveUnit(unit);
+            unit.Platoon = this;
             Units.Add(unit);
             
             foreach (var unitBrain in Units)
@@ -57,7 +57,7 @@ namespace Platoons
          */
         public void RemoveUnit(PlatoonController unit)
         {
-            unit.platoon = null;
+            unit.Platoon = null;
             Units.Remove(unit);
         }
 

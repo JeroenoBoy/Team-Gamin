@@ -81,7 +81,7 @@ namespace NPC
         {
             _behaviours = Array.Empty<AIBehavior>();
             Animator.Rebind();
-            MovementController.canMove = true;
+            MovementController.CanMove = true;
         }
 
 

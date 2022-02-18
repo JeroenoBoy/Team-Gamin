@@ -7,12 +7,12 @@ namespace NPC.Behaviours.Unit
     {
         protected override void Enter()
         {
-            healthController.isBlocking = true;
+            healthController.IsBlocking = true;
         }
 
         protected override void Exit()
         {
-            healthController.isBlocking = false;
+            healthController.IsBlocking = false;
         }
     }
 }

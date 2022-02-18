@@ -20,7 +20,7 @@ namespace NPC.Behaviours.Unit
          */
         protected override void Start()
         {
-            _pathLength     = stateController.Path.totalNotes;
+            _pathLength     = stateController.Path.TotalNotes;
             _indexDirection = unitBrain.Team == UnitTeam.Blue ? 1 : -1;
         }
 
@@ -33,12 +33,12 @@ namespace NPC.Behaviours.Unit
             //  Finding the closest node
 
             var pos = transform.position;
-            var node = stateController.Path.nodes
-                .OrderBy(n => (n.position - pos).sqrMagnitude)
+            var node = stateController.Path.Nodes
+                .OrderBy(n => (n.Position - pos).sqrMagnitude)
                 .First();
 
             _currentNode  = node.transform;
-            _currentIndex = node.index;
+            _currentIndex = node.Index;
         }
 
 

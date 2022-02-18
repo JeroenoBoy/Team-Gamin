@@ -11,8 +11,8 @@ namespace Controllers.Paths
         /// <summary>
         /// Get the current position
         /// </summary>
-        public Vector3 position => transform.position;
-        public int index;
+        public Vector3 Position => transform.position;
+        public int Index;
 
 
         #if UNITY_EDITOR

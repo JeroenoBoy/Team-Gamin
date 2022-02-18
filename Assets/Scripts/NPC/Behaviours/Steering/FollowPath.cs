@@ -20,17 +20,17 @@ namespace NPC.Behaviours.Steering
         /// </summary>
         protected override void Enter()
         {;
-            _pathLength     = stateController.Path.totalNotes;
+            _pathLength     = stateController.Path.TotalNotes;
             _indexDirection = 1;
             
             //  Finding the closest node
 
             var position = transform.position;
-            _currentNode = stateController.Path.nodes
-                .OrderBy(n => (n.position - position).sqrMagnitude)
+            _currentNode = stateController.Path.Nodes
+                .OrderBy(n => (n.Position - position).sqrMagnitude)
                 .First();
 
-            _currentIndex = _currentNode.index;
+            _currentIndex = _currentNode.Index;
         }
 
 
@@ -41,7 +41,7 @@ namespace NPC.Behaviours.Steering
         {
             //  Getting direction and distance
             
-            var direction = _currentNode.position - transform.position;
+            var direction = _currentNode.Position - transform.position;
             var distance = direction.sqrMagnitude;
             
             //  If the distance is smaller than a certain amount, change node
@@ -51,7 +51,7 @@ namespace NPC.Behaviours.Steering
             
             //  Moving towards the node
 
-            movement.AddForce(MoveWithArrive(_currentNode.position));
+            movement.AddForce(MoveWithArrive(_currentNode.Position));
         }
 
 
@@ -60,11 +60,11 @@ namespace NPC.Behaviours.Steering
         /// </summary>
         private void NextNode()
         {
-            switch (stateController.Path.type)
+            switch (stateController.Path.Type)
             {
                 //  The loop Case
                 
-                case PathController.Type.Loop:
+                case PathController.PathType.Loop:
                     
                     if (_currentIndex >= _pathLength)
                         _currentIndex = 0;
@@ -75,7 +75,7 @@ namespace NPC.Behaviours.Steering
 
                 //  The normal case (Named normal because idk what to call it otherwise)
                 
-                case PathController.Type.ReverseLoop:
+                case PathController.PathType.ReverseLoop:
                     
                     if (_currentIndex <= 0)
                         _currentIndex = _pathLength-1;
@@ -86,7 +86,7 @@ namespace NPC.Behaviours.Steering
 
                 //  The normal case (Named normal because idk what to call it otherwise)
                 
-                case PathController.Type.PingPong:
+                case PathController.PathType.PingPong:
                     _currentIndex += _indexDirection;
 
                     if (_currentIndex >= _pathLength || _currentIndex < 0)
@@ -99,7 +99,7 @@ namespace NPC.Behaviours.Steering
 
                 //  The normal case (Named normal because idk what to call it otherwise)
                 
-                case PathController.Type.Random:
+                case PathController.PathType.Random:
                     _currentIndex = Random.Range(0, _pathLength);
                     break;
                 

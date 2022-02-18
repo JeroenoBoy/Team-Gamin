@@ -82,7 +82,7 @@ namespace NPC
         /// </summary>
         protected Vector3 GetDirection(Vector3 direction, float speed = -1)
         {
-            speed = speed < 0 ? movement.maxSpeed : speed;
+            speed = speed < 0 ? movement.MaxSpeed : speed;
             direction = direction.With(y: 0);
             
             //  Checking if the player is close enough to the target
@@ -99,7 +99,7 @@ namespace NPC
         /// </summary>
         protected Vector3 MoveWithArrive(Vector3 targetPosition, float targetSpeed = -1)
         {
-            targetSpeed = targetSpeed < 0 ? movement.maxSpeed : targetSpeed;
+            targetSpeed = targetSpeed < 0 ? movement.MaxSpeed : targetSpeed;
 
             var position = transform.position;
 
@@ -114,7 +114,7 @@ namespace NPC
             //  Calculating the force based on slowing distance
 
             var slowDistance   = settings.SlowDistance + settings.StopDistance;
-            var currentSpeed = movement.velocity;
+            var currentSpeed = movement.Velocity;
 
             var percentageDistance = distance / slowDistance;
             var desiredSpeed       = percentageDistance * targetSpeed;

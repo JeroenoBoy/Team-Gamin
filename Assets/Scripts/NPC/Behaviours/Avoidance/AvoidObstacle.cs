@@ -37,7 +37,7 @@ namespace NPC.Behaviours.Avoidance
                 .Where(t => t.transform && t.transform.HasLayer(_layer))
                 .ToArray();
             
-            var addForce = movement.maxSpeed * settings.AvoidObstacleForce;
+            var addForce = movement.MaxSpeed * settings.AvoidObstacleForce;
             
             //  Looping thru all obstacles
 

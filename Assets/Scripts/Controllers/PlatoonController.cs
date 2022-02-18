@@ -12,19 +12,17 @@ namespace Controllers
     {
         [SerializeField] private float _startDelay  = .5f;
         [SerializeField] private float _searchDelay = 2f;
-
-        [Header("Debug")]
-        [SerializeField] private bool _isMaster = false;
-        public  Platoon   platoon;
         
+        public  Platoon   Platoon;
+        
+        private bool      _isMaster = false;
         private UnitBrain _brain;
 
         
         #region Properties
 
-        public UnitSettings unitSettings => _brain.UnitSettings;
-        public UnitTeam team => unitSettings.team;
-        private bool isMaster => _isMaster;
+        public UnitSettings UnitSettings => _brain.UnitSettings;
+        public UnitTeam Team => UnitSettings.team;
 
         #endregion
 
@@ -59,13 +57,13 @@ namespace Controllers
          */
         private void Update()
         {
-            if(_isMaster || !platoon) return;
+            if(_isMaster || !Platoon) return;
             
-            var direction = platoon.Master.transform.position - transform.position;
+            var direction = Platoon.Master.transform.position - transform.position;
             var man = PlatoonManager.instance;
 
             if (direction.sqrMagnitude > man.SearchRadius * man.SearchRadius)
-                platoon.RemoveUnit(this);
+                Platoon.RemoveUnit(this);
         }
 
 
@@ -74,26 +72,8 @@ namespace Controllers
          */
         private void Awake()
         {
-            platoon = null;
+            Platoon = null;
             _brain = GetComponent<UnitBrain>();
-        }
-
-
-        /**
-         * Join a platoon
-         */
-        public void JoinPlatoon(Platoon platoon)
-        {
-            platoon.AddUnit(this);
-        }
-
-        
-        /**
-         * Leave a platoon
-         */
-        public void LeavePlatoon()
-        {
-            platoon.RemoveUnit(this);
         }
 
 
@@ -101,13 +81,13 @@ namespace Controllers
 
         private void OnStateChange()
         {
-            if(platoon && unitSettings.state.IsGuardPath()) platoon.RemoveUnit(this);
+            if(Platoon && UnitSettings.state.IsGuardPath()) Platoon.RemoveUnit(this);
         }
         
 
         private void OnPlatoonUpdate()
         {
-            _isMaster = platoon.Master == this;
+            _isMaster = Platoon.Master == this;
         }
 
         #endregion
