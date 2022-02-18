@@ -1,11 +1,19 @@
 using UnityEngine;
+using NPC.UnitData;
 
 public class ActivateTraitsUI : MonoBehaviour
 {
-    
+    private UnitSettings settings;
+
+    private void Start()
+    {
+        settings = GetComponent<UnitSettings>();
+    }
+
     public void OnMouseDown()
     {
-        TraitSetter.instance.SetTraitText();
+        //when clicked on a unit call the set text function and turn on the panel in the ui
+        TraitSetter.instance.SetTraitText(settings);
         TraitSetter.instance.TraitsPanel.SetActive(true);
     }
 }

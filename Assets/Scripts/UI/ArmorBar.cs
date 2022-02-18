@@ -7,7 +7,6 @@ public class ArmorBar : MonoBehaviour
     [SerializeField] private Gradient gradient;
     [SerializeField] private Image fill;
 
-
     private void Awake()
     {
         slider = GetComponent<Slider>();

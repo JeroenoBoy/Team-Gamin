@@ -15,7 +15,7 @@ public class SpawnManager : MonoBehaviour
 
     public Traits allTraits;
 
-    public newStatPoints statPoints;
+    public StatPoints statPoints;
     public BehaviourMenu behaviourMenu;
 
     [Range(0.1f, 1f)]
