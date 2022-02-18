@@ -45,18 +45,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Team: 0
+  allTraits: {fileID: 0}
   statPoints: {fileID: 0}
   behaviourMenu: {fileID: 0}
   TimeBetweenSpawn: 0.1
   TimeBetweenWave: 10
-  multiplier: 4
+  Multiplier: 4
   TargetCastle: {fileID: 0}
   guardPath1: {fileID: 0}
   guardPath2: {fileID: 0}
   paths: []
   CurrentPenalty: 0
   PenaltyDistance: 30
-  PenaltyWait: 0.4
+  PenaltyWait: 0.1
   OnWaveStart:
     m_PersistentCalls:
       m_Calls: []
@@ -129,7 +130,7 @@ MonoBehaviour:
   _blockingRange: 0
   baseHealth: 0
   isDead: 0
-  isBlocking: 0
+  IsBlocking: 0
 --- !u!114 &6384698623316616172
 MonoBehaviour:
   m_ObjectHideFlags: 0
