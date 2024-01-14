@@ -13,7 +13,7 @@ namespace NPC
         protected bool started { get; private set; }
 
         
-        #region Useful properties for the behaviour
+        #region Usefull properties for the behaviour
 
         protected StateController   stateController { get; private set; }
         protected Animator          animator        { get; private set; }
